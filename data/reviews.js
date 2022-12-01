@@ -1,5 +1,6 @@
 const mongoCollections = require('../config/mongoCollections');
 const {ObjectId} = require("mongodb");
+const validation = require('../helpers');
 
 
 const users = mongoCollections.users;
@@ -11,12 +12,29 @@ const createReviews = async (
     body,
     rating
 ) => {
-
     //validation check
+    posterId = validation.checkId(posterId);
+    buyerId = validation.checkId(buyerId);
+    title = validation.checkReviewTitle(title);
+    body = validation.checkReviewBody(body);
+    rating = validation.checkReviewRating(rating);
 
+    const usersCol = await users();
 
     //check whether the buyer has the right to give review
+    const poster = await usersCol.findOne(ObjectId(posterId));
+    const tradeWith = poster.tradeWith;
+    let isBuyer = false;
 
+    for (const trader of tradeWith) {
+        if (trader === buyerId) {
+            isBuyer = true;
+            break;
+        }
+    }
+    if (!isBuyer) {
+        throw 'You cannot give review to this user as you did not have a trade relationship';
+    }
 
     // create current date
     const today = new Date();
@@ -35,7 +53,6 @@ const createReviews = async (
     }
     const datetime = `${mm}/${dd}/${yyyy}  ${hr}:${min}:${sec}`;
 
-
     let newReview = {
         _id: new ObjectId(),
         posterId: posterId,
@@ -43,36 +60,57 @@ const createReviews = async (
         title: title,
         body: body,
         rating: rating,
-        dateTime: datetime
+        datetime: datetime
     }
 
-    const usersCol = await users();
-
     // recalculate overallRating
+    const reviews = poster.reviews;
+    let newOverallRating = rating;
+    if (reviews.length > 0) {
+        let totalRate = rating;
+        for (const review of reviews) {
+            totalRate += review.rating;
+        }
+        newOverallRating = Math.round(totalRate * 10.0 / (reviews.length+1)) / 10;
+    }
 
-
+    // update movie's reviews and overallRating
     const updateInfo = await usersCol.updateOne(
         {_id: ObjectId(posterId)},
         {
-            $push: {reviews: newReview}
+            $push: {reviews: newReview},
+            $set: {overallRating: newOverallRating}
         });
 
-
     if (updateInfo.matchedCount === 0) {
-        throw `Could not match the poster with id: ${posterId}`
+        throw `Could not match the user with id: ${posterId}`
     }
     if (updateInfo.modifiedCount === 0) {
-        throw `The input information resulted in no change to the poster with id: ${posterId} `
+        throw `The input information resulted in no change to the user with id: ${posterId} `
     }
 
-    return getReviewById(newReview._id.toString());
+    return {insertedReview: true};
 }
 
+const getAllReviews = async(userId) => {
+    //validation check
+    userId = validation.checkId(userId);
 
+    const usersCol = await users();
+    const reviewsObj = await usersCol.findOne({_id: ObjectId(userId)}, {projection: {_id: 0, reviews: 1}});
+
+    if (reviewsObj.reviews.length === 0) {
+        return [];
+    }
+    for (let i = 0; i < reviewsObj.reviews.length; i++) {
+        reviewsObj.reviews[i]._id = reviewsObj.reviews[i]._id.toString();
+    }
+    return reviewsObj.reviews;
+}
 
 const getReviewById = async(reviewId) => {
-
     //validation check
+    reviewId = validation.checkId(reviewId);
 
     const usersCol = await users();
 
@@ -93,11 +131,13 @@ const getReviewById = async(reviewId) => {
         throw `Could not find review with id: ${reviewId}`;
     }
     theReview._id = theReview._id.toString();
+
     return theReview;
 }
 
 
 module.exports = {
     createReviews,
+    getAllReviews,
     getReviewById
 }
