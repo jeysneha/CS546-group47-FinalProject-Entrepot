@@ -1,9 +1,13 @@
+const landing = require('./landing');
 const userRoutes = require('./users');
+const reviewsRoutes = require('./reviews');
 
 
 
 const constructorMethod = (app) => {
+    app.use('/', landing);
     app.use('/user', userRoutes);
+    app.use('/reviews', reviewsRoutes);
 
     // all other urls return 404
     app.use('*', (req, res) => {

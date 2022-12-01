@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/jeysneha/cs546-group47-FinalProject#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
     "mongodb": "^4.12.1"
   }
 }

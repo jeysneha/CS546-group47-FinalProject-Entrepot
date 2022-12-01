@@ -1,0 +1,47 @@
+
+
+
+
+<h1>{{title}}</h1>
+
+
+<main>
+
+    {{#if hasErrors}}
+        <p class="error">
+            {{error}}
+        </p>
+    {{/if}}
+
+    <form action="/register" method="post" id="registration-form">
+
+        <label for="usernameInput">
+            username:
+        </label>
+        <input id="usernameInput" name="usernameInput">
+
+        <br>
+
+        <label for="emailInput">
+            username:
+        </label>
+        <input id="emailInput" name="emailInput">
+
+        <br>
+
+        <label for="passwordInput">
+            password:
+        </label>
+        <input id="passwordInput" name="passwordInput" type="password">
+
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="/">Already have an account? Click here to log-in!</a>
+
+</main>

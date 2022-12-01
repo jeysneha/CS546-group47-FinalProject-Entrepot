@@ -1,0 +1,22 @@
+
+
+<h1>{{title}}</h1>
+
+<main>
+    <p>Username</p>
+    <p>{{username}}</p>
+    <br>
+    <p>E-mail</p>
+    <p>{{email}}</p>
+    <br>
+    <p>OverallRating</p>
+    <p>{{overallRating}}</p>
+    <br>
+    <p>Reviews</p>
+    <ul>
+        {{#each reviews}}
+            <li> {{this}}</li>
+        {{/each}}
+
+    </ul>
+</main>
