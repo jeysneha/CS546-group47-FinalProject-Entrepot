@@ -128,9 +128,10 @@ module.exports = {
         if (!rating) {
             throw 'Review rating is not provided!'
         }
-        if (typeof rating !== 'number') {
-            throw 'The review rating must be a number'
+        if (typeof rating !== 'string') {
+            throw 'Invalid rating input!'
         }
+        rating = parseFloat(rating);
         if (rating < 1 || rating > 5) {
             throw 'The review rating should be in range of 1-5 (inclusive)'
         }

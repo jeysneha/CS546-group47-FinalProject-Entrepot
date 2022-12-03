@@ -7,11 +7,15 @@ const reviewsRoutes = require('./reviews');
 const constructorMethod = (app) => {
     app.use('/', landing);
     app.use('/user', userRoutes);
-    app.use('/reviews', reviewsRoutes);
+    app.use('/review', reviewsRoutes);
 
     // all other urls return 404
     app.use('*', (req, res) => {
-        res.status(404).json({Error: 'Not Found The Page'});
+        res.status(404).render('error', {
+            title: 'Error!',
+            hasError: true,
+            error: 'Not Found The Page'
+        });
     })
 }
 
