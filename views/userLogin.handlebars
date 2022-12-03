@@ -1,8 +1,33 @@
+<body>
+    {{#if hasErrors}}
+    <p class="error">
+        {{error}}
+    </p>
+    {{/if}}
+    <div class="container">
+        <form action="#" class="login-form">
+            <h2>Log in</h2>
+            <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="username"/>
+            <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="password"/>
+            <button type="submit">Submit</button>
+            <br>
+            <a href="/register" class="toblack">Click here to register!</a>
+
+        </form>
+    </div>
+</body>
 
 
 
-
-<h1>{{title}}</h1>
+{{!-- <h1>{{title}}</h1>
 
 <main>
     {{#if hasErrors}}
@@ -31,4 +56,4 @@
     <br>
 
     <a href="/register">Click here to register!</a>
-</main>
+</main> --}}
