@@ -33,7 +33,10 @@ const createReviews = async (
         }
     }
     if (!isBuyer) {
-        throw 'You cannot give review to this user as you did not have a trade relationship';
+        return {
+            insertedReview: false,
+            Error:'You cannot give review to this user as you did not have a trade relationship'
+        }
     }
 
     // create current date
@@ -89,7 +92,10 @@ const createReviews = async (
         throw `The input information resulted in no change to the user with id: ${posterId} `
     }
 
-    return {insertedReview: true};
+    return {
+        insertedReview: true,
+        error: null
+    };
 }
 
 const getAllReviews = async(userId) => {
@@ -107,6 +113,7 @@ const getAllReviews = async(userId) => {
     }
     return reviewsObj.reviews;
 }
+
 
 const getReviewById = async(reviewId) => {
     //validation check
@@ -134,6 +141,8 @@ const getReviewById = async(reviewId) => {
 
     return theReview;
 }
+
+
 
 
 module.exports = {

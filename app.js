@@ -17,25 +17,46 @@ app.engine("handlebars", exphbs.engine({ defaultLayout: "main" })); //look for t
 app.set("view engine", "handlebars");
 
 app.use(
-  session({
-    name: "entrepotUser",
-    secret: "This is a secret string!",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
+    session({
+        name: 'EntrepotAuthCookie',
+        secret: 'This is a secret string!',
+        resave: false,
+        saveUninitialized: true,
+    })
+)
 
-configRoutes(app);
+app.use('/user', (req, res, next) => {
+    if (!req.session.user) {
+        return res.status(403).redirect('/login');
+    }else {
+        next();
+    }
+})
 
-app.listen(3000, (req, res) => {
-  console.log("Now we got a server");
-  console.log("Your routes will be running on http://localhost:3000");
-});
+app.use('/review', (req, res, next) => {
+    if (!req.session.user) {
+        return res.status(403).redirect('/login');
+    }else {
+        next();
+    }
+})
 
+app.use('/products', (req, res, next) => {
+    if (!req.session.user) {
+        return res.status(403).redirect('/login');
+    }else {
+        next();
+    }
+})
 
+app.use('/user/update', (req, res, next) => {
+    if (req.method && req.body._method) {
+        req.method = req.body._method;
+        delete req.body._method;
+    }
 
-
-
+    next();
+})
 
 configRoutes(app);
 
