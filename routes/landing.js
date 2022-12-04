@@ -116,13 +116,25 @@ router
                 })
             }
 
-            if (authUser.authenticatedUser) {
-                req.session.user = {username: username};
+            if (!authUser.userId) {
+                return res.status(500).render('userLogin',{
+                    title: 'Log-in',
+                    hasErrors: true,
+                    error: 'Internal Server Error!',
+                })
+            }
+
+
+            if (authUser.authenticatedUser && authUser.userId) {
+                req.session.user = {
+                    username: username,
+                    userId: authUser.userId
+                };
                 res.redirect('./products');
             }
 
         }catch (e) {
-            res.status(500).render('userLogin', {
+            res.status(403).render('userLogin', {
                 title: 'Log-in',
                 hasErrors: true,
                 error: e,

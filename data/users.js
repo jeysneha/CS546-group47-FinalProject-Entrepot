@@ -48,6 +48,7 @@ const createUser = async (
     return {insertedUser: true}
 }
 
+
 const checkUser = async(username, password) => {
     //input check
     username = validation.checkUsername(username);
@@ -68,8 +69,12 @@ const checkUser = async(username, password) => {
         throw 'Either the username or password is invalid!';
     }
 
-    return {authenticatedUser: true};
+    return {
+        authenticatedUser: true,
+        userId: oldUser._id
+    };
 }
+
 
 const getUserById = async (userId) => {
     // validation check
@@ -80,7 +85,7 @@ const getUserById = async (userId) => {
     const user = await usersCol.findOne(ObjectId(userId));
 
     if (!user) {
-        throw `Can not find user with ID ${userId}`;
+        return null;
     }
 
     //convert all id to string
@@ -105,8 +110,48 @@ const getUserByName = async (username) => {
 }
 
 
-//update user information
-const updateUser = async (userId) => {
+const updateUser = async (userId, username, email, originPassword, newPassword) => {
+    //input check
+    userId = validation.checkId(userId);
+    username = validation.checkUsername(username);
+    email = validation.checkEmail(email);
+    originPassword = validation.checkPassword(originPassword);
+    newPassword = validation.checkPassword(newPassword);
+
+    const usersCol = await users();
+
+    const user = await getUserById(userId);
+
+    //compare the input original password
+    const oldPw = user.hashed_password;
+    const compareResult = await bcrypt.compare(originPassword, oldPw);
+    if (!compareResult) {
+        throw 'The original password is not correct!';
+    }
+
+    //hash new password
+    const newHashed_password = await bcrypt.hash(newPassword, saltRounds);
+
+    const updateInfo = await usersCol.updateOne(
+        {_id: ObjectId(userId)},
+        {$set: {
+            username: username,
+                email: email,
+                hashed_password: newHashed_password
+            }
+
+        }
+    )
+
+    if (updateInfo.matchedCount === 0) {
+        throw `Could not match the name of the movie with id: ${movieId}`
+    }
+
+    if (updateInfo.modifiedCount === 0) {
+        throw `The input information resulted in no change to the movie with id: ${movieId} `
+    }
+
+    return {updatedUser: true};
 
 }
 

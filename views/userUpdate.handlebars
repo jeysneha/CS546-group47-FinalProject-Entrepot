@@ -1,0 +1,49 @@
+
+
+<h1>{{title}}</h1>
+
+
+
+<main>
+
+    {{# if hasErrors}}
+        <p>{{error}}</p>
+    {{/if}}
+
+
+    <form action="/user/update" method="post" id="userUpdate-form">
+        <input name = '_method' value="PUT" hidden/>
+
+        <label for="usernameInput">
+            username:
+        </label>
+        <input id="usernameInput" name="usernameInput"/>
+
+        <label for="emailInput">
+            E-mail:
+        </label>
+        <input id="emailInput" name="emailInput"/>
+
+        <label for="originPasswordInput">
+            Old Password:
+        </label>
+        <input id="originPasswordInput" name="originPasswordInput" type="password"/>
+
+        <label for="newPasswordInput">
+            New Password:
+        </label>
+        <input id="newPasswordInput" name="newPasswordInput" type="password"/>
+
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+
+    </form>
+
+    <br>
+    <br>
+
+    <a href="/user/profile">Cancel</a>
+
+
+</main>

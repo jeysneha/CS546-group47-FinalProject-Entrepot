@@ -1,0 +1,41 @@
+
+
+<h1>{{title}}</h1>
+
+<main>
+
+    {{#if hasErrors}}
+        <p class="error">
+            {{error}}
+        </p>
+    {{/if}}
+
+    <form action="/review/addReview/6387f1fd73e6af3e6a39b074" method="post">
+
+        <label for="titleInput">
+            Title:
+        </label>
+        <input id="titleInput" name="titleInput"/>
+
+        <br>
+
+        <label for="bodyInput">
+            Description:
+        </label>
+        <input id="bodyInput" name="bodyInput"/>
+
+        <br>
+
+        <label for="ratingInput">
+            Rating:
+        </label>
+        <input id="ratingInput" name="ratingInput" type="number"/>
+
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+
+
+    </form>
+
+</main>
