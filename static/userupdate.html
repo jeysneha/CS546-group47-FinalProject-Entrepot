@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link type="text/css" href="css/main.css" rel="stylesheet" />
-    <link type="text/css" href="../../public/main-styles.css" rel="stylesheet" />
+    <link type="text/css" href=".././public/main-styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
@@ -16,7 +15,6 @@
     <title>Entrepôt</title>
     <title>{{{ title }}}</title>
 </head>
-
 <body>
     <!--Navbar-->
     <nav>
@@ -26,7 +24,7 @@
                 <!--Logo-->
                 <a href="index.html">
                     <h2 class="logo">LOGO</h2>
-                    <img class="logo" src="images/logo.JPG" />
+                    <img class="logo" src=".././public/images/logo.JPG" />
                 </a>
             </div>
             <div>
@@ -36,7 +34,7 @@
                         <button class="account-btn">
                             <i class="fas fa-user-alt"></i>
                         </button>
-                        <span class="account-text" href="/profile">My account</span>
+                        <span class="account-text">My account</span>
                     </a>
                     <!--When we click the btnShowAccountInfo this section will be displayed-->
                 </div>
@@ -70,9 +68,48 @@
 
 
 
-    <body>
-        {{{body}}}
-    </body>
+        <body>
+            
+
+
+
+<div>
+
+    <div class="container">
+    <form action="/user/update" method="post" id="userUpdate-form" class="loginform">
+        <input name = '_method' value="PUT" hidden/>
+
+        <label for="usernameInput">
+            username:
+        </label>
+        <input id="usernameInput" name="usernameInput"/>
+
+        <label for="emailInput">
+            E-mail:
+        </label>
+        <input id="emailInput" name="emailInput"/>
+
+        <label for="originPasswordInput">
+            Old Password:
+        </label>
+        <input id="originPasswordInput" name="originPasswordInput" type="password"/>
+
+        <label for="newPasswordInput">
+            New Password:
+        </label>
+        <input id="newPasswordInput" name="newPasswordInput" type="password"/>
+        <br>
+        <button type="submit" class="button-4" >Submit</button> 
+        <br>
+        <a href="/user/profile" class="button-4">Cancel</a>
+    </form>
+     </div>
+
+
+</main>
+        </body>
+
+    
 
 
     <footer>

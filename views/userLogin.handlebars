@@ -5,17 +5,18 @@
     </p>
     {{/if}}
     <div class="container">
-        <form action="#" class="login-form">
+        <form action="/login" method="post" id="login-form" class="login-form">
             <h2>Log in</h2>
             <input
             type="text"
-            id="username"
-            name="username"
+            id="usernameInput"
+            name="usernameInput"
             placeholder="username"/>
             <input
             type="password"
-            id="password"
-            name="password"
+            id="passwordInput"
+            name="passwordInput"
+            type="password"
             placeholder="password"/>
             <button type="submit">Submit</button>
             <br>
