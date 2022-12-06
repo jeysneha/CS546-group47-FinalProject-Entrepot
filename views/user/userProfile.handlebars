@@ -19,7 +19,15 @@
     <p>Reviews</p>
     <ul>
         {{#each reviews}}
-            <li> {{this}}</li>
+
+            <li>
+                <p>Title: {{this.title}}</p>
+                <p>Description: {{this.body}}</p>
+                <p>Rating: {{this.rating}}</p>
+                <p>Write from: {{this.reviewWriter}}</p>
+                <footer>DateTime: {{this.datetime}}</footer>
+            </li>
+
         {{/each}}
 
     </ul>
