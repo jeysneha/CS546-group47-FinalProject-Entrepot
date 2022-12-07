@@ -27,7 +27,7 @@ app.use(
 
 app.use('/user', (req, res, next) => {
     if (!req.session.user) {
-        return res.status(403).redirect('/login');
+        return res.status(403).redirect('/');
     }else {
         next();
     }
@@ -35,7 +35,7 @@ app.use('/user', (req, res, next) => {
 
 app.use('/review', (req, res, next) => {
     if (!req.session.user) {
-        return res.status(403).redirect('/login');
+        return res.status(403).redirect('/');
     }else {
         next();
     }
@@ -43,7 +43,7 @@ app.use('/review', (req, res, next) => {
 
 app.use('/products', (req, res, next) => {
     if (!req.session.user) {
-        return res.status(403).redirect('/login');
+        return res.status(403).redirect('/');
     }else {
         next();
     }
