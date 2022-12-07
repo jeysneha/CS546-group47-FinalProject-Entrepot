@@ -1,0 +1,60 @@
+<body>
+    {{#if hasErrors}}
+    <p class="error">
+        {{error}}
+    </p>
+    {{/if}}
+    <div class="container">
+        <form action="/login" method="post" id="login-form" class="login-form">
+            <h2>Log in</h2>
+            <input
+            type="text"
+            id="usernameInput"
+            name="usernameInput"
+            placeholder="username"/>
+            <input
+            type="password"
+            id="passwordInput"
+            name="passwordInput"
+            type="password"
+            placeholder="password"/>
+            <button type="submit">Submit</button>
+            <br>
+            <a href="/register" class="toblack">Click here to register!</a>
+
+        </form>
+    </div>
+</body>
+
+
+
+{{!-- <h1>{{title}}</h1>
+
+<main>
+    {{#if hasErrors}}
+        <p class="error">
+            {{error}}
+        </p>
+    {{/if}}
+
+    <form action="/login" method="post" id="login-form">
+        <label for="usernameInput">
+            username:
+        </label>
+        <input id="usernameInput" name="usernameInput"/>
+
+        <label for="passwordInput">
+            password:
+        </label>
+        <input id="passwordInput" name="passwordInput" type="password"/>
+
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="/register">Click here to register!</a>
+</main> --}}

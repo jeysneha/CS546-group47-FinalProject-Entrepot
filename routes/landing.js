@@ -7,8 +7,8 @@ const usersData = data.users;
 
 // first page of our application, it's an introduction page
 router.route('/').get(async (req, res) => {
-    res.render('landing', {
-        title: 'Landing'
+    res.render('landing/landing', {
+        title: 'Entrepôt'
     })
 })
 
@@ -21,8 +21,8 @@ router
             //if user is authenticated
             res.redirect('/products');
         }else {
-            res.render('userRegister.handlebars', {
-                title: 'Sign-up',
+            res.render('landing/userRegister', {
+                title: 'Entrepôt - Sign-up',
                 hasErrors: false,
                 error: null,
             })
@@ -39,8 +39,8 @@ router
             email = validation.checkEmail(email);
             password = validation.checkPassword(password);
         }catch (e) {
-            return res.status(400).render('userRegister.handlebars', {
-                title: 'Sign-up',
+            return res.status(400).render('landing/userRegister', {
+                title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
             });
@@ -51,23 +51,23 @@ router
             const createInfo = await usersData.createUser(username, email, password);
 
             if (!createInfo) {
-                return res.status(500).render('userRegister.handlebars', {
-                    title: 'Sign-up',
+                return res.status(500).render('landing/userRegister', {
+                    title: 'Entrepôt - Sign-up',
                     hasErrors: true,
                     error: 'Internal Server Error!',
                 });
             }
 
             if (createInfo.insertedUser) {
-                return res.status(200).render('userLogin', {
-                    title: 'Log-in',
+                return res.status(200).render('landing/userLogin', {
+                    title: 'Entrepôt - Log-in',
                     hasErrors: false,
                     error: null,
                 });
             }
         }catch (e) {
-            res.status(500).render('userRegister.handlebars', {
-                title: 'Sign-up',
+            res.status(500).render('landing/userRegister', {
+                title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
             });
@@ -81,8 +81,8 @@ router
         if (req.session.user) {
             res.redirect('/products');
         }else {
-            res.render('userLogin', {
-                title: 'Log-in',
+            res.render('landing/userLogin', {
+                title: 'Entrepôt - Log-in',
                 hasErrors: false,
                 error: null,
             })
@@ -97,8 +97,8 @@ router
             username = validation.checkUsername(username);
             password = validation.checkPassword(password);
         }catch (e) {
-            return res.status(400).render('userLogin', {
-                title: 'Log-in',
+            return res.status(400).render('landing/userLogin', {
+                title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
             });
@@ -109,16 +109,16 @@ router
             const authUser = await usersData.checkUser(username, password);
 
             if (!authUser) {
-                return res.status(500).render('userLogin',{
-                    title: 'Log-in',
+                return res.status(500).render('landing/userLogin',{
+                    title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
                 })
             }
 
             if (!authUser.userId) {
-                return res.status(500).render('userLogin',{
-                    title: 'Log-in',
+                return res.status(500).render('landing/userLogin',{
+                    title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
                 })
@@ -130,12 +130,12 @@ router
                     username: username,
                     userId: authUser.userId
                 };
-                res.redirect('./products');
+                res.redirect('/products');
             }
 
         }catch (e) {
-            res.status(403).render('userLogin', {
-                title: 'Log-in',
+            res.status(403).render('landing/userLogin', {
+                title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
             });
@@ -149,7 +149,7 @@ router.route('/products').get(async (req, res) => {
     const datetime = new Date().toUTCString();
 
     res.status(200).render('products', {
-        title: 'products',
+        title: 'Entrepôt - Products',
         username: username,
         datetime: datetime,
     })
@@ -159,8 +159,8 @@ router
     .route('/logout')
     .get(async (req, res) => {
         req.session.destroy();
-        res.render('logout', {
-            title: 'Log-out'
+        res.render('user/logout', {
+            title: 'Entrepôt - Log-out'
         })
     })
 
