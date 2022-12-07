@@ -10,7 +10,7 @@
         <p>{{error}}</p>
     {{/if}}
 
-
+    <div class="container">
     <form action="/user/update" method="post" id="userUpdate-form">
         <input name = '_method' value="PUT" hidden/>
 
@@ -35,15 +35,14 @@
         <input id="newPasswordInput" name="newPasswordInput" type="password"/>
 
         <br>
+        <button type="submit" class="button-4">Submit</button>
+
         <br>
-        <button type="submit">Submit</button>
-
+        <a href="/user/profile" class="button-4">Cancel</a>
     </form>
-
+    </div>
     <br>
     <br>
-
-    <a href="/user/profile">Cancel</a>
 
 
 </main>
