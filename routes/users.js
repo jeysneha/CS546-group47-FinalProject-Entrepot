@@ -44,6 +44,7 @@ router
             email: userProfile.email,
             overallRating: userProfile.overallRating,
             reviews: userProfile.reviews,
+            isSelf: true,
         })
     }catch (e) {
         res.status(500).json({Error: e})
@@ -139,6 +140,7 @@ router
                 email: posterProfile.email,
                 overallRating: posterProfile.overallRating,
                 reviews: posterProfile.reviews,
+                isSelf: false,
             });
         }catch (e) {
             res.status(500).json({Error: e});
