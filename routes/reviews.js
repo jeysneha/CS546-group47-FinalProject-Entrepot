@@ -46,8 +46,8 @@ router
 router
     .route('/addReview/:posterId')
     .get(async (req, res) => {
-        res.status(200).render('reviewRegister', {
-            title: 'Create Review',
+        res.status(200).render('reviews/reviewRegister', {
+            title: 'Entrepôt - Create Review',
             hasErrors: false,
             error: null
         })
@@ -69,8 +69,8 @@ router
             rating = validation.checkReviewRating(rating);
         }catch (e) {
             //render the profile page
-            return res.status(400).render('reviewRegister', {
-                title: 'Create Review',
+            return res.status(400).render('reviews/reviewRegister', {
+                title: 'Entrepôt - Create Review',
                 hasErrors: true,
                 error: e
             })
@@ -80,16 +80,16 @@ router
             const insertInfo = await reviewsDate.createReviews(posterId, buyerId, title, body, rating.toString());
 
             if (!insertInfo) {
-                return res.status(500).render('reviewRegister', {
-                    title: 'Create Review',
+                return res.status(500).render('reviews/reviewRegister', {
+                    title: 'Entrepôt - Create Review',
                     hasErrors: true,
                     error: 'Internal Server Error'
                 });
             }
 
             if (!insertInfo.insertedReview) {
-                return res.status(403).render('reviewRegister', {
-                    title: 'Create Review',
+                return res.status(403).render('reviews/reviewRegister', {
+                    title: 'Entrepôt - Create Review',
                     hasErrors: true,
                     error: insertInfo.Error
                 });

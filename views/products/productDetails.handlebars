@@ -1,0 +1,61 @@
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="row g-0 gx-5">
+      <div class="col-lg-8">
+        <div class="section-header text-start mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+          <h1 class="display-5 mb-6 text-secondary">Product <span class="bg-green">List</span></h1>
+          <p>These are the details listed below..</p>
+        </div>
+      </div>
+      <div class="col-lg-4 py-4">
+        <a href="/b" class="btn btn-primary rounded-pill">offer to change</a><br>
+        <p class="form-text text-muted">Add to favorite</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      {{#each productListing}}
+      <div class="col-xl-3 col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="product-item">
+          <div class="position-relative bg-light overflow-hidden">
+            <img class="img-fluid w-100" src="{{!-- Add image here --}}" alt="">
+            <div class="bg-secondary rounded text-white position-absolute start-0 top-0 m-4 py-1 px-3">New
+            </div>
+          </div>
+          <div class="p-4">
+            <a class="d-block h5 mb-2 text-center" href="/productListing/{{this._id}}">{{this.title}}</a>
+            <p><span class="text-secondary me-1">Menu list:</span> {{this.description}}</p>
+            <p><span class="text-secondary me-1"></span></p>
+            <table>
+              <th>title</th>
+              {{#each this.productListing}}
+              {{!-- <p><span class="text-secondary me-1"></span> --}}
+
+                <tr>
+                  <td> {{this.title}}</td>
+
+                  <td>{{this.discription}} </td>
+                </tr>
+              </p>
+
+              {{/each}}
+            </table>
+            <br>
+            <p><span class="bg-green me-1">Rating:</span> {{this.userRating}}</p>
+            {{!-- <span class="text-body text-decoration-line-through">Address</span> --}}
+          </div>
+          <div class="d-flex border-top">
+            <div class="w-50 text-center py-2">
+              <a class="text-body" href="/product/{{this._id}}"><i class="fa fa-eye text-primary me-2"></i>more info</a>
+            </div>
+            {{!-- <small class="w-50 text-center py-2">
+              <a class="text-body" href=""><i class="fa fa-shopping-bag text-primary me-2"></i>Rate</a>
+            </small> --}}
+          </div>
+        </div>
+        <script src="data.productDetail.js"></script>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+</div>
+<a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
