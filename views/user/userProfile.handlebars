@@ -2,11 +2,7 @@
 <div class="profile-header">
 
   <div class="profile-nav-info">
-    <h3 class="user-name">{{username}}</h3>
-    <div class="address">
-      <p id="state" class="state">New York,</p>
-      <span id="country" class="country">USA.</span>
-    </div> 
+    <h1 class="user-name">{{username}}</h1>
 
   </div>
 
@@ -23,20 +19,24 @@
   <div class="left-side">
     <div class="profile-side">
       <p class="user-mail"><i class="fa fa-envelope"></i>{{email}}</p>
-      <div class="user-bio">
-        <h3>Bio</h3>
-        <p class="bio">
-          Lorem ipsum dolor sit amet, hello how consectetur adipisicing elit. Sint consectetur provident magni yohoho consequuntur, voluptatibus ghdfff exercitationem at quis similique. Optio, amet!
-        </p>
-      </div>
+
+<!--      <div class="user-bio">-->
+<!--        <h3>Bio</h3>-->
+<!--        <p class="bio">-->
+<!--          Lorem ipsum dolor sit amet, hello how consectetur adipisicing elit. Sint consectetur provident magni yohoho consequuntur, voluptatibus ghdfff exercitationem at quis similique. Optio, amet!-->
+<!--        </p>-->
+<!--      </div>-->
       
       <div class="profile-btn">
-        <button class="chatbtn" id="chatBtn"><i class="fa fa-comment" ></i>Deal History</button>
-        <button class="createbtn" id="Create-post"><i class="fa fa-plus" href="/user/update"></i> Update User Info</button>
+<!--          Deal history will open new window for all products-->
+        <button class="chatbtn" id="chatBtn"><i class="fa fa-comment" ></i>All Posts</button>
+        <button class="createbtn" id="Create-post" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-plus"></i> Update User Info</button>
       </div>
+
       <div class="user-rating">
         <h3 class="rating">{{overallRating}}</h3>
         <div class="rate">
+<!--            show the star filled according to the overallRating-->
           <div class="star-outer">
             <div class="star-inner">
               <i class="fa fa-star"></i>
@@ -46,7 +46,8 @@
               <i class="fa fa-star"></i>
             </div>
           </div>
-          <span class="no-of-user-rate"><span>123</span>&nbsp;&nbsp;reviews</span>
+<!--            here include total number of reviews-->
+          <span class="no-of-user-rate"><span> {{reviews.length}}  </span>&nbsp;&nbsp;reviews</span>
         </div>
               
       </div>
@@ -56,18 +57,20 @@
   
   <div class="right-side">
 
-    <div class="nav">
-      <ul>
+      <h2 class="user-review">All Reviews</h2>
 
-        <li onclick="tabs(1)" class="user-review">Reviews</li>
-
-      </ul>
-    </div>
-    
-    <div class="profile-body">
+      <div class="profile-body">
       <ul>
         {{#each reviews}}
-        <li> {{this}}</li>
+        <li class="each-review">
+            <h4>Title: {{this.title}}</h4>
+            <h5>Rating: {{this.rating}}</h5>
+            <h5>Description: {{this.body}}</h5>
+            <h6>From: {{this.reviewWriter}}</h6>
+            <p>Date/Time: {{this.datetime}}</p>
+            </li>
+            <br>
+
         {{/each}}
 
       </ul>
@@ -76,40 +79,3 @@
 </div>
 </main>
 
-
-
-{{!-- 
-
-<h1>{{title}}</h1>
-
-<main>
-    <p>Username</p>
-    <p>{{username}}</p>
-    <br>
-    <p>E-mail</p>
-    <p>{{email}}</p>
-    <br>
-
-    <a href="/user/update">Update User Info</a>
-
-    <br>
-    <p>OverallRating</p>
-    <p>{{overallRating}}</p>
-    <br>
-    <p>Reviews</p>
-    <ul>
-        {{#each reviews}}
-
-            <li>
-                <p>Title: {{this.title}}</p>
-                <p>Description: {{this.body}}</p>
-                <p>Rating: {{this.rating}}</p>
-                <p>Write from: {{this.reviewWriter}}</p>
-                <footer>DateTime: {{this.datetime}}</footer>
-            </li>
-
-        {{/each}}
-
-    </ul>
-
-</main> --}}

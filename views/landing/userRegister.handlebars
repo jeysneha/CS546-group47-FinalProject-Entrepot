@@ -1,31 +1,41 @@
-<main>
-    {{#if hasErrors}}
-        <p class="error">
-        {{error}}
-        </p>
-    {{/if}}
-    <div class="container">
-    <form action="/register" method="post" id="registration-form" class="login-form">
-    <h3> Sign-UP</h3>       
-    <input
-    type="text"
-    id="usernameInput"
-    name="usernameInput"
-    placeholder="username"/>
+<main class="signup-page">
+    <div class="signup-content">
+        <div class="signup-error">
+            {{#if hasErrors}}
+                <p class="error">
+                    {{error}}
+                </p>
+            {{/if}}
+        </div>
 
-    <input
-    name="emailInput"
-    id="emailInput"
-    placeholder="email"/>
+        <form action="/register" method="post" id="registration-form" class="signup-form">
+            <h3> Welcome to Entrepôt </h3>
 
-    <input
-    type="password"
-    id="passwordInput"
-    name="passwordInput"
-    placeholder="password"/>
-    <button type="submit">Submit</button>
-    <a href="/login" class="toblack">Click here to log-in!</a>
-    </form>
+            <label for="usernameInput"></label>
+            <input
+            type="text"
+            id="usernameInput"
+            name="usernameInput"
+            placeholder="username"/>
+
+            <label for="emailInput"></label>
+            <input
+            name="emailInput"
+            id="emailInput"
+            placeholder="email"/>
+
+            <label for="passwordInput"></label>
+            <input
+            type="password"
+            id="passwordInput"
+            name="passwordInput"
+            placeholder="password"/>
+
+
+            <button type="submit">Submit</button>
+            <br>
+            <a href="/login" class="login-link">Click here to log-in!</a>
+        </form>
     </div>
         
 </main>
