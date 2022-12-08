@@ -111,8 +111,9 @@
         </div>
     </footer>
 
-
-    {{> (lookup . 'partial') }}
+    {{#if partial}}
+        {{> (lookup . 'partial') }}
+    {{/if}}
 <!--    <script src="JS/script.js"></script>-->
 </body>
 
