@@ -18,7 +18,7 @@
     <title>Entrepôt</title>
     <title>{{{ title }}}</title>
 </head>
-<body>
+
     <!--Navbar-->
     <nav>
         <div class="navbar-top">
@@ -71,70 +71,38 @@
 
 
 
-        <body>
-            <script src="https://use.fontawesome.com/a6f0361695.js"></script>
+    <body>
+        <main class="main">
+            <section class="container">
+              <div class="title">
+                <h2>Reviews Card</h2>
+                <div class="underline"></div>
+              </div>
+              <article class="review">
+                
+                <label for="titleInput">
+                    Title:
+                </label>
+                <input id="titleInput" name="titleInput"/>
 
-<h2 id="fh2">WE APPRECIATE YOUR REVIEW!</h2>
-<h6 id="fh6">Your review will help us to improve our web hosting quality products, and customer services.</h6>
+                <label for="ratingInput">
+                    Rating:
+                </label>
+                <input id="ratingInput" name="ratingInput" type="number"/>
+                
+                <label for="bodyInput">
+                    Description:
+                </label>
+                <textarea id="bodyInput" name="bodyInput" rows="5" width="50%"></textarea>
 
-
-<form id="feedback" action="">
-  <div class="pinfo">Your personal info</div>
-  
-<div class="form-group">
-  <div class="col-md-4 inputGroupContainer">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-user"></i></span>
-  <input  name="name" class="form-control"  type="text">
-    </div>
-  </div>
-</div>
-
-<div class="form-group">
-  <div class="col-md-4 inputGroupContainer">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-    <input name="email" type="email" class="form-control" >
-     </div>
-  </div>
-</div>
-
-
- <div class="pinfo">Rate our overall services.</div>
-  
-
-<div class="form-group">
-  <div class="col-md-4 inputGroupContainer">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-heart"></i></span>
-   <select class="form-control" id="rate">
-      <option value="1star">1</option>
-      <option value="2stars">2</option>
-      <option value="3stars">3</option>
-      <option value="4stars">4</option>
-      <option value="5stars">5</option>
-    </select>
-    </div>
-  </div>
-</div>
-
- <div class="pinfo">Write your feedback.</div>
-  
-
-<div class="form-group">
-  <div class="col-md-4 inputGroupContainer">
-  <div class="input-group">
-  <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-  <textarea class="form-control" id="review" rows="3"></textarea>
- 
-    </div>
-  </div>
-</div>
-
- <button type="submit" class="btn btn-primary">Submit</button>
-
-
-</form>
+                <div class="btn">
+                <button class="reviewbutton" type="submit">Submit</button>
+                </div>
+                
+                
+              </article>
+            </section>
+          </main>
         </body>
 
     
