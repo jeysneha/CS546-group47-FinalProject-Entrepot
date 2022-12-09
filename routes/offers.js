@@ -17,17 +17,21 @@ const multipartMiddleware = multiparty();
 
 router.route("/").get(async (req, res) => {
   //
-  res.sendFile(path.resolve('static/offerList.html'));
+  // res.sendFile(path.resolve('static/offerList.html'));
+  res.render("offers/offerList");
+
 });
 
 router.route("/myOffers").get(async (req, res) => {
   //
-  res.sendFile(path.resolve('static/myOffers.html'));
+  // res.sendFile(path.resolve('static/myOffers.html'));
+  res.render("offers/myOffers");
 });
 
 router.route("/createOffer").get(async (req, res) => {
   //
-  res.sendFile(path.resolve('static/createOffer.html'));
+  // res.sendFile(path.resolve('static/createOffer.html'));
+  res.render("offers/createOffer");
 });
 
 router.route("/page/offer/:offerId").get(async (req, res) => {

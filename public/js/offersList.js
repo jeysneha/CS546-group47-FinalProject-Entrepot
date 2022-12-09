@@ -154,7 +154,7 @@ function bindList(){
         button = document.createElement("button");
         // button.id = acceptButtonId;
         button.setAttribute("id",acceptButtonId);
-        button.className = "btn btn-small";
+        button.className = "btn-small-accept";
         button.innerHTML = "Accept";
 
         myId = document.createAttribute("myid");
@@ -183,7 +183,7 @@ function bindList(){
 
         a = document.createElement("a");
         a.href = "/offers/offer/"+id;
-        a.className = "btn btn-small";
+        a.className = "btn-small-accept";
         a.innerHTML = "Offer Details";
         div3.appendChild(a);
 

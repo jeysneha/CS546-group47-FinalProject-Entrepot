@@ -132,7 +132,7 @@ function bindList(elementId){
             button = document.createElement("button");
             // button.id = acceptButtonId;
             button.setAttribute("id",ButtonId);
-            button.className = "btn btn-small";
+            button.className = "btn-small-accept";
             button.innerHTML = "Confirm";
             if(confirmByBuyer == 1){
                 button.className = "btn-small-banned";
@@ -204,14 +204,14 @@ function bindList(elementId){
             div1.setAttribute("id",boxId);
 
             editbutton = document.createElement("a");
-            editbutton.className = "btn btn-small";
+            editbutton.className = "btn-small-accept";
             editbutton.innerHTML = "Edit";
             editbutton.href = '/offers/page/edit/'+id;
             div3.appendChild(editbutton);
 
             
             deletebutton = document.createElement("button");
-            deletebutton.className = "btn btn-small";
+            deletebutton.className = "btn-small-accept";
             deletebutton.innerHTML = "Delete";
 
             myId = document.createAttribute("myid");
@@ -272,7 +272,7 @@ function bindList(elementId){
 
         a = document.createElement("a");
         a.href = "/offers/offer/"+id;
-        a.className = "btn btn-small";
+        a.className = "btn-small-accept";
         a.innerHTML = "Offer Details";
         div3.appendChild(a);
 
