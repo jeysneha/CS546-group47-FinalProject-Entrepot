@@ -18,20 +18,26 @@ const multipartMiddleware = multiparty();
 router.route("/").get(async (req, res) => {
   //
   // res.sendFile(path.resolve('static/offerList.html'));
-  res.render("offers/offerList");
+  res.render("offers/offerList", {
+    title: 'Entrepôt - Offer List',
+  });
 
 });
 
 router.route("/myOffers").get(async (req, res) => {
   //
   // res.sendFile(path.resolve('static/myOffers.html'));
-  res.render("offers/myOffers");
+  res.render("offers/myOffers", {
+    title: 'Entrepôt - My Offers',
+  });
 });
 
 router.route("/createOffer").get(async (req, res) => {
   //
   // res.sendFile(path.resolve('static/createOffer.html'));
-  res.render("offers/createOffer");
+  res.render("offers/createOffer", {
+    title: 'Entrepôt - Create Offer',
+  });
 });
 
 router.route("/page/offer/:offerId").get(async (req, res) => {
@@ -78,7 +84,11 @@ router.route("/offer/:offerId").get(async (req, res)=>{
     return res.status(404).json({code:404, result:e});
   }
 
-  res.render("offers/offerDetail", {code:200, result:JSON.stringify(offer)})
+  res.render("offers/offerDetail", {
+    title: 'Entrepôt - Offer Detail',
+    code:200,
+    result:JSON.stringify(offer)
+  })
   // res.status(200).json({code:200, result:offer});
 })
 
@@ -248,7 +258,9 @@ router.get('/mySent/:userId', async (req, res) => {
 })
 
 router.get("/offers/page/edit/:offerId" , async (req, res) => {
-  res.render("editOffer");
+  res.render("editOffer", {
+    title: 'Entrepôt - Edit Offer',
+  });
 })
 
 
