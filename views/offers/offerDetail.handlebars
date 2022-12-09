@@ -1,0 +1,165 @@
+<main>
+    <!-- <div class="alertMessage" id="errorBox">
+      <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+      
+    </div> -->
+    <div class="panel-back">
+      
+        <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
+          <section class="panel-detail-left" id="detailSection">
+            <h1>Offer Detail</h1>
+            <div id="detailsContent">
+
+            </div>
+            <br>
+
+            <a id="editButton" class="uploadImgButton" href="/">Edit</a>
+            <a id="allMySentButton" class="btn-viewMyOffers" href="/myOffers">View All My Sent</a>
+            
+
+            </p>
+        </section>
+
+
+        <section class="panel-detail-right">
+          
+          <h1>Offer Item</h1>
+          
+          
+          <br>
+          <!-- <p>Preview</p> -->
+          <img id="image-offer" class="offerDetailImg">
+          <br>
+          <br>
+          <img id="image-post" class="offerDetailImg">
+          <p id="info"></p>
+          <br>
+
+          
+          
+
+          </p>
+      </section>
+        </div>
+      </div>
+          
+
+    <div id="div5" hidden>111</div>
+  </main>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+
+
+    var offerId = '63928aa6f9cd290b164e738c';
+    var offerData;
+
+    init();
+
+
+    function init(){
+
+        offerData = {{{result}}};
+        console.log(offerData);
+        //getOfferById();
+        getImage();
+
+        switch (offerData.wear) {
+          case '10':
+            offerData.wear = "Like New";
+            break;
+            case '8':
+            offerData.wear = "Good condition";
+            break;
+            case '6':
+            offerData.wear = "Fair condition";
+            break;
+            case'4':
+            offerData.wear = "Poor condition";
+            break;
+            case '2':
+            offerData.wear = "Need repair";
+            break;
+            case '0':
+            offerData.wear = "Sold as component";
+            break;
+        }
+
+
+        fillData();
+
+
+        
+    }
+
+    function getOfferById() {
+      $.ajax({
+        type: "get",
+        url:'/offers/offer/'+offerId,
+        cache: false,
+        async: false,
+        success: function (data) {
+            offerData = data.result;
+        }
+      })
+    }
+
+    function getImage(){
+        // document.getElementById("img").src = "images/"+imgName;
+        document.getElementById("image-offer").src = "http://localhost:3000/offers/images/" + offerData.imgName;
+        document.getElementById("image-post").src = "http://localhost:3000/offers/images/" + offerData.imgName;
+    }
+
+    function fillData() {
+      detailSection = document.getElementById("detailsContent");
+
+      offerIdTag = document.createElement("p");
+      offerIdTag.innerHTML = "ID:  " + offerData._id;
+
+      offerNameTag = document.createElement("p");
+      offerNameTag.innerHTML = "Item:  " + offerData.offerItem;
+
+      offerDescTag = document.createElement("p");
+      offerDescTag.innerHTML = "Description:  " + offerData.itemDesc;
+
+      offerWearTag = document.createElement("p");
+      offerWearTag.innerHTML = "Degree of Wear:  " + offerData.wear;
+
+      postItemTag = document.createElement("p");
+      postItemTag.innerHTML = "Item:  " + 123456;
+
+      postUserTag = document.createElement("p");
+      postUserTag.innerHTML = "User:  " + 123456;
+
+      postIdTag = document.createElement("p");
+      postIdTag.innerHTML = "ID:  " + 123456;
+
+      statusContent = document.createElement("h2");
+      statusContent.innerHTML = "Stauts: " + "Awaiting";
+      detailSection.appendChild(statusContent);
+      detailSection.appendChild(document.createElement("br"));
+
+      offerHeadline = document.createElement("h3");
+      offerHeadline.innerHTML = "OFFER";
+      detailSection.appendChild(offerHeadline);
+      detailSection.appendChild(offerIdTag);
+      detailSection.appendChild(offerNameTag);
+      detailSection.appendChild(offerDescTag);
+      detailSection.appendChild(offerWearTag);
+
+      detailSection.appendChild(document.createElement("br"));
+
+      postHeadline = document.createElement("h3");
+      postHeadline.innerHTML = "POST";
+      detailSection.appendChild(postHeadline);
+      detailSection.appendChild(postIdTag);
+      detailSection.appendChild(postItemTag);
+      detailSection.appendChild(postUserTag);
+    }
+    
+    
+  
+  </script>
