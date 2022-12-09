@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel='stylesheet' href='/public/css/main.css' >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <!-- <script src="js/jquery-3.5.1.min.js"></script> -->
+  <!-- <script src="js/multislider.min.js"></script> -->
+
+  <link rel='stylesheet' href='/public/css/offer.css' >
+
+  <title>Entrepôt</title>
+</head>
+
+<body>
+  <!--Navbar-->
+  <nav>
+    <!--Navbar has two part the top one and the bottom one-->
+    <!--Here is top one and in this part I put logo, my account part, and the shopping cart-->
+    <div class="navbar-top">
+      <!-- <img class="logo-image" src="img/logo.JPG" /> -->
+      <div>
+        <h2 class="logo">Entrepôt</h2>
+
+        <button id="menuButton"><i class="fas fa-bars"></i></button>
+        <!--Logo-->
+      </div>
+      <div>
+        <div class="account">
+          <a href="homepage.html">
+            <button class="account-btn">
+              <i class="fas fa-user-alt"></i>
+            </button>
+            <span class="account-text">My account</span>
+          </a>
+          <!--When we click the btnShowAccountInfo this section will be displayed-->
+        </div>
+      </div>
+    </div>
+    <!-- Navbar bottom part -->
+    <!-- Here I put the links to the other pages or nav links -->
+    <div class="navbar" id="navbar">
+      <div class="links">
+        <ul>
+          <li class="nav-links">
+            <a href="homepage.html" class="link">Homepage</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_listing.html" class="link">Product Listing</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_details.html" class="link">Product Details</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_registration.html" class="link">Product Registration</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_management.html" class="link">Product Management</a>
+          </li>
+          <li class="nav-links">
+            <a href="rating_feedback.html" class="link">Rating and Feedback</a>
+          </li>
+          <li class="nav-links">
+            <a href="offer_registration.html" class="link">Offer Registration</a>
+          </li>
+          <li class="nav-links">
+            <a href="offer_management.html" class="link">Offer Management</a>
+          </li>
+          <li class="nav-links">
+            <a href="deal_history.html" class="link">Deal History</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  
+
+  <main>
+    <!-- <div class="alertMessage" id="errorBox">
+      <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+      
+    </div> -->
+    <div class="panel-back">
+      
+        <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
+          <section class="panel-detail-left" id="detailSection">
+            <h1>Offer Detail</h1>
+            <div id="detailsContent">
+
+            </div>
+            <br>
+
+            <a id="editButton" class="uploadImgButton" href="/">Edit</a>
+            <a id="allMySentButton" class="btn-viewMyOffers" href="/myOffers">View All My Sent</a>
+            
+
+            </p>
+        </section>
+
+
+        <section class="panel-detail-right">
+          
+          <h1>Offer Item</h1>
+          
+          
+          <br>
+          <!-- <p>Preview</p> -->
+          <img id="image-offer" class="offerDetailImg">
+          <br>
+          <br>
+          <img id="image-post" class="offerDetailImg">
+          <p id="info"></p>
+          <br>
+
+          
+          
+
+          </p>
+      </section>
+        </div>
+      </div>
+          
+            
+        
+    
+    
+    
+
+    <div id="div5" hidden>111</div>
+  </main>
+
+
+  
+  <footer>
+    <div class="footer-second">
+      <div class="footer-column-2">
+        <h3>Customer service</h3>
+        <a href="#">Contact</a>
+        <a href="#">Track your order</a>
+      </div>
+      <div class="footer-column-3">
+        <h3>About us</h3>
+        <a href="#">Who we are</a>
+        <a href="#">Our Services</a>
+      </div>
+    </div>
+    <ul class="footer-last">
+      <li>
+        <p><i class="fab fa-cc-mastercard"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-paypal"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-visa"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-amex"></i></p>
+      </li>
+    </ul>
+  </footer>
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+
+
+    var offerId = '63928aa6f9cd290b164e738c';
+    var offerData;
+
+    init();
+
+
+    function init(){
+        getOfferById();
+        getImage();
+
+        switch (offerData.wear) {
+          case '10':
+            offerData.wear = "Like New";
+            break;
+            case '8':
+            offerData.wear = "Good condition";
+            break;
+            case '6':
+            offerData.wear = "Fair condition";
+            break;
+            case'4':
+            offerData.wear = "Poor condition";
+            break;
+            case '2':
+            offerData.wear = "Need repair";
+            break;
+            case '0':
+            offerData.wear = "Sold as component";
+            break;
+        }
+
+
+        fillData();
+
+
+        console.log(offerData);
+    }
+
+    function getOfferById() {
+      $.ajax({
+        type: "get",
+        url:'/offers/offer/'+offerId,
+        cache: false,
+        async: false,
+        success: function (data) {
+            offerData = data.result;
+        }
+      })
+    }
+
+    function getImage(){
+        // document.getElementById("img").src = "images/"+imgName;
+        document.getElementById("image-offer").src = "http://localhost:3000/images/" + offerData.imgName;
+        document.getElementById("image-post").src = "http://localhost:3000/images/" + offerData.imgName;
+    }
+
+    function fillData() {
+      detailSection = document.getElementById("detailsContent");
+
+      offerIdTag = document.createElement("p");
+      offerIdTag.innerHTML = "ID:  " + offerData._id;
+
+      offerNameTag = document.createElement("p");
+      offerNameTag.innerHTML = "Item:  " + offerData.offerItem;
+
+      offerDescTag = document.createElement("p");
+      offerDescTag.innerHTML = "Description:  " + offerData.itemDesc;
+
+      offerWearTag = document.createElement("p");
+      offerWearTag.innerHTML = "Degree of Wear:  " + offerData.wear;
+
+      postItemTag = document.createElement("p");
+      postItemTag.innerHTML = "Item:  " + 123456;
+
+      postUserTag = document.createElement("p");
+      postUserTag.innerHTML = "User:  " + 123456;
+
+      postIdTag = document.createElement("p");
+      postIdTag.innerHTML = "ID:  " + 123456;
+
+      statusContent = document.createElement("h2");
+      statusContent.innerHTML = "Stauts: " + "Awaiting";
+      detailSection.appendChild(statusContent);
+      detailSection.appendChild(document.createElement("br"));
+
+      offerHeadline = document.createElement("h3");
+      offerHeadline.innerHTML = "OFFER";
+      detailSection.appendChild(offerHeadline);
+      detailSection.appendChild(offerIdTag);
+      detailSection.appendChild(offerNameTag);
+      detailSection.appendChild(offerDescTag);
+      detailSection.appendChild(offerWearTag);
+
+      detailSection.appendChild(document.createElement("br"));
+
+      postHeadline = document.createElement("h3");
+      postHeadline.innerHTML = "POST";
+      detailSection.appendChild(postHeadline);
+      detailSection.appendChild(postIdTag);
+      detailSection.appendChild(postItemTag);
+      detailSection.appendChild(postUserTag);
+    }
+    
+    
+  
+  </script>
+
+</body>
+
+</html>

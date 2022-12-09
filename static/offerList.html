@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel='stylesheet' href='../public/css/main.css' >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <!-- <script src="js/jquery-3.5.1.min.js"></script> -->
+  <!-- <script src="js/multislider.min.js"></script> -->
+
+  <link rel='stylesheet' href='../public/css/offer.css' >
+
+  <title>Entrepôt</title>
+</head>
+
+<body>
+  <!--Navbar-->
+  <nav>
+    <!--Navbar has two part the top one and the bottom one-->
+    <!--Here is top one and in this part I put logo, my account part, and the shopping cart-->
+    <div class="navbar-top">
+      <!-- <img class="logo-image" src="img/logo.JPG" /> -->
+      <div>
+        <h2 class="logo">Entrepôt</h2>
+
+        <button id="menuButton"><i class="fas fa-bars"></i></button>
+        <!--Logo-->
+      </div>
+      <div>
+        <div class="account">
+          <a href="homepage.html">
+            <button class="account-btn">
+              <i class="fas fa-user-alt"></i>
+            </button>
+            <span class="account-text">My account</span>
+          </a>
+          <!--When we click the btnShowAccountInfo this section will be displayed-->
+        </div>
+      </div>
+    </div>
+    <!-- Navbar bottom part -->
+    <!-- Here I put the links to the other pages or nav links -->
+    <div class="navbar" id="navbar">
+      <div class="links">
+        <ul>
+          <li class="nav-links">
+            <a href="homepage.html" class="link">Homepage</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_listing.html" class="link">Product Listing</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_details.html" class="link">Product Details</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_registration.html" class="link">Product Registration</a>
+          </li>
+          <li class="nav-links">
+            <a href="product_management.html" class="link">Product Management</a>
+          </li>
+          <li class="nav-links">
+            <a href="rating_feedback.html" class="link">Rating and Feedback</a>
+          </li>
+          <li class="nav-links">
+            <a href="offer_registration.html" class="link">Offer Registration</a>
+          </li>
+          <li class="nav-links">
+            <a href="offer_management.html" class="link">Offer Management</a>
+          </li>
+          <li class="nav-links">
+            <a href="deal_history.html" class="link">Deal History</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+
+  <main>
+    <section class="main-section">
+
+      <div id="currentAccept">
+        <h3>Current Accepted Offer</h3>
+
+        <div id="left-box" class="box">
+          <img id="my-item" class="img">
+        </div>
+
+        <div id="med-box" class="exchg">
+          <img id="exchg-sign">
+        </div>
+
+        <div id="right-box" class="box">
+          <img id="offer-item" class="img">
+        </div>
+
+        <div id="content-box" class="content">
+          <p >Offer Item Name:   </p>
+          <p id="offerItem" class="currentAns"></p>
+
+          <p>Deal Status:  </p>
+          <p id="offerStatus" class="currentAns"></p>
+          
+        </div>
+
+
+        <div id="buttons">
+          <button id="cancelAcceptButton" class="btn-accept">Cancel Accept</button>
+          <button id="confirmButton" class="btn-confirm">Confirm</button>
+        </div>
+
+      </div>
+
+
+
+
+      <div class="product-container">
+        <h3>Other Offers</h3>
+
+        
+        <div class="products" id="products">
+        </div>
+
+      </div>
+    </section>
+
+    <div id="div5" hidden>111</div>
+  </main>
+  <footer>
+    <div class="footer-second">
+      <div class="footer-column-2">
+        <h3>Customer service</h3>
+        <a href="#">Contact</a>
+        <a href="#">Track your order</a>
+      </div>
+      <div class="footer-column-3">
+        <h3>About us</h3>
+        <a href="#">Who we are</a>
+        <a href="#">Our Services</a>
+      </div>
+    </div>
+    <ul class="footer-last">
+      <li>
+        <p><i class="fab fa-cc-mastercard"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-paypal"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-visa"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-amex"></i></p>
+      </li>
+    </ul>
+  </footer>
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+    <script type="text/javascript" src='../public/js/offersList.js'></script>
+  <!-- <script >
+      window.onload=function(){
+        init();
+      }
+    
+  //   var postId = "67891012a";
+
+  //   function getAll() {
+  //     var result;
+  //     $.ajax({
+  //     data: "get",
+  //     url:'/offers/'+postId,
+  //     cache: false,
+  //     async: false,
+  //     success: function (data) {
+  //       result = data}
+      
+  //   })
+  //   return result;
+  // }
+  //   var exchg = "../public/offerUploads/exchg.png";
+  //   var data;
+
+  //   init();
+
+  //   function init() {
+  //     // get all the offer of a ceratin post
+  //     data = getAll().result;
+  //     // show the current accepted offer
+  //     currentAccept();
+  //     // show the offers list
+  //     bindList();
+  //   }
+
+  //   function getImage(tagName,imgName){
+  //       document.getElementById(tagName).src = "images/"+imgName;
+  //   }
+   
+  //   function currentAccept(){
+
+  //     flag = false;
+
+  //     offerImg = document.getElementById("offer-item");
+  //     myImg = document.getElementById("my-item");
+  //     myImg.src = stus[1].img;
+  //     exchgImg = document.getElementById("exchg-sign");
+  //     exchgImg.src = exchg;
+
+  //     offerStatus = document.getElementById("offerStatus");
+  //     offerItem = document.getElementById("offerItem");
+  //     if(flag){
+        
+  //       offerImg.src = stus[3].img;
+  //       offerStatus.innerHTML = "Offer Accepted";
+  //       offerItem.innerHTML = stus[0].offerItem;
+  //     }else{
+  //       offerImg.src = "../public/offerUploads/no.png";
+  //       offerStatus.innerHTML = "None";
+  //       offerItem.innerHTML = "None";
+  //     }
+  //   }
+
+  //   function bindList(){
+  //     var products = document.getElementById('products'); //找到tbody标签
+
+  //     for (var i = 0; i < data.length; i++) { //对stus进行循环遍历，并建立tr标签
+
+  //         var div1 = document.createElement('div');
+  //         div1.className = "product";
+  //         products.appendChild(div1);
+  //         var div2 = document.createElement('div');
+  //         div2.className = "product-under";
+  //         div1.appendChild(div2);
+
+  //         figure = document.createElement("figure");
+  //         figure.className = "product-image";
+  //         div2.appendChild(figure);
+
+
+  //         imgName = data[i].imgName;
+  //         img = document.createElement("img");
+  //         img.src = "images/"+imgName;
+  //         img.alt=data[i].offerItem;
+  //         figure.appendChild(img);
+
+  //         div3 = document.createElement("div");
+  //         div3.className = "product-over";
+  //         figure.appendChild(div3);
+
+  //         button = document.createElement("button");
+  //         button.className = "btn btn-small";
+  //         button.innerHTML = "Accept";
+  //         div3.appendChild(button);
+
+  //         a = document.createElement("a");
+  //         a.href = "";
+  //         a.className = "btn btn-small";
+  //         a.innerHTML = "Product Details";
+  //         div3.appendChild(a);
+
+  //         div4 = document.createElement("div");
+  //         div4.className = "product-summary";
+  //         div2.appendChild(div4);
+
+  //         h4 = document.createElement("h4");
+  //         h4.className = "productName";
+  //         h4.innerHTML = data[i].offerItem;
+  //         div4.appendChild(h4);
+
+  //         span = document.createElement("span");
+  //         span.className = "stars";
+  //         div4.appendChild(span);
+
+  //         p = document.createElement("p");
+  //         p.innerHTML = data[i].itemDesc;
+  //         div4.appendChild(p);
+  //   }
+  // }
+    
+
+  </script> -->
+
+
+ 
+</body>
+
+</html>

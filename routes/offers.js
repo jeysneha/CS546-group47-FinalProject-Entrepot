@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
-const offerData = data.offer;
+const offerData = data.offers;
 // const path = require('path');
 // const session = require('express-session');
 // const { rmSync } = require('fs');
@@ -20,6 +20,28 @@ router.route("/").get(async (req, res) => {
   res.sendFile(path.resolve('static/offerList.html'));
 });
 
+router.route("/myOffers").get(async (req, res) => {
+  //
+  res.sendFile(path.resolve('static/myOffers.html'));
+});
+
+router.route("/createOffer").get(async (req, res) => {
+  //
+  res.sendFile(path.resolve('static/createOffer.html'));
+});
+
+router.route("/page/offer/:offerId").get(async (req, res) => {
+  //
+  res.sendFile(path.resolve('static/offerDetail.html'));
+});
+
+
+
+// router.route("/offers/received/:postId").get(async (req, res) => {
+//   // Routes for displaying the offer list page
+//   res.render("offerList", {postId:req.params.postId});
+// });
+
 
 
 router.route("/images/:imgName").get(async (req, res)=>{
@@ -29,7 +51,7 @@ router.route("/images/:imgName").get(async (req, res)=>{
 
 
 
-router.route("/offers/:postId").get(async (req, res)=>{
+router.route("/:postId").get(async (req, res)=>{
   // Route for fetching all the offers of a ceratin post
   postId = req.params.postId;
   // console.log(typeof postId)
@@ -42,7 +64,7 @@ router.route("/offers/:postId").get(async (req, res)=>{
   res.status(200).json({code:200, result:offers});
 })
 
-router.route("/offers/offer/:offerId").get(async (req, res)=>{
+router.route("/offer/:offerId").get(async (req, res)=>{
   // Route for feteching a ceratin offer
   offerId = req.params.offerId;
   // console.log(typeof postId)
@@ -51,14 +73,15 @@ router.route("/offers/offer/:offerId").get(async (req, res)=>{
   }catch(e){
     return res.status(404).json({code:404, result:e});
   }
-  
-  res.status(200).json({code:200, result:offer});
+
+  res.render("offers/offerDetail", {code:200, result:JSON.stringify(offer)})
+  // res.status(200).json({code:200, result:offer});
 })
 
 
-router.post('/offers',multipartMiddleware,async (req, res) => {
+router.post('/',multipartMiddleware,async (req, res) => {
   // Route for creating a new offer to the database
-
+  console.log(req.body);
   // console.log(req.files.upload_image);
   // console.log(req.body.offerItem);
 
@@ -66,19 +89,21 @@ router.post('/offers',multipartMiddleware,async (req, res) => {
   var senderId = req.body.senderId;
 
   // 之后应改成这个
+  // 👇
   // var senderId = req.session.user.userId;
 
   var sellerId = req.body.sellerId;
   // 之后应改成这个
+  // 👇
   // var sellerId = postData.getPostById(sellerId);
 
-  
+  var wear = req.body.wear;
   var offerItem = req.body.offerItem;
   var itemDesc = req.body.itemDesc;
   var file = req.files.upload_image;
 
   try{
-    result = await offerData.createOffer(senderId, sellerId, postId, offerItem, itemDesc, file);
+    result = await offerData.createOffer(senderId, sellerId, postId, offerItem, itemDesc, wear, file);
   }catch(e) {
     return res.status(404).json({code:404, result:e});
   }
@@ -88,7 +113,7 @@ router.post('/offers',multipartMiddleware,async (req, res) => {
 })
 
 
-router.put('/offers/offer/:offerId',multipartMiddleware,async (req, res) => {
+router.put('/offer/:offerId',multipartMiddleware,async (req, res) => {
   // Route for editing an offer
 
   // console.log(req.files.upload_image);
@@ -98,6 +123,7 @@ router.put('/offers/offer/:offerId',multipartMiddleware,async (req, res) => {
 
 
   var senderId = "buyer";
+  // 👇
   // var senderId = req.session.user.userId;
 
   var offerItem = req.body.offerItem;
@@ -117,11 +143,12 @@ router.put('/offers/offer/:offerId',multipartMiddleware,async (req, res) => {
 
 
 
-router.delete('/offers/offer/:offerId',async (req, res) => {
+router.delete('/offer/:offerId',async (req, res) => {
 
   var offerId = req.params.offerId;
 
   var senderId = "buyer";
+  // 👇
   // var senderId = req.session.user.userId;
 
   try{
@@ -137,12 +164,13 @@ router.delete('/offers/offer/:offerId',async (req, res) => {
 
 
 
-router.put('/offers/status/accept/:offerId',async (req, res) => {
+router.put('/status/accept/:offerId',async (req, res) => {
 
   var offerId = req.params.offerId;
   var newAcceptStatus = req.body.newAcceptStatus;
 
   var sellerId = "seller";
+  // 👇
   // var sellerId = req.session.user.userId;
 
 
@@ -157,18 +185,20 @@ router.put('/offers/status/accept/:offerId',async (req, res) => {
 
 })
 
-router.put('/offers/status/confirmBySeller/:offerId',async (req, res) => {
+router.put('/status/confirmBySeller/:offerId',async (req, res) => {
 
   var offerId = req.params.offerId;
 
   var sellerId = "seller";
+  // 👇
   // var sellerId = req.session.user.userId;
 
   try{
     result = await offerData.confirmOfferBySeller(offerId, sellerId);
   }
   catch(e){
-    return res.status(404).json({code:404, result:e});
+    console.log(e);
+    return res.json({code:404, result:e});
   }
 
   res.status(200).json({code:200,result:result});
@@ -176,11 +206,12 @@ router.put('/offers/status/confirmBySeller/:offerId',async (req, res) => {
 })
 
 
-router.put('/offers/status/confirmByBuyer/:offerId',async (req, res) => {
+router.put('/status/confirmByBuyer/:offerId',async (req, res) => {
 
   var offerId = req.params.offerId;
 
   var buyerId = "buyer";
+  // 👇
   // var buyerId = req.session.user.userId;
 
   try{
@@ -192,6 +223,28 @@ router.put('/offers/status/confirmByBuyer/:offerId',async (req, res) => {
 
   res.status(200).json({code:200,result:result});
 
+})
+
+
+
+
+router.get('/mySent/:userId', async (req, res) => {
+  // 'offers/mySent' 👆
+  var userId = req.params.userId;
+  // 👇 之后改
+  // var userId  = req.session.user.userId;
+
+  try{
+    result = await offerData.getOffersByUserId(userId);
+  }catch (e) {
+    return res.status(404).json({code:404, result:e})
+  }
+
+  res.status(200).json({code:200, result:result})
+})
+
+router.get("/offers/page/edit/:offerId" , async (req, res) => {
+  res.render("editOffer");
 })
 
 
