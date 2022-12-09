@@ -2,7 +2,7 @@
 
 <h1>{{title}}</h1>
 
-<main>
+<body>
 
     {{#if hasErrors}}
         <p class="error">
@@ -11,8 +11,39 @@
     {{/if}}
 
     <form action="/review/addReview/6387f1fd73e6af3e6a39b074" method="post">
+     <main class="main">
+            <section class="container">
+              <div class="title">
+                <h2>Reviews Card</h2>
+                <div class="underline"></div>
+              </div>
+              <article class="review">
+                
+                <label for="titleInput">
+                    Title:
+                </label>
+                <input id="titleInput" name="titleInput"/>
 
-        <label for="titleInput">
+                <label for="ratingInput">
+                    Rating:
+                </label>
+                <input id="ratingInput" name="ratingInput" type="number"/>
+                
+                <label for="bodyInput">
+                    Description:
+                </label>
+                <textarea id="bodyInput" name="bodyInput" rows="5" width="50%"></textarea>
+
+                <div class="btn">
+                <button class="reviewbutton" type="submit">Submit</button>
+                </div>
+                
+                
+              </article>
+            </section>
+          </main>
+
+        {{!-- <label for="titleInput">
             Title:
         </label>
         <input id="titleInput" name="titleInput"/>
@@ -36,6 +67,6 @@
         <button type="submit">Submit</button>
 
 
-    </form>
+    </form> --}}
 
-</main>
+</body>
