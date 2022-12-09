@@ -1,0 +1,29 @@
+{
+  "name": "entrepot",
+  "version": "1.0.0",
+  "description": "This is the final group project for cs-546",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeysneha/cs546-group47-FinalProject.git"
+  },
+  "author": "Group-47",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeysneha/cs546-group47-FinalProject/issues"
+  },
+  "homepage": "https://github.com/jeysneha/cs546-group47-FinalProject#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "express-session": "^1.17.3",
+    "mongodb": "^4.12.1",
+    "nodemon": "^2.0.20"
+  },
+  "keywords": []
+}

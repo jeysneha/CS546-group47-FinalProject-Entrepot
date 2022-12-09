@@ -1,0 +1,88 @@
+<main class="signup-page">
+    <div class="signup-content">
+        <div class="signup-error">
+            {{#if hasErrors}}
+                <p class="error">
+                    {{error}}
+                </p>
+            {{/if}}
+        </div>
+
+        <form action="/register" method="post" id="registration-form" class="signup-form">
+            <h3> Welcome to Entrepôt </h3>
+
+            <label for="usernameInput"></label>
+            <input
+            type="text"
+            id="usernameInput"
+            name="usernameInput"
+            placeholder="username"/>
+
+            <label for="emailInput"></label>
+            <input
+            name="emailInput"
+            id="emailInput"
+            placeholder="email"/>
+
+            <label for="passwordInput"></label>
+            <input
+            type="password"
+            id="passwordInput"
+            name="passwordInput"
+            placeholder="password"/>
+
+
+            <button type="submit">Submit</button>
+            <br>
+            <a href="/login" class="login-link">Click here to log-in!</a>
+        </form>
+    </div>
+        
+</main>
+
+
+
+
+{{!-- <h1>{{title}}</h1>
+
+
+<main>
+
+    {{#if hasErrors}}
+        <p class="error">
+            {{error}}
+        </p>
+    {{/if}}
+
+    <form action="/register" method="post" id="registration-form">
+
+        <label for="usernameInput">
+            username:
+        </label>
+        <input id="usernameInput" name="usernameInput"/>
+
+        <br>
+
+        <label for="emailInput">
+            E-mail:
+        </label>
+        <input id="emailInput" name="emailInput"/>
+
+        <br>
+
+        <label for="passwordInput">
+            password:
+        </label>
+        <input id="passwordInput" name="passwordInput" type="password"/>
+
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="/login">Already have an account? Click here to log-in!</a>
+
+</main> --}}
