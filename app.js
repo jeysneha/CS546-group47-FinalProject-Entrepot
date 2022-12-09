@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+<<<<<<< HEAD
 // const static = express.static(__dirname + '/public');
 const publicPath = path.resolve(__dirname, "public");
 const exphbs = require("express-handlebars");
@@ -14,6 +15,37 @@ app.use(express.json()); //middleware
 app.use(express.urlencoded({ extended: true })); // another middleware
 
 app.engine("handlebars", exphbs.engine({ defaultLayout: "main" })); //look for the template in views directory - layouts
+=======
+// const publicPath = path.resolve(__dirname, "/public");
+const session = require("express-session");
+const exphbs = require("express-handlebars");
+const configRoutes = require("./routes");
+
+const Handlebars = require("handlebars");
+
+
+const handlebarsInstance = exphbs.create({
+    defaultLayout: 'main',
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        asJSON: (obj, spacing) => {
+            if (typeof spacing === 'number')
+                return new Handlebars.SafeString(JSON.stringify(obj, null, spacing));
+
+            return new Handlebars.SafeString(JSON.stringify(obj));
+        }
+    },
+    partialsDir: ['views/partials/']
+});
+
+
+app.use('/public', express.static(__dirname + '/public'));
+// app.use(express.static(publicPath));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.engine("handlebars", handlebarsInstance.engine);
+>>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
 app.set("view engine", "handlebars");
 
 app.use(

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #feedback {
     max-width: 60%;
     width: 100%;
@@ -328,3 +329,147 @@
     border-color: #01549b;
   }
   
+=======
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+img {
+  max-width: 100%;
+}
+
+.main {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #85FFBD; */
+  /* background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%); */
+}
+
+.container {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  margin: 40px 0px;
+}
+
+.title h2 {
+  font-size: 50px;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+}
+
+.title .underline {
+  width: auto;
+  height: 4px;
+  background-color: #060706;
+  margin: 0 auto;
+}
+
+.review {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  /* background-color: #12192c; */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-family: "Open Sans", sans-serif;
+  border-radius: 12px;
+}
+
+#person-img {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0px 0px 6px 1px rgba(0, 0, 0, 0.5);
+}
+
+#author {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+  margin-top: 10px;
+  color:#FFFB7D
+}
+
+#job {
+  text-transform: uppercase;
+  line-height: 150%;
+  margin-bottom: 10px;
+  color: #85FFBD;
+}
+
+#info {
+  height: 100px;
+  font-size: 18px;
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.btn {
+  text-decoration: none;
+  border-style: none;
+  font-size: 30px;
+  margin: 0 10px;
+  color: #85FFBD;
+  cursor: pointer;
+  background-color:#12192c;
+}
+.credit a{
+  text-decoration: none;
+  color: #000;
+  font-weight: 800;
+  }
+  
+  .credit {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+   
+    color:#000;
+    text-align: center;
+  }
+  .reviewbutton{
+      background-image: linear-gradient(-180deg, #37AEE2 0%, #1E96C8 100%);
+      border-radius: .5rem;
+      box-sizing: border-box;
+      color: #FFFFFF;
+      display: flex;
+      font-size: 16px;
+      justify-content: center;
+      padding: 1rem 1.75rem;
+      text-decoration: none;
+      width: 100%;
+      border: 0;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    
+    .reviewbutton:hover {
+      background-image: linear-gradient(-180deg, #1D95C9 0%, #17759C 100%);
+    }
+    
+    @media (min-width: 768px) {
+      .reviewbutton {
+        padding: 1rem 2rem;
+      }
+    }
+>>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135

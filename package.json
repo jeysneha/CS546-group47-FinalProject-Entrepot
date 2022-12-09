@@ -22,6 +22,10 @@
     "express": "^4.18.2",
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
+<<<<<<< HEAD
+=======
+    "handlebars": "^4.7.7",
+>>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
     "mongodb": "^4.12.1",
     "nodemon": "^2.0.20"
   },

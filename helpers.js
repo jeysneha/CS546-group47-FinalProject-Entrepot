@@ -136,6 +136,7 @@ module.exports = {
             throw 'The review rating should be in range of 1-5 (inclusive)'
         }
         return rating;
+<<<<<<< HEAD
     },
  existypestring(input) {
         if (typeof input !=='string' ||input.trim().length === 0) {
@@ -171,4 +172,7 @@ module.exports = {
         
     }
       
+=======
+    }
+>>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
 }
