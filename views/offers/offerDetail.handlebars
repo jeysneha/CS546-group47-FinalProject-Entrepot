@@ -5,40 +5,32 @@
     </div>
     <div class="panel-back">
       
-        <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
+        <div style="text-align:center;padding: 3%;width: 50%;margin: auto;">
           <section class="panel-detail-left" id="detailSection">
             <h1>Offer Detail</h1>
             <div id="detailsContent" style="text-align: center;">
-
             </div>
             <br>
-
-            <a id="editButton" class="uploadImgButton" >Edit</a>
-            <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">View All My Sent</a>
-            
-
             </p>
         </section>
 
 
         <section class="panel-detail-right">
           
-          <h1>Offer Item</h1>
           
           
-          <br>
+          <p class="inputTitle">Offer Item Image</p>
           <!-- <p>Preview</p> -->
           <img id="image-offer" class="offerDetailImg">
           <br>
           <br>
+          <p class="inputTitle">Post Item Image</p>
           <img id="image-post" class="offerDetailImg">
-          <p id="info"></p>
-          <br>
-
-          
-          
-
+        
           </p>
+          <a id="editButton">Edit</a>
+          <label onclick = "document.location.href = '/offers/myOffers'" class="btn-viewMyOffers">Back To MyOffers</label>
+          {{!-- <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">Back To MyOffers</a> --}}
       </section>
         </div>
       </div>
@@ -56,7 +48,7 @@
 
     // var offerId = '63928aa6f9cd290b164e738c';
     var offerData;
-
+    var statusColor;
     
 
     init();
@@ -71,8 +63,14 @@
         allButton = document.getElementById("allMySentButton");
         console.log("================", offerData.role)
         if(offerData.role == "buyer") {
-          editButton.innerHTML = "Edit111";
-          editButton.href = "/offers/edit/"+offerId;}
+          editButton.innerHTML = "Edit";
+          if(offerData.status != -1 || offerData.status != 0) {
+            editButton.className = "edit-banned";
+            //offerData.setAttribute("disabled","disabled");
+          }else{
+            editButton.className = "uploadImgButton" ;
+          }
+        }
         else if (offerData.role == "seller") {
           editButton.hidden = true;
           allButton.innerHTML = "Back To All Offers Received";
@@ -123,22 +121,27 @@
             offerData.wear = "Sold As Component";
             break;
         }
-
+        
         switch (offerData.status) {
           case -2:
             offerData.status = "Failed";
+            statusColor = "#858585";
             break;
             case -1:
             offerData.status = "Freezed";
+            statusColor = "#00b2e9"; 
             break;
             case 0:
             offerData.status = "Awaiting";
+            statusColor = "#e68b23";
             break;
             case 1:
             offerData.status = "Accepted";
+            statusColor = "#9cc700";
             break;
             case 2:
             offerData.status = "Deal Completed";
+            statusColor = "#35bb01";
             break;
             
         }
@@ -194,13 +197,16 @@
 
       statusContent = document.createElement("p");
       statusContent.innerHTML = "Status: " + offerData.status;
+      
       statusContent.className = "detailStatus";
+      statusContent.style.backgroundColor = statusColor;
       // detailSection.appendChild(document.createElement("br"));
       detailSection.appendChild(statusContent);
       detailSection.appendChild(document.createElement("br"));
 
       offerHeadline = document.createElement("h3");
       offerHeadline.innerHTML = "OFFER";
+      offerHeadline.className = "inputTitle";
       detailSection.appendChild(offerHeadline);
       detailSection.appendChild(offerIdTag);
       detailSection.appendChild(offerNameTag);
@@ -211,6 +217,7 @@
 
       postHeadline = document.createElement("h3");
       postHeadline.innerHTML = "POST";
+      postHeadline.className = "inputTitle";
       detailSection.appendChild(postHeadline);
       detailSection.appendChild(postIdTag);
       detailSection.appendChild(postItemTag);

@@ -133,8 +133,9 @@
           <!-- <p>Preview</p> -->
           <br>
           <img id="image-preview" class="createOfferImg">
-          <p id="info"></p>
+          <p id="imgSizeInfo" class="imgSize"></p>
           <br>
+          <label onclick = "document.location.href = '/offers/myOffers'" class="uploadImgButton">Back To MyOffers</label>
           <input type="button" value="SUBMIT" id="submit" class="createOfferButton"/>
 
       </section>
@@ -221,7 +222,7 @@
 
 
     let fileInput = document.getElementById('file');
-    let info = document.getElementById('info');
+    let info = document.getElementById('imgSizeInfo');
     
   // 监听change事件:
   fileInput.addEventListener('change', function() {
