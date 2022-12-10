@@ -66,23 +66,33 @@ nav {
   justify-content: center;
   align-items: center;
   padding: 10px;
+  height: 50%;
 }
 
 nav .navbar-top {
-  max-width: 1600px;
+  max-width: 100%;
   padding: 10px;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 50%;
 }
 
-.navbar-top .logo {
+/* .navbar-top .logo {
   position: absolute;
   top: 30px;
   left: 100px;
   width: 150px;
   height: 75px;
+} */
+
+.navbar-top .logo {
+  position: relative;
+  max-height: 50px;
+  margin-left: 1%;
+  margin-top: 0%;
+  
 }
 
 #menuButton {
@@ -118,6 +128,7 @@ nav .navbar-top {
 .account-text {
   font-size: 0.9rem;
   padding: 10px;
+  width: 100px;
 }
 
 .account-btn {
@@ -294,6 +305,7 @@ nav .navbar-top {
   display: flex;
   flex-direction: row;
   position: relative;
+  height: 500px;
 }
 
 .searchbar form {
@@ -380,7 +392,8 @@ ul .nav-links {
   cursor: pointer;
   color: #333333;
   text-align: center;
-  padding: 15px;
+  padding: 5px;
+  padding-left: 25px;
 }
 
 .nav-links>a:visited,

@@ -46,7 +46,8 @@ function getAll() {
     var result;
     $.ajax({
         methods: "get",
-        url:'/offers/mySent/'+userId,
+        // url:'/offers/mySent/'+userId,
+        url:'/offers/mysent/get',
         cache: false,
         async: false,
         success: function (data) {
@@ -56,7 +57,7 @@ function getAll() {
 }
 
 function getImage(tagName,imgName){
-    document.getElementById(tagName).src = "images/"+imgName;
+    document.getElementById(tagName).src = "offers/images/"+imgName;
 }
 
 function bindList(elementId){

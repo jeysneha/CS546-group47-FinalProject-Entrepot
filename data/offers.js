@@ -132,23 +132,27 @@ module.exports = {
 
 // =================================================   Edit an offer =========================================================
   async editOffer (offerId, senderId, offerItem, itemDesc, wear, file) {
-
-
-
-    try{
-      checkResult= helpers.checkEditOffer(offerItem, itemDesc);
-    }catch(e){
-      throw e;
-    }
-    offerItem = checkResult.offerItem;
-    itemDesc = checkResult.itemDesc;
-
+    
     offersCollection = await offers();
     try {
       originalOffer = await this.getOfferById(offerId);
     }catch(e){
       throw e;
     }
+
+
+
+
+    try{
+      checkResult= helpers.checkEditOffer(offerItem, itemDesc, wear, originalOffer);
+    }catch(e){
+      throw e;
+    }
+
+    offerItem = checkResult.offerItem;
+    itemDesc = checkResult.itemDesc;
+    wear = checkResult.wear;
+
 
     if(originalOffer.senderId != senderId){
       throw "Error: You have no authority to edit this offer";

@@ -18,6 +18,7 @@ const multipartMiddleware = multiparty();
 router.route("/").get(async (req, res) => {
   //
   // res.sendFile(path.resolve('static/offerList.html'));
+  console.log(req.session.user.userId);
   res.render("offers/offerList", {
     title: 'Entrepôt - Offer List',
   });
@@ -86,6 +87,12 @@ router.route("/:postId").get(async (req, res)=>{
 
 router.route("/offer/:offerId").get(async (req, res)=>{
   // Route for feteching a ceratin offer
+  console.log(req.url.split("?"));
+  var msg;
+  if(req.url.split("?").length == 2){
+    console.log("yesyes");
+    msg = "You have successfully created an offer!";
+  }
   offerId = req.params.offerId;
   // console.log(typeof postId)
   try{
@@ -93,6 +100,16 @@ router.route("/offer/:offerId").get(async (req, res)=>{
   }catch(e){
     return res.status(404).json({code:404, result:e});
   }
+  console.log("testest: ",req.session.user.userId.toString())
+  if(offer.senderId == req.session.user.userId.toString()) {
+    offer.role = "buyer";
+  } else if (offer.sellerId == req.session.user.userId.toString()) {
+    offer.role = "seller";
+  }
+  if (msg != null) {
+    offer.msg = msg;
+  }
+  
 
   res.render("offers/offerDetail", {
     title: 'Entrepôt - Offer Detail',
@@ -110,11 +127,11 @@ router.post('/',multipartMiddleware,async (req, res) => {
   // console.log(req.body.offerItem);
 
   var postId = req.body.postId;
-  var senderId = req.body.senderId;
+  // var senderId = req.body.senderId;
 
   // 之后应改成这个
   // 👇
-  // var senderId = req.session.user.userId;
+  var senderId = req.session.user.userId;
 
   var sellerId = req.body.sellerId;
   // 之后应改成这个
@@ -146,9 +163,9 @@ router.put('/offer/:offerId',multipartMiddleware,async (req, res) => {
   var offerId = req.params.offerId;
 
 
-  var senderId = "buyer";
+  // var senderId = "buyer";
   // 👇
-  // var senderId = req.session.user.userId;
+  var senderId = req.session.user.userId;
 
   var offerItem = req.body.offerItem;
   var itemDesc = req.body.itemDesc;
@@ -171,9 +188,9 @@ router.delete('/offer/:offerId',async (req, res) => {
 
   var offerId = req.params.offerId;
 
-  var senderId = "buyer";
+  // var senderId = "buyer";
   // 👇
-  // var senderId = req.session.user.userId;
+  var senderId = req.session.user.userId;
 
   try{
     result = await offerData.removeOffer(offerId, senderId);
@@ -251,13 +268,14 @@ router.put('/status/confirmByBuyer/:offerId',async (req, res) => {
 
 
 
-
-router.get('/mySent/:userId', async (req, res) => {
+// router.get('/mySent/:userId', async (req, res) => {
+router.get('/mysent/get', async (req, res) => {
   // 'offers/mySent' 👆
-  var userId = req.params.userId;
+  // var userId = req.params.userId;
   // 👇 之后改
-  // var userId  = req.session.user.userId;
-
+  var userId  = req.session.user.userId.toString();
+  // console.log(userId);
+  // console.log("11111111111")
   try{
     result = await offerData.getOffersByUserId(userId);
   }catch (e) {

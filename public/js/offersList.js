@@ -1,7 +1,9 @@
 
 
 
-var postId = "67891012aed";
+// var postId = "67891012aed";
+var postId = "post00001";
+
 
 function getAll() {
     var result;

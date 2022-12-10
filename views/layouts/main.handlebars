@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link type="text/css" href="/public/css/main.css" rel="stylesheet" />
-    <link type="text/css" href="/public/main-styles.css" rel="stylesheet" />
+    {{!-- <link type="text/css" href="/public/main-styles.css" rel="stylesheet" /> --}}
     <link type="text/css" href="/public/profile.css" rel="stylesheet" />
     <link rel='stylesheet' href='/public/css/offer.css' >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
@@ -24,17 +24,39 @@
     <!--Navbar-->
     <nav>
         <div class="navbar-top">
-            <div>
-                <button id="menuButton"><i class="fas fa-bars"></i></button>
+            <div style="margin-top: 0%;">
+                {{!-- <button id="menuButton"><i class="fas fa-bars"></i></button> --}}
                 <!--Logo-->
                 <a href="index.html">
-                    <h2 class="logo">LOGO</h2>
+                    {{!-- <h2 class="logo">LOGO</h2> --}}
                     <img class="logo" src="/public/images/logo.JPG" />
                 </a>
             </div>
+            <div class="navbar" id="navbar">
+                <div class="links">
+                    <ul>
+
+                        <li class="nav-links">
+                            <a href="index.html" class="link">Product Listing</a>
+                        </li>
+                        <li class="nav-links">
+                            <a href="product_details.html" class="link">Product Details</a>
+                        </li>
+                        <li class="nav-links">
+                            <a href="offer_management.html" class="link">My Posts</a>
+                        </li>
+                        <li class="nav-links">
+                            <a href="/offers/myOffers" class="link">My Sent</a>
+                        </li>
+                        <li class="nav-links">
+                            <a href="deal_history.html" class="link">Deal History</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
             <div>
                 <!--My account part-->
-                <div class="account">
+                <div style="width: 200px; margin-right:0px">
                     <a href="/user/profile">
                         <button class="account-btn">
                             <i class="fas fa-user-alt"></i>
@@ -48,25 +70,7 @@
         <!-- Navbar bottom part -->
 
         <!-- Here I put the links to the other pages or nav links -->
-        <div class="navbar" id="navbar">
-            <div class="links">
-                <ul>
-
-                    <li class="nav-links">
-                        <a href="index.html" class="link">Product Listing</a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="product_details.html" class="link">Product Details</a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="offer_management.html" class="link">Offer Management</a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="deal_history.html" class="link">Deal History</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        
     </nav>
 
 
