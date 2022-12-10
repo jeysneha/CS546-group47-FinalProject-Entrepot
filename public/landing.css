@@ -174,15 +174,7 @@
 
 
 
-  .login-form button {
-    margin: 6px 0;
-    height: 36px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-    padding: 0 14px;
-    color: #3d5245;
-  }
+  
   .toblack{
     color:#07051a;
   }
