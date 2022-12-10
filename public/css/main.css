@@ -27,7 +27,7 @@ body {
   scrollbar-width: none;
 }
 
-body::webkit-scrollbar {
+body webkit-scrollbar {
   display: none;
 }
 
@@ -179,7 +179,7 @@ nav .navbar-top {
 
 .hide {
   display: none;
-  visibility: none;
+  visibility: hidden;
 }
 
 .producstOnCart ul {
@@ -367,7 +367,7 @@ nav .navbar-top {
 
 .links {
   position: relative;
-  display: inline-blo;
+  display: inline-block;
   margin: auto;
 }
 
