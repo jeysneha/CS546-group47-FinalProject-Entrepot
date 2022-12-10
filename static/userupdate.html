@@ -4,17 +4,22 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link type="text/css" href=".././public/main-styles.css" rel="stylesheet" />
+    <link type="text/css" href=".././public/css/main.css" rel="stylesheet" />
+    <link type="text/css" href=".././public/landing.css" rel="stylesheet" />
+    <link type="text/css" href=".././public/profile.css" rel="stylesheet" />
+    <link rel='stylesheet' href='.././public/css/offer.css' >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="JS/jquery-3.5.1.min.js"></script>
+    
+<!--    <script src="JS/jquery-3.5.1.min.js"></script>-->
 
-    <title>Entrepôt</title>
-    <title>{{{ title }}}</title>
+<!--    <title>Entrepôt</title>-->
+    <title>{{ title }}</title>
 </head>
+
 <body>
     <!--Navbar-->
     <nav>
@@ -30,7 +35,7 @@
             <div>
                 <!--My account part-->
                 <div class="account">
-                    <a href="index.html">
+                    <a href="/user/profile">
                         <button class="account-btn">
                             <i class="fas fa-user-alt"></i>
                         </button>
@@ -41,6 +46,7 @@
             </div>
         </div>
         <!-- Navbar bottom part -->
+
         <!-- Here I put the links to the other pages or nav links -->
         <div class="navbar" id="navbar">
             <div class="links">
@@ -68,61 +74,50 @@
 
 
 
-        <body>
-            
+    <body calss="userUpdate-page">
+        <div class="userUpdate-error">
+            {{# if hasErrors}}
+                <p>{{error}}</p>
+            {{/if}}
+        </div>
+        <section class="container">
+
+                <form class="userUpdate-content" role="form" action="/user/update" method="post" id="userUpdate-form">
+                    <input name = '_method' value="PUT" hidden/>
+                    
+                    <label for="usernameInput">Username:</label>
+                    <input class="form-control" id="usernameInput" name="usernameInput" type="text" >
+
+                    <label for="emailInput">Email:</label>
+                    <input class="form-control" id="emailInput" name="emailInput" type="text" >
+           
+                    <label for="originPasswordInput">Old Password:</label>
+                    <input class="form-control" id="originPasswordInput" name="originPasswordInput" type="password" >
+                  
+                    <label for="newPasswordInput">New Password:</label>
+                    <input class="form-control" id="newPasswordInput" name="newPasswordInput" type="password" >
+                    
+                    <br>
+                    <button type="submit" class="button-4" style="margin-right: 30px">Submit</button>
+                    <a href="/user/profile" class="button-4">Cancel</a>
+                
+                </form>
+
+        </section>
+    </body>
 
 
-
-<div>
-
-    <div class="container">
-    <form action="/user/update" method="post" id="userUpdate-form" class="loginform">
-        <input name = '_method' value="PUT" hidden/>
-
-        <label for="usernameInput">
-            username:
-        </label>
-        <input id="usernameInput" name="usernameInput"/>
-
-        <label for="emailInput">
-            E-mail:
-        </label>
-        <input id="emailInput" name="emailInput"/>
-
-        <label for="originPasswordInput">
-            Old Password:
-        </label>
-        <input id="originPasswordInput" name="originPasswordInput" type="password"/>
-
-        <label for="newPasswordInput">
-            New Password:
-        </label>
-        <input id="newPasswordInput" name="newPasswordInput" type="password"/>
-        <br>
-        <button type="submit" class="button-4" >Submit</button> 
-        <br>
-        <a href="/user/profile" class="button-4">Cancel</a>
-    </form>
-     </div>
-
-
-</main>
-        </body>
-
-    
-
-
-    <footer>
+    <footer class="main-footer">
         <div class="footer-second">
             <div class="footer-column-2">
                 <h3>Customer service</h3>
-                <a href="#">Contact</a>
+                <a href="/static/contact.html">Contact Us</a>
                 <a href="#">common questions</a>
             </div>
             <div class="footer-column-3">
                 <h3>About us</h3>
-                <a href="#">Who we are</a>
-                <a href="#">Our Services</a>
+                <a href="/static/landingpage.html">Who we are</a>
+                <a href="/static/privacy_policy.html">Privacy Policy</a>
             </div>
         </div>
         <ul class="footer-last">
@@ -144,8 +139,11 @@
             Copyright 2022 Entrepôt group
         </div>
     </footer>
-    <script src="JS/script.js"></script>
 
+    {{#if partial}}
+        {{> (lookup . 'partial') }}
+    {{/if}}
+<!--    <script src="JS/script.js"></script>-->
 </body>
 
 </html>
