@@ -42,12 +42,12 @@ module.exports = {
     },
 
 
-    checkEditOffer(offerItem, itemDesc){
-        if(arguments.length!=2){
-            throw "Error: Offer input arguments are not complete"
-        }
+    checkEditOffer(offerItem, itemDesc, wear, originalOffer){
+        // if(arguments.length!=2){
+        //     throw "Error: Offer input arguments are not complete"
+        // }
     
-        if(typeof offerItem!='string' || typeof itemDesc!='string'){
+        if(typeof offerItem!='string' || typeof itemDesc!='string' || typeof wear != "string"){
             throw "Error: Wrong input type";
         }
 
@@ -67,9 +67,13 @@ module.exports = {
             throw "Error: The description of offering item cannot exceed 200 characters.";
         }
 
+        if(offerItem == originalOffer.offerItem && itemDesc == originalOffer.itemDesc && wear == originalOffer.wear) {
+            throw "Error: The content are the same as original content.";
+        }
         return {
             offerItem: offerItem,
-            itemDesc: itemDesc
+            itemDesc: itemDesc,
+            wear:wear
         }
 
 

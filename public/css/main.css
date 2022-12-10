@@ -66,23 +66,33 @@ nav {
   justify-content: center;
   align-items: center;
   padding: 10px;
+  height: 50%;
 }
 
 nav .navbar-top {
-  max-width: 1600px;
+  max-width: 100%;
   padding: 10px;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 50%;
 }
 
-.navbar-top .logo {
+/* .navbar-top .logo {
   position: absolute;
   top: 30px;
   left: 100px;
   width: 150px;
   height: 75px;
+} */
+
+.navbar-top .logo {
+  position: relative;
+  max-height: 50px;
+  margin-left: 1%;
+  margin-top: 0%;
+  
 }
 
 #menuButton {
@@ -118,6 +128,7 @@ nav .navbar-top {
 .account-text {
   font-size: 0.9rem;
   padding: 10px;
+  width: 100px;
 }
 
 .account-btn {
@@ -294,6 +305,7 @@ nav .navbar-top {
   display: flex;
   flex-direction: row;
   position: relative;
+  height: 500px;
 }
 
 .searchbar form {
@@ -380,7 +392,8 @@ ul .nav-links {
   cursor: pointer;
   color: #333333;
   text-align: center;
-  padding: 15px;
+  padding: 5px;
+  padding-left: 25px;
 }
 
 .nav-links>a:visited,
@@ -854,4 +867,44 @@ footer .footer-second {
   }
 
 
+}
+.center {
+  margin: auto;
+  width: 50%;
+  text-align:center;
+  padding: 10px;
+}
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("https://starry-lixu.oss-cn-hangzhou.aliyuncs.com/202209141908599.jpg") fixed no-repeat;
+  background-size: cover;
+}
+.login-form {
+  width: 240px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  text-align: center;
+  position: relative;
+  z-index: 100;
+  background: inherit;
+  border-radius: 18px;
+  overflow: hidden; /* 隐藏多余的模糊效果*/
+}
+.login-form button {
+  margin: 6px 0;
+  height: 36px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  padding: 0 14px;
+  color: #3d5245;
+}
+.toblack{
+  color:#07051a;
 }

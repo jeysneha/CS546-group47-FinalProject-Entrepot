@@ -14,9 +14,10 @@
     font-weight: bold;
 }
 .login-page, .signup-page, .landing-page, .userUpdate-page {
-    width: 80%;
+    width:80%;
     height: 70vh;
     margin-left: 10%;
+    margin-right: 10%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,9 +32,10 @@
     color: #D0342C;
 }
 .login-form, .signup-form {
-    width: 350px;
+    width: 50%;
     height: 280px;
     margin-left: 25%;
+    margin-right: 25%;
     display: flex;
     flex-direction: column;
     padding: 40px;
@@ -169,28 +171,10 @@
     background: url("https://starry-lixu.oss-cn-hangzhou.aliyuncs.com/202209141908599.jpg") fixed no-repeat;
     background-size: cover;
   }
-  .login-form {
-    width: 240px;
-    height: 220px;
-    display: flex;
-    flex-direction: column;
-    padding: 40px;
-    text-align: center;
-    position: relative;
-    z-index: 100;
-    background: inherit;
-    border-radius: 18px;
-    overflow: hidden; /* 隐藏多余的模糊效果*/
-  }
-  .login-form button {
-    margin: 6px 0;
-    height: 36px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-    padding: 0 14px;
-    color: #3d5245;
-  }
+
+
+
+ 
   .toblack{
     color:#07051a;
   }
