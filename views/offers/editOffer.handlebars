@@ -1,0 +1,237 @@
+  
+    <!-- <div class="alertMessage" id="errorBox">
+      <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+      
+    </div> -->
+    <div class="panel-back">
+        
+            <section class="panel">
+                <h1> Update offer</h1>
+                <label class = "inputTitle">
+                        Your offer Id
+                </label>
+                <p id="offerId" ></p>
+
+
+                <label for="postId" id="formLabel" class = "inputTitle">
+                        Desired Item Name	
+                </label>
+                
+                <form enctype="multipart/form-data" id="file_upload">
+                <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
+        
+                    <p id="postName" name="postId">Old sneakers</p>
+                    <p id="senderId" name="senderId" hidden>buyer</p>
+                    <br>
+                    <label for="offerItem" id="formLabel" class = "inputTitle">
+                        Offer Item Name	
+                    </label><br>
+                    <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="Offer Item Name">
+                    <br>
+                    <br>
+            
+                    <label for="itemDesc" id="formLabel" class = "inputTitle">
+                      Degree of wear	
+                    </label><br>
+                    <select class="createInputWear" id = "wear">
+                      <option value="10">Like New</option>
+                      <option value="8">Good Condition</option>
+                      <option value="6">Fair Condition</option>
+                      <option value="4">Poor Condition</option>
+                      <option value="2">Need Repair</option>
+                      <option value="0">Sold As Component</option>
+                    </select>
+                      </input>
+                    <br>
+                    <br>
+
+                    <label for="itemDesc" id="formLabel" class = "inputTitle">
+                        Offer Item Description	
+                    </label><br>
+                    <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc"></textarea>
+                    <br>
+                    <br>
+        
+
+        
+                    <p>
+                    <label for="file" class="uploadImgButton">Upload Image</label>
+                    <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
+                    <!-- <p>Preview</p> -->
+                    <img id="image-preview" class="createOfferImg">
+                    <p id="info"></p>
+                    <br>
+                    
+                    <input type="button" value="SUBMIT" id="submit" class="createOfferButton"/>
+                    </p>
+                    
+                </form>
+        
+            </section>
+        
+    </div>
+    
+    
+
+    <div id="div5" hidden>111</div>
+  </main>
+  <footer>
+    <div class="footer-second">
+      <div class="footer-column-2">
+        <h3>Customer service</h3>
+        <a href="#">Contact</a>
+        <a href="#">Track your order</a>
+      </div>
+      <div class="footer-column-3">
+        <h3>About us</h3>
+        <a href="#">Who we are</a>
+        <a href="#">Our Services</a>
+      </div>
+    </div>
+    <ul class="footer-last">
+      <li>
+        <p><i class="fab fa-cc-mastercard"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-paypal"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-visa"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-amex"></i></p>
+      </li>
+    </ul>
+  </footer>
+
+  
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+    var flag = false;
+    var previousImg;
+    offerData = {{{result}}};
+    // console.log(offerData);
+    let preview = document.getElementById('image-preview');
+    document.getElementById("offerItem").value = offerData.offerItem;
+    document.getElementById("itemDesc").value = offerData.itemDesc;
+    document.getElementById("wear").value = offerData.wear;
+    document.getElementById("offerId").innerHTML = offerData._id;
+    preview.src = "/offers/images/" + offerData.imgName;
+    //document.getElementById("file").files[0] = "/offers/images/" + offerData.imgName;
+
+
+   function srcToFile(src, fileName, mimeType){
+    return (fetch(src)
+        .then(function(res){return res.arrayBuffer();})
+        .then(function(buf){return new File([buf], fileName, {type:mimeType});})
+    );
+    }
+    
+    srcToFile(
+            "/offers/images/" + offerData.imgName,
+            'z',
+            'image/'+ offerData.imgName.split(".")[1]
+    )
+    .then(function(file) {
+        previousImg = file;
+        console.log()
+    })
+    .then(function(result) {
+        console.log(previousImg);
+    }); 
+           
+    
+
+
+    console.log(previousImg);
+
+
+    let fileInput = document.getElementById('file');
+    let info = document.getElementById('info');
+    
+  // 监听change事件:
+  fileInput.addEventListener('change', function() {
+
+
+      // 清除背景图片:
+      preview.style.backgroundImage = '';
+      if (!fileInput.value) {
+          info.innerHTML = '没有选择文件';
+          return;
+      }
+      let file = fileInput.files[0];
+      let size = file.size;
+      if (size >= 1 * 1024 * 1024) {
+          alert('文件大小超出限制');
+          info.innerHTML = '文件大小超出限制';
+          return false;
+      }
+      // 获取File信息:
+      // info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
+      info.innerHTML = `Image Size: ${file.size/1024}`;
+      if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+          alert('不是有效的图片文件!');
+          return;
+      }
+      // 读取文件:
+      let reader = new FileReader();
+      reader.onload = function(e) {
+          let data = e.target.result;
+          console.log(preview, 'a标签')
+          preview.src = data
+      };
+
+      flag = true;
+
+      // 以DataURL的形式读取文件:
+      reader.readAsDataURL(file);
+
+  });
+
+  // var params = {};
+  var params = new FormData();
+  var submit = document.getElementById("submit");
+
+  
+
+  
+  submit.onclick = function() {
+    if (flag == true) {
+        paramFile = document.getElementById("file").files[0];
+    }else{
+        paramFile = previousImg;
+    }
+
+    console.log(paramFile);
+    params.append("upload_image",paramFile)
+    params.append("senderId", offerData.senderId);
+    params.append("postId", offerData.postId);
+    params.append("sellerId", "seller");
+    params.append("offerItem", document.getElementById("offerItem").value);
+    params.append("itemDesc", document.getElementById("itemDesc").value);
+    params.append("wear", document.getElementById("wear").value);
+
+    
+    $.ajax({
+    url: '/offers/offer/'+offerData._id,
+    data: params,
+    cache: false,
+    // contentType: 'multipart/form-data',
+    contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+    processData: false,
+    type: 'PUT',
+    success: function(data){
+      id = data.result._id;
+      document.location.href = "/offers/offer/"+id;
+    },
+    error: function(data){
+        console.log(data);
+    }
+});
+
+};
+  
+  </script>

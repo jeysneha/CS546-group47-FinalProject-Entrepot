@@ -38,7 +38,7 @@ function init() {
 }
 
 function getImage(tagName,imgName){
-    document.getElementById(tagName).src = "images/"+imgName;
+    document.getElementById(tagName).src = "/offers/images/"+imgName;
 }
 
 function currentAccept(){
@@ -67,7 +67,7 @@ function currentAccept(){
     myImg = document.getElementById("my-item");
 
     // 👇这里要改
-    myImg.src = "images/"+data[0].imgName;
+    myImg.src = "/offers/images/"+data[0].imgName;
 
     exchgImg = document.getElementById("exchg-sign");
     exchgImg.src = exchg;
@@ -82,7 +82,7 @@ function currentAccept(){
         }
 
         if(acceptedOffer != null){
-            offerImg.src = "images/"+acceptedOffer.imgName;
+            offerImg.src = "/offers/images/"+acceptedOffer.imgName;
         }else{
             offerImg.src = "";
         }
@@ -141,7 +141,7 @@ function bindList(){
 
         imgName = data[i].imgName;
         img = document.createElement("img");
-        img.src = "images/"+imgName;
+        img.src = "/offers/images/"+imgName;
         img.alt=data[i].offerItem;
         figure.appendChild(img);
 

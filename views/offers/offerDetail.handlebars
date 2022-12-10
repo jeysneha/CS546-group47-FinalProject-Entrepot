@@ -13,8 +13,8 @@
             </div>
             <br>
 
-            <a id="editButton" class="uploadImgButton" href="/">Edit</a>
-            <a id="allMySentButton" class="btn-viewMyOffers" href="/myOffers">View All My Sent</a>
+            <a id="editButton" class="uploadImgButton" >Edit</a>
+            <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">View All My Sent</a>
             
 
             </p>
@@ -54,8 +54,10 @@
   <script type="text/javascript">
 
 
-    var offerId = '63928aa6f9cd290b164e738c';
+    // var offerId = '63928aa6f9cd290b164e738c';
     var offerData;
+
+    
 
     init();
 
@@ -63,7 +65,9 @@
     function init(){
 
         offerData = {{{result}}};
-        console.log(offerData);
+        offerId  =  offerData._id;
+        document.getElementById("editButton").href = "/offers/edit/"+offerId;
+        //console.log(offerData);
         //getOfferById();
         getImage();
 

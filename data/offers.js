@@ -131,7 +131,7 @@ module.exports = {
 
 
 // =================================================   Edit an offer =========================================================
-  async editOffer (offerId, senderId, offerItem, itemDesc, file) {
+  async editOffer (offerId, senderId, offerItem, itemDesc, wear, file) {
 
 
 
@@ -184,6 +184,7 @@ module.exports = {
     const updated = {
       offerItem: offerItem,
       itemDesc: itemDesc,
+      wear: wear
     };
   
     const updatedInfo = await offersCollection.updateOne(

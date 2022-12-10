@@ -206,7 +206,7 @@ function bindList(elementId){
             editbutton = document.createElement("a");
             editbutton.className = "btn-small-accept";
             editbutton.innerHTML = "Edit";
-            editbutton.href = '/offers/page/edit/'+id;
+            editbutton.href = '/offers/edit/'+id;
             div3.appendChild(editbutton);
 
             

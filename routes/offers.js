@@ -34,12 +34,22 @@ router.route("/createOffer").get(async (req, res) => {
   res.render("offers/createOffer");
 });
 
-router.route("/page/offer/:offerId").get(async (req, res) => {
+// router.route("/page/offer/:offerId").get(async (req, res) => {
+//   //
+//   res.sendFile(path.resolve('static/offerDetail.html'));
+// });
+
+router.route("/edit/:offerId").get(async (req, res) => {
   //
-  res.sendFile(path.resolve('static/offerDetail.html'));
+  offerId = req.params.offerId;
+  // console.log(typeof postId)
+  try{
+    result = await offerData.getOfferById(offerId);
+  }catch(e){
+    return res.status(404).json({code:404, result:e});
+  }
+  res.render("offers/editOffer", {code:200, result:JSON.stringify(result)});
 });
-
-
 
 // router.route("/offers/received/:postId").get(async (req, res) => {
 //   // Routes for displaying the offer list page
@@ -132,11 +142,11 @@ router.put('/offer/:offerId',multipartMiddleware,async (req, res) => {
 
   var offerItem = req.body.offerItem;
   var itemDesc = req.body.itemDesc;
-
+  var wear = req.body.wear;
   var file = req.files.upload_image;
 
   try{
-    result = await offerData.editOffer(offerId, senderId, offerItem, itemDesc, file);
+    result = await offerData.editOffer(offerId, senderId, offerItem, itemDesc, wear, file);
   }catch(e){
     return res.status(404).json({code:404, result:e});
   }
