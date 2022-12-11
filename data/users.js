@@ -144,11 +144,11 @@ const updateUser = async (userId, username, email, originPassword, newPassword) 
     )
 
     if (updateInfo.matchedCount === 0) {
-        throw `Could not match the name of the movie with id: ${movieId}`
+        throw `Could not match the name of the user with id: ${userId}`
     }
 
     if (updateInfo.modifiedCount === 0) {
-        throw `The input information resulted in no change to the movie with id: ${movieId} `
+        throw `The input information resulted in no change to the user with id: ${userId} `
     }
 
     return {updatedUser: true};

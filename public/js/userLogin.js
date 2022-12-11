@@ -2,8 +2,8 @@
 
 (function() {
     let loginForm = document.getElementById('login-form');
-    let usernameInput = document.getElementById('usernameInput');
-    let passwordInput = document.getElementById('passwordInput');
+    let usernameInput = document.getElementById('login-usernameInput');
+    let passwordInput = document.getElementById('login-passwordInput');
     let loginError = document.getElementById('login-error');
 
     function validation(info) {
@@ -75,6 +75,7 @@
                 const validResult = validation(info);
                 if (!validResult.hasError) {
                     loginError.hidden = true;
+                    // loginError.removeAttribute("hidden");
                     loginForm.submit();
                 }else {
                     console.log('invalid input');

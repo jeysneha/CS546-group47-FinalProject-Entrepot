@@ -19,7 +19,7 @@ router
     .get(async (req, res) => {
         if (req.session.user) {
             //if user is authenticated
-            res.redirect('/products');
+            res.redirect('/user/profile');
         }else {
             res.render('landing/userRegister', {
                 title: 'Entrepôt - Sign-up',
@@ -82,7 +82,7 @@ router
     .route('/login')
     .get(async (req, res) => {
         if (req.session.user) {
-            res.redirect('/products');
+            res.redirect('/user/profile');
         }else {
             res.render('landing/userLogin', {
                 title: 'Entrepôt - Log-in',
@@ -134,7 +134,7 @@ router
                     username: username,
                     userId: authUser.userId
                 };
-                res.redirect('/products');
+                res.redirect('/user/profile');
             }
 
         }catch (e) {

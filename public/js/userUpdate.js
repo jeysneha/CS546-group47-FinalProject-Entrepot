@@ -1,10 +1,12 @@
 
+
 (function() {
-    let registerForm = document.getElementById('registration-form');
-    let usernameInput = document.getElementById('register-usernameInput');
-    let emailInput = document.getElementById('register-emailInput');
-    let passwordInput = document.getElementById('register-passwordInput');
-    let registerError = document.getElementById('signup-error');
+    let updateForm = document.getElementById('userUpdate-form');
+    let usernameInput = document.getElementById('userUpdate-usernameInput');
+    let emailInput = document.getElementById('userUpdate-emailInput');
+    let originPassword = document.getElementById('originPasswordInput');
+    let newPassword = document.getElementById('newPasswordInput');
+    let updateError = document.getElementById('userUpdate-error')
 
     function validation(info) {
         //username check
@@ -47,70 +49,97 @@
             }
         }
 
-        //password check
-        if (info.password.length < 6) {
+        // old password check
+        if (info.oldPassword.length < 6) {
             return {
                 hasError: true,
                 error: 'Password must contain at least 6 characters!',
             }
         }
-        if (spaceRegex.test(info.password)) {
+        if (spaceRegex.test(info.oldPassword)) {
             return {
                 hasError: true,
                 error: 'Password must not contain space!'
             }
         }
         const requireRegex = /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*\W)/;
-        if (!requireRegex.test(info.password)) {
+        if (!requireRegex.test(info.oldPassword)) {
             return {
                 hasError: true,
                 error: 'Password must contain at least 1 uppercase character, at least 1 lowercase character, at least 1 number, at least 1 special character!',
             }
         }
 
+        // new password check
+        if (info.newPassword.length < 6) {
+            return {
+                hasError: true,
+                error: 'Password must contain at least 6 characters!',
+            }
+        }
+        if (spaceRegex.test(info.newPassword)) {
+            return {
+                hasError: true,
+                error: 'Password must not contain space!'
+            }
+        }
+        if (!requireRegex.test(info.newPassword)) {
+            return {
+                hasError: true,
+                error: 'Password must contain at least 1 uppercase character, at least 1 lowercase character, at least 1 number, at least 1 special character!',
+            }
+        }
+
+        // no errors
         return {
             hasError: false,
             error: null,
         }
     }
 
-    //form event listening
-    if (registerForm) {
-        registerForm.addEventListener('submit', (event) => {
-            console.log('start listening');
+    if (updateForm) {
+        updateForm.addEventListener('submit', (event) => {
+            console.log('Start listening');
             event.preventDefault();
 
-            if (usernameInput.value.trim() && emailInput.value.trim() && passwordInput.value.trim()) {
+            if (usernameInput.value.trim() && emailInput.value.trim()
+                && originPassword.value.trim() && newPassword.value.trim()) {
+
                 let info = {
                     username: usernameInput.value.trim(),
                     email: emailInput.value.trim(),
-                    password: passwordInput.value.trim(),
+                    oldPassword: originPassword.value.trim(),
+                    newPassword: newPassword.value.trim(),
                 }
 
-                console.log('has all sign-up inputs...');
-                registerError.hidden = true;
+                console.log('has all input values...');
+                updateError.hidden = true;
 
                 //validation check
                 const validResult = validation(info);
 
                 if (!validResult.hasError) {
-                    registerError.hidden = true;
-                    registerForm.submit();
+                    updateError.hidden = true;
+                    updateForm.submit();
                 }else {
                     console.log('invalid input')
                     usernameInput.focus();
-                    passwordInput.focus();
-                    registerError.hidden = false;
-                    registerError.innerHTML = validResult.error;
+                    emailInput.focus();
+                    originPassword.focus();
+                    newPassword.focus();
+                    updateError.hidden = false;
+                    updateError.innerHTML = validResult.error;
                 }
-
             }else {
-                console.log('empty')
+                console.log('empty input')
                 usernameInput.focus();
-                passwordInput.focus();
-                registerError.hidden = false;
-                registerError.innerHTML = 'You must enter username, E-mail and password!';
+                emailInput.focus();
+                originPassword.focus();
+                newPassword.focus();
+                updateError.hidden = false;
+                updateError.innerHTML = 'You must enter username, E-mail, origin password, and new password!';
             }
+
         })
     }
 })()
