@@ -23,18 +23,16 @@
           </div>
           <div class="p-4">
             <a class="d-block h5 mb-2 text-center" href="/productListing/{{this._id}}">{{this.title}}</a>
-            <p><span class="text-secondary me-1">Menu list:</span> {{this.description}}</p>
+            <p><span class="text-secondary me-1">product list:</span> {{this.body}}</p>
             <p><span class="text-secondary me-1"></span></p>
             <table>
               <th>title</th>
               {{#each this.productListing}}
-              {{!-- <p><span class="text-secondary me-1"></span> --}}
+              <tr>
+                <td> {{this.title}}</td>
 
-                <tr>
-                  <td> {{this.title}}</td>
-
-                  <td>{{this.discription}} </td>
-                </tr>
+                <td>{{this.discription}} </td>
+              </tr>
               </p>
 
               {{/each}}
