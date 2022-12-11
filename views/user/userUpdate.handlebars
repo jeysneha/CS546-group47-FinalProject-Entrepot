@@ -1,31 +1,31 @@
-<body calss="userUpdate-page">
-        <div class="userUpdate-error">
-            {{# if hasErrors}}
-                <p>{{error}}</p>
-            {{/if}}
+<main class="userUpdate-page">
+        <div class="container">
+            <div class="userUpdate-error" id="userUpdate-error">
+                {{# if hasErrors}}
+                    <p>{{error}}</p>
+                {{/if}}
+            </div>
+
+            <form class="userUpdate-content" role="form" action="/user/update" method="post" id="userUpdate-form">
+                <input name = '_method' value="PUT" hidden/>
+
+                <label for="userUpdate-usernameInput">Username:</label>
+                <input class="form-control" id="userUpdate-usernameInput" name="usernameInput" type="text" >
+
+                <label for="userUpdate-emailInput">Email:</label>
+                <input class="form-control" id="userUpdate-emailInput" name="emailInput" type="text" >
+
+                <label for="originPasswordInput">Old Password:</label>
+                <input class="form-control" id="originPasswordInput" name="originPasswordInput" type="password" >
+
+                <label for="newPasswordInput">New Password:</label>
+                <input class="form-control" id="newPasswordInput" name="newPasswordInput" type="password" >
+
+                <br>
+                <button type="submit" class="button-4" style="margin-right: 30px">Submit</button>
+                <a href="/user/profile" class="button-4">Cancel</a>
+
+            </form>
+
         </div>
-        <section class="container">
-
-                <form class="userUpdate-content" role="form" action="/user/update" method="post" id="userUpdate-form">
-                    <input name = '_method' value="PUT" hidden/>
-                    
-                    <label for="usernameInput">Username:</label>
-                    <input class="form-control" id="usernameInput" name="usernameInput" type="text" >
-
-                    <label for="emailInput">Email:</label>
-                    <input class="form-control" id="emailInput" name="emailInput" type="text" >
-           
-                    <label for="originPasswordInput">Old Password:</label>
-                    <input class="form-control" id="originPasswordInput" name="originPasswordInput" type="password" >
-                  
-                    <label for="newPasswordInput">New Password:</label>
-                    <input class="form-control" id="newPasswordInput" name="newPasswordInput" type="password" >
-                    
-                    <br>
-                    <button type="submit" class="button-4" style="margin-right: 30px">Submit</button>
-                    <a href="/user/profile" class="button-4">Cancel</a>
-                
-                </form>
-
-        </section>
-    </body>
+</main>

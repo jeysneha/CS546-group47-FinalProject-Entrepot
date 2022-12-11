@@ -2,7 +2,7 @@
 
 <main class="login-page">
     <div class="login-content">
-        <div class="login-error">
+        <div class="login-error" id="login-error">
             {{#if hasErrors}}
                 <p>
                     {{error}}
@@ -13,25 +13,24 @@
         <form action="/login" method="post" id="login-form" class="login-form">
             <h3 class="login-title">Welcome to Entrepôt</h3>
 
-            <label for="usernameInput"></label>
+            <label for="login-usernameInput"></label>
             <input
             type="text"
-            id="usernameInput"
+            id="login-usernameInput"
             name="usernameInput"
             placeholder="username"/>
 
-            <label for="passwordInput"></label>
+            <label for="login-passwordInput"></label>
             <input
             type="password"
-            id="passwordInput"
+            id="login-passwordInput"
             name="passwordInput"
-            type="password"
             placeholder="password"/>
 
 
             <button type="submit" id="login-button">Submit</button>
             <br>
-            <a href="/register" class="signup-link">Click here to register!</a>
+            <a href="/register" target="_blank" class="signup-link">Click here to register!</a>
 
         </form>
     </div>
