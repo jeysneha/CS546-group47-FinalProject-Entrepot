@@ -1,10 +1,10 @@
 
-
 (function() {
-    let loginForm = document.getElementById('login-form');
+    let registerForm = document.getElementById('registration-form');
     let usernameInput = document.getElementById('usernameInput');
+    let emailInput = document.getElementById('emailInput');
     let passwordInput = document.getElementById('passwordInput');
-    let loginError = document.getElementById('login-error');
+    let registerError = document.getElementById('signup-error');
 
     function validation(info) {
         //username check
@@ -27,6 +27,23 @@
             return {
                 hasError: true,
                 error: 'Username must contain letters and numbers only!',
+            }
+        }
+
+        //email check
+        info.email = info.email.toLowerCase();
+        if (spaceRegex.test(info.email)) {
+            return {
+                hasError: true,
+                error: 'Email must not contain space!',
+            }
+        }
+
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
+        if (!emailRegex.test(info.email)) {
+            return {
+                hasError: true,
+                error: 'Invalid email!',
             }
         }
 
@@ -57,41 +74,43 @@
         }
     }
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', (event) => {
-            console.log('Start listening');
+    //form event listening
+    if (registerForm) {
+        registerForm.addEventListener('submit', (event) => {
+            console.log('start listening');
             event.preventDefault();
 
-            if (usernameInput.value.trim() && passwordInput.value.trim()) {
+            if (usernameInput.value.trim() && emailInput.value.trim() && passwordInput.value.trim()) {
                 let info = {
                     username: usernameInput.value.trim(),
+                    email: emailInput.value.trim(),
                     password: passwordInput.value.trim(),
                 }
 
-                console.log('has both login input...');
-                loginError.hidden = true;
+                console.log('has all sign-up inputs...');
+                registerError.hidden = true;
 
-                //check validation
+                //validation check
                 const validResult = validation(info);
+
                 if (!validResult.hasError) {
-                    loginError.hidden = true;
-                    loginForm.submit();
+                    registerError.hidden = true;
+                    registerForm.submit();
                 }else {
-                    console.log('invalid input');
+                    console.log('invalid input')
                     usernameInput.focus();
                     passwordInput.focus();
-                    loginError.hidden = false;
-                    loginError.innerHTML = validResult.error;
+                    registerError.hidden = false;
+                    registerError.innerHTML = validResult.error;
                 }
+
             }else {
                 console.log('empty')
                 usernameInput.focus();
                 passwordInput.focus();
-                loginError.hidden = false;
-                loginError.innerHTML = 'You must enter both username and password!';
+                registerError.hidden = false;
+                registerError.innerHTML = 'You must enter username, E-mail and password!';
             }
         })
     }
-})();
-
-
+})()

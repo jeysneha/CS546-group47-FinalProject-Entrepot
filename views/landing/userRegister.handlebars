@@ -1,6 +1,6 @@
 <main class="signup-page">
     <div class="signup-content">
-        <div class="signup-error">
+        <div class="signup-error" id="signup-error">
             {{#if hasErrors}}
                 <p class="error">
                     {{error}}
@@ -13,23 +13,23 @@
 
             <label for="usernameInput"></label>
             <input
-            type="text"
-            id="usernameInput"
-            name="usernameInput"
-            placeholder="username"/>
+                    type="text"
+                    id="usernameInput"
+                    name="usernameInput"
+                    placeholder="username"/>
 
             <label for="emailInput"></label>
             <input
-            name="emailInput"
-            id="emailInput"
-            placeholder="email"/>
+                    name="emailInput"
+                    id="emailInput"
+                    placeholder="email"/>
 
             <label for="passwordInput"></label>
             <input
-            type="password"
-            id="passwordInput"
-            name="passwordInput"
-            placeholder="password"/>
+                    type="password"
+                    id="passwordInput"
+                    name="passwordInput"
+                    placeholder="password"/>
 
 
             <button type="submit">Submit</button>
