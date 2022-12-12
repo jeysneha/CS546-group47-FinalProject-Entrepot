@@ -10,7 +10,8 @@ const createPost = async (
     category,
     tradeStatus,
     posterId,
-    datetime)=> {
+    // datetime
+)=> {
         if (!title||!body||!images||!category||!tradeStatus||!posterId||!datetime)
          {
             throw 'All fields need to have valid values'
@@ -23,7 +24,7 @@ const createPost = async (
          category=validation.existypestring(category);
          tradeStatus=validation.existypestring(tradeStatus);
          posterId=validation.existypestring(posterId);
-         datetime=validation.existypestring(datetime);
+         // datetime=validation.existypestring(datetime);
          const date = new Date();
          let day = date.getDate();
         let mnth = date.getMonth() + 1;
@@ -98,7 +99,8 @@ const getAllPosts = async () => {
     category,
     tradeStatus,
     posterId,
-    datetime)=> {
+    // datetime
+  )=> {
         if (!postId||!title||!body||!images||!category||!tradeStatus||!posterId||!datetime)
          {
             throw 'All fields need to have valid values'
@@ -115,7 +117,7 @@ const getAllPosts = async () => {
          category=validation.existypestring(category);
          tradeStatus=validation.existypestring(tradeStatus);
          posterId=validation.existypestring(posterId);
-         datetime=validation.existypestring(datetime);
+         // datetime=validation.existypestring(datetime);
          const date = new Date();
          let day = date.getDate();
         let mnth = date.getMonth() + 1;
@@ -131,7 +133,7 @@ const getAllPosts = async () => {
             day = '0' + day;
         }
         let datetime = `${mnth}/${day}/${yr}   ${hr}:${min}:${sec}`;
-        //tradestatuscheck
+        //tradestatus check
         tradeStatus=validation.checktradeStatus(tradeStatus);
 
         posterId=ObjectId(posterId);
@@ -155,7 +157,7 @@ const getAllPosts = async () => {
             throw 'could not update the post successfully';
           }
           
-          return await getMovieById(postId);
+          return await getPostById(postId);
 
         } 
 const removePost=async(postId)=>{
@@ -166,10 +168,11 @@ const removePost=async(postId)=>{
     const postCollection=await posts();
     const postor = await postCollection.findOne({_id: ObjectId(postId)});
     let ans=`${postor.title} has been successfully deleted!`
+    let deletionInfo;
     if(postor.tradeStatus===2)
     //Here tradeStatus can be either 0,1 or 2 Where 2 indicates that the product has been exchanged successfully btw the seller and buyer
     {
-        const deletionInfo = await postCollection.deleteOne({_id: ObjectId(postId)});
+        deletionInfo = await postCollection.deleteOne({_id: ObjectId(postId)});
 
     }
 
