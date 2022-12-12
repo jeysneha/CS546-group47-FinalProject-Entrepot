@@ -4,14 +4,14 @@ module.exports = {
 
     checkUsername(name) {
         if (!name) {
-            throw 'User name is not provided!'
+            throw 'Username is not provided!'
         }
         if (typeof name !== 'string') {
-            throw 'User name should be a string!'
+            throw 'Username should be a string!'
         }
         name = name.trim();
         if (name === '') {
-            throw 'User name cannot be empty string or spaces only!'
+            throw 'Username cannot be empty string or spaces only!'
         }
         if (name.length < 4) {
             throw 'Username must contain at least 4 characters!'

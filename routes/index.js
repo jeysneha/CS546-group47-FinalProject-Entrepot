@@ -1,11 +1,13 @@
 const landing = require('./landing');
 const userRoutes = require('./users');
 const reviewsRoutes = require('./reviews');
+const offersRoutes = require('./offers')
 
 
 
 const constructorMethod = (app) => {
     app.use('/', landing);
+    app.use('/offers', offersRoutes);
     app.use('/user', userRoutes);
     app.use('/review', reviewsRoutes);
 

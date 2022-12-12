@@ -1,6 +1,6 @@
 <main class="signup-page">
     <div class="signup-content">
-        <div class="signup-error">
+        <div class="signup-error" id="signup-error">
             {{#if hasErrors}}
                 <p class="error">
                     {{error}}
@@ -11,30 +11,30 @@
         <form action="/register" method="post" id="registration-form" class="signup-form">
             <h3> Welcome to Entrepôt </h3>
 
-            <label for="usernameInput"></label>
+            <label for="register-usernameInput"></label>
             <input
-            type="text"
-            id="usernameInput"
-            name="usernameInput"
-            placeholder="username"/>
+                    type="text"
+                    id="register-usernameInput"
+                    name="usernameInput"
+                    placeholder="username"/>
 
-            <label for="emailInput"></label>
+            <label for="register-emailInput"></label>
             <input
-            name="emailInput"
-            id="emailInput"
-            placeholder="email"/>
+                    name="emailInput"
+                    id="register-emailInput"
+                    placeholder="email"/>
 
-            <label for="passwordInput"></label>
+            <label for="register-passwordInput"></label>
             <input
-            type="password"
-            id="passwordInput"
-            name="passwordInput"
-            placeholder="password"/>
+                    type="password"
+                    id="register-passwordInput"
+                    name="passwordInput"
+                    placeholder="password"/>
 
 
             <button type="submit">Submit</button>
             <br>
-            <a href="/login" class="login-link">Click here to log-in!</a>
+            <a href="/login" target="_blank" class="login-link">Click here to log-in!</a>
         </form>
     </div>
         

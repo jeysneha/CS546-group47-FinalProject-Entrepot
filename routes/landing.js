@@ -8,12 +8,7 @@ const usersData = data.users;
 // first page of our application, it's an introduction page
 router.route('/').get(async (req, res) => {
     res.render('landing/landing', {
-<<<<<<< HEAD
-        title: 'Entrepôt'
-=======
         title: 'Entrepôt',
-        partial: 'landing-scripts'
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
     })
 })
 
@@ -24,16 +19,13 @@ router
     .get(async (req, res) => {
         if (req.session.user) {
             //if user is authenticated
-            res.redirect('/products');
+            res.redirect('/user/profile');
         }else {
             res.render('landing/userRegister', {
                 title: 'Entrepôt - Sign-up',
                 hasErrors: false,
                 error: null,
-<<<<<<< HEAD
-=======
                 partial: 'userRegister-scripts'
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
             })
         }
     })
@@ -52,10 +44,6 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
-<<<<<<< HEAD
-=======
-                partial: 'userRegister-scripts'
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
             });
         }
 
@@ -68,10 +56,6 @@ router
                     title: 'Entrepôt - Sign-up',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-<<<<<<< HEAD
-=======
-                    partial: 'userRegister-scripts'
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
                 });
             }
 
@@ -80,10 +64,6 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: false,
                     error: null,
-<<<<<<< HEAD
-=======
-                    partial: 'userLogin-scripts'
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
                 });
             }
         }catch (e) {
@@ -91,29 +71,24 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
-<<<<<<< HEAD
-=======
-                partial: 'userRegister-scripts'
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
             });
         }
     })
 
-//login pages
+
+
+//login page
 router
     .route('/login')
     .get(async (req, res) => {
         if (req.session.user) {
-            res.redirect('/products');
+            res.redirect('/user/profile');
         }else {
             res.render('landing/userLogin', {
                 title: 'Entrepôt - Log-in',
                 hasErrors: false,
                 error: null,
-<<<<<<< HEAD
-=======
                 partial: 'userLogin-scripts',
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
             })
         }
     })
@@ -130,10 +105,6 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
-<<<<<<< HEAD
-=======
-                partial: 'userLogin-scripts',
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
             });
         }
 
@@ -146,10 +117,6 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-<<<<<<< HEAD
-=======
-                    partial: 'userLogin-scripts',
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
                 })
             }
 
@@ -158,10 +125,6 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-<<<<<<< HEAD
-=======
-                    partial: 'userLogin-scripts',
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
                 })
             }
 
@@ -171,7 +134,7 @@ router
                     username: username,
                     userId: authUser.userId
                 };
-                res.redirect('/products');
+                res.redirect('/user/profile');
             }
 
         }catch (e) {
@@ -179,10 +142,6 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
-<<<<<<< HEAD
-=======
-                partial: 'userLogin-scripts',
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
             });
         }
     })

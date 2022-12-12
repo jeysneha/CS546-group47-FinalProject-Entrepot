@@ -1,0 +1,185 @@
+.landing-page {
+    margin: auto;
+    width: 50%;
+    text-align:center;
+    padding: 10px;
+}
+.landing-title {
+    font-weight: bold;
+}
+.landing-text {
+    font-size: 18px;
+}
+.landing-page a {
+    font-weight: bold;
+}
+.login-page, .signup-page, .landing-page, .userUpdate-page {
+    width:80%;
+    height: 85vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("https://starry-lixu.oss-cn-hangzhou.aliyuncs.com/202209141908599.jpg") fixed no-repeat;
+    background-size: cover;
+}
+
+.login-content, .signup-content {
+    width: 400px;
+    height: 280px;
+}
+
+.login-error, .signup-error, .userUpdate-error {
+    width: 400px;
+    text-align: center;
+    font-size: 18px;
+    color: #D0342C;
+}
+.login-form, .signup-form {
+    width: 400px;
+    height: 280px;
+    /*margin-left: 25%;*/
+    margin-right: 25%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    background: inherit;
+    border-radius: 18px;
+    overflow: hidden; /* 隐藏多余的模糊效果*/
+}
+
+.login-form button, .signup-form button {
+    margin: 6px 0;
+    height: 36px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    padding: 0 14px;
+    color: #3d5245;
+}
+.login-link, .signup-link{
+    font-size: 18px;
+    color:#07051a;
+}
+.loginform{
+    width: 240px;
+    height:auto;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    border-radius: 18px;
+    overflow: hidden; /* 隐藏多余的模糊效果*/
+}
+
+.button-4 {
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
+}
+
+.button-4:hover {
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
+}
+
+.button-4:disabled {
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
+}
+
+.button-4:active {
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
+}
+
+.button-4:focus {
+  outline: 1px transparent;
+}
+
+.button-4:before {
+  display: none;
+}
+
+.button-4::-webkit-details-marker {
+  display: none;
+}
+.bottonjj{
+    display: inline-block;
+    border-radius: 10px;
+    background-color: #1c74bd;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.bottonjj:hover  {
+    padding-left: 50px;
+    color: #FFFFFF;
+    background-color: #09487a;
+}
+.center{
+    text-align: center;
+}
+
+
+
+.center {
+    margin: auto;
+    width: 50%;
+    text-align:center;
+    padding: 10px;
+  }
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("https://starry-lixu.oss-cn-hangzhou.aliyuncs.com/202209141908599.jpg") fixed no-repeat;
+    background-size: cover;
+  }
+
+
+
+  
+  .toblack{
+    color:#07051a;
+  }

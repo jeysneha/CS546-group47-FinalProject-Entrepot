@@ -27,7 +27,7 @@ body {
   scrollbar-width: none;
 }
 
-body::webkit-scrollbar {
+body webkit-scrollbar {
   display: none;
 }
 
@@ -66,23 +66,33 @@ nav {
   justify-content: center;
   align-items: center;
   padding: 10px;
+  height: 50%;
 }
 
 nav .navbar-top {
-  max-width: 1600px;
+  max-width: 100%;
   padding: 10px;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 50%;
 }
 
-.navbar-top .logo {
+/* .navbar-top .logo {
   position: absolute;
   top: 30px;
   left: 100px;
   width: 150px;
   height: 75px;
+} */
+
+.navbar-top .logo {
+  position: relative;
+  max-height: 50px;
+  margin-left: 1%;
+  margin-top: 0%;
+  
 }
 
 #menuButton {
@@ -118,6 +128,7 @@ nav .navbar-top {
 .account-text {
   font-size: 0.9rem;
   padding: 10px;
+  width: 100px;
 }
 
 .account-btn {
@@ -179,7 +190,7 @@ nav .navbar-top {
 
 .hide {
   display: none;
-  visibility: none;
+  visibility: hidden;
 }
 
 .producstOnCart ul {
@@ -294,6 +305,7 @@ nav .navbar-top {
   display: flex;
   flex-direction: row;
   position: relative;
+  height: 500px;
 }
 
 .searchbar form {
@@ -367,7 +379,7 @@ nav .navbar-top {
 
 .links {
   position: relative;
-  display: inline-blo;
+  display: inline-block;
   margin: auto;
 }
 
@@ -380,7 +392,8 @@ ul .nav-links {
   cursor: pointer;
   color: #333333;
   text-align: center;
-  padding: 15px;
+  padding: 5px;
+  padding-left: 25px;
 }
 
 .nav-links>a:visited,
@@ -528,8 +541,19 @@ main {
   background-color: #eee;
 }
 
+.product-image:after {
+  position: absolute;
+  content: '';
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  box-shadow:0 0px 50px 40px #eee inset;
+}
+
 .product-image img {
   position: absolute;
+  max-height: 100%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
