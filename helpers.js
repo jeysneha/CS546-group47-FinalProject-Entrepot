@@ -136,5 +136,43 @@ module.exports = {
             throw 'The review rating should be in range of 1-5 (inclusive)'
         }
         return rating;
+<<<<<<< HEAD
+    },
+ existypestring(input) {
+        if (typeof input !=='string' ||input.trim().length === 0) {
+            throw 'Input has to be a string and it cannot be an empty string or string with just spaces'
+        }
+        input=input.trim()
+        return input;
+        
+      },
+      checkPostTitle(title) {
+        
+        if (title === '') {
+            throw 'Post title cannot be empty string or space only!'
+        }
+        if(title.trim().length<2) throw 'Title must be at least two characters';
+        let pattern = /[^a-zA-Z0-9 ]/g;
+        let result = pattern.test(title);
+        if(result===true){
+            throw 'Title can only contain letters a-z, A-Z or numbers'
+         }
+
+        return title;
+    },
+    checkId_j(id) {
+        if (!ObjectId.isValid(id)) throw 'invalid object ID';
+        return id;
+      },
+    checktradeStatus(tradeStatus){
+        tradeStatus=parseInt(tradeStatus,10);
+        if(tradeStatus!==0||tradeStatus!==1){
+            throw "Invalid Status"
+        }
+        
     }
+      
+=======
+    }
+>>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
 }
