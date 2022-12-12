@@ -1,22 +1,5 @@
 const express = require("express");
-const path = require("path");
 const app = express();
-<<<<<<< HEAD
-// const static = express.static(__dirname + '/public');
-const publicPath = path.resolve(__dirname, "public");
-const exphbs = require("express-handlebars");
-const session = require("express-session");
-const configRoutes = require("./routes");
-
-// app.use("/public", static); // when url has public in it, use static html page
-app.use(express.static(publicPath));
-
-app.use(express.json()); //middleware
-app.use(express.urlencoded({ extended: true })); // another middleware
-
-app.engine("handlebars", exphbs.engine({ defaultLayout: "main" })); //look for the template in views directory - layouts
-=======
-// const publicPath = path.resolve(__dirname, "/public");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 const configRoutes = require("./routes");
@@ -45,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.engine("handlebars", handlebarsInstance.engine);
->>>>>>> dbca148bbf153cb7771c77dbbc4f98c4a779f135
 app.set("view engine", "handlebars");
 
 app.use(
@@ -101,8 +83,7 @@ app.use('/user/update', (req, res, next) => {
 configRoutes(app);
 
 
-app.listen(3000, (req, res) => {
+app.listen(3000, () => {
     console.log('Now we got a server');
     console.log('Your routes will be running on http://localhost:3000');
 })
-
