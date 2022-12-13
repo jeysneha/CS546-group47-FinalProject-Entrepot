@@ -1,49 +1,42 @@
 
-<main class="reviewRegister-page">
-
-    <div id="reviewRegister-error">
-        {{#if hasErrors}}
-            <p class="error">
-                {{error}}
-            </p>
-        {{/if}}
-    </div>
-
-
-    <form action="/review/addReview/6387f1fd73e6af3e6a39b074" method="post">
-        <div class="main">
-            <section class="container">
-                <div class="title">
-                    <h2>Reviews Card</h2>
-                    <div class="underline"></div>
-                </div>
-                <article class="review">
-
-                    <label for="titleInput">
-                        Title:
-                    </label>
-                    <input id="titleInput" name="titleInput"/>
-
-                    <label for="ratingInput">
-                        Rating:
-                    </label>
-                    <input id="ratingInput" name="ratingInput" type="number"/>
-
-                    <label for="bodyInput">
-                        Description:
-                    </label>
-                    <textarea id="bodyInput" name="bodyInput" rows="5" width="50%"></textarea>
-
-                    <br>
-                    <div class="bottonjj">
-                        <button class="button-4" type="submit">Submit</button>
-                    </div>
-
-
-                </article>
-            </section>
+<main class="main">
+    <div class="container">
+        <div id="reviewRegister-error">
+            {{#if hasErrors}}
+                <p class="error">
+                    {{error}}
+                </p>
+            {{/if}}
         </div>
 
-    </form>
+        <div class="title">
+            <h2>Reviews Card</h2>
+            <div class="underline"></div>
+        </div>
+
+        <div class="review">
+            <form action="/review/addReview/6387f1fd73e6af3e6a39b074" method="post" id="reviewRegister-form">
+                <label for="reviewRegister-titleInput">
+                    Title:
+                </label>
+                <input id="reviewRegister-titleInput" name="titleInput"/>
+
+                <label for="reviewRegister-ratingInput">
+                    Rating:
+                </label>
+                <input id="reviewRegister-ratingInput" name="ratingInput" type="text"/>
+
+                <label for="reviewRegister-bodyInput">
+                    Description:
+                </label>
+                <textarea id="reviewRegister-bodyInput" name="bodyInput" rows="5" width="50%"></textarea>
+
+                <br>
+
+                <button class="button-4" id="reviewRegister-button" type="submit">Submit</button>
+
+            </form>
+        </div>
+    </div>
 
 </main>
