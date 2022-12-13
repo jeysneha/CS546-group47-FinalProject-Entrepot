@@ -41,12 +41,13 @@ router
   .post(async (req, res) => {
     //code here for POST
     let userInfo = req.body;
-    if (!userInfo.title||!userInfo.body||!userInfo.imgfiles||!userInfo.category||!userInfo.tradeStatus||!userInfo.posterId)
+    let fileso=req.files;
+    if (!userInfo.title||!userInfo.body||!fileso.imgfiles||!userInfo.category||!userInfo.tradeStatus||!userInfo.posterId)
     {
       return res.status(400).json({ error: 'the request body is not valid' });
     }
     try {
-        const cpost=await postData.createPost(userInfo.title,userInfo.body,userInfo.imgfiles,userInfo.category,userInfo.tradeStatus,userInfo.posterId)
+        const cpost=await postData.createPost(userInfo.title,userInfo.body,fileso.imgfiles,userInfo.category,userInfo.tradeStatus,userInfo.posterId)
         
         return res.status(200).render('details',{prdobj:cpost});
 
