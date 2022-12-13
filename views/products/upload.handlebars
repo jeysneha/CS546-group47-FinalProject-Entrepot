@@ -4,17 +4,17 @@
         <form id="product-signup-form" class="center padding" action="/post" method="POST">
             <div class="form-group">
                 <label for="name">Product Title:</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter product Name">
+                <input type="text" class="form-control" id="product-title" name="name" placeholder="Enter product Name">
             </div>
 
             <div class="form-group">
                 <label for="product-body">Product body:</label>
-                <input type="text" class="form-control" id="address" name="productBody"
+                <input type="text" class="form-control" id="product-body" name="productBody"
                     placeholder="Enternbody of product">
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
-                <select id="proCate">
+                <select id="product-Cate">
                     <option value="elec">Choose Your Category</option>
                     <option value="Apparel & Accessories"></option>
                     <option value="Jewelry & Watches"></option>
@@ -33,16 +33,16 @@
 
                 <form action="/upload/profilepic" enctype="multipart/form-data" method="POST">
                     <label for="picture" class="labels">Upload product image</label>
-                    <input type="file" name="picture" accept="image/*" class="btn  bottom-padding" required />
+                    <input type="file" id="product-image" accept="image/*" class="btn  bottom-padding" required />
                     <input type="submit" class="btn-private btn btn-primary" value="Upload Photo" />
                 </form>
 
+        </form>
+        <br>
 
-                <br>
 
-
-                <button type="submit" id="btn-id" class="btn btn-primary">Submit</button>
-                <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
+        <button type="submit" id="btn-id" class="btn btn-primary">Submit</button>
+        <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
         </form>
 
         {{#if errorcode}}
