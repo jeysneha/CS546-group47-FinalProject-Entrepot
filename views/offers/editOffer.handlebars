@@ -182,8 +182,8 @@
 
 <script type="text/javascript">
 
-    var flag = false;
-    var previousImg;
+    let flag = false;
+    let previousImg;
     offerData = {{{result}}};
     // console.log(offerData);
     let preview = document.getElementById('image-preview');
@@ -263,9 +263,9 @@
 
   });
 
-  // var params = {};
+  // let params = {};
 
-  var submit = document.getElementById("submit");
+  let submit = document.getElementById("submit");
 
   
 
@@ -276,7 +276,7 @@
     }else{
         paramFile = previousImg;
     }
-    var params = new FormData();
+    let params = new FormData();
     console.log(paramFile);
     params.append("upload_image",paramFile)
     //params.append("senderId", offerData.senderId);

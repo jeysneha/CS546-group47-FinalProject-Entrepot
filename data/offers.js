@@ -2,7 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const offers = mongoCollections.offers;
 const {ObjectId} = require('mongodb');
 const path = require('path');
-var fs = require('fs');
+const fs = require('fs');
 const helpers = require("../offerHelpers")
 
 module.exports = { 
@@ -29,8 +29,8 @@ module.exports = {
     extend = file.originalFilename.split(".")[1]
     id = ObjectId();
     filename = id+"."+extend
-    // var des_file = path.join(__dirname,'../uploads')+"/"+file.originalFilename;
-    var des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    // let des_file = path.join(__dirname,'../uploads')+"/"+file.originalFilename;
+    let des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
     console.log(des_file) //上传路径：des_file
     console.log(file.path) //临时文件路径：file.path
 
@@ -51,7 +51,7 @@ module.exports = {
     } catch(e) {
       throw e;
     }
-    var status = 0;
+    let status = 0;
     if (offersArray.length !=0 ){
       for(i=0;i<offersArray.length;i++){
         if(offersArray[i].status == 1 || offersArray[i].status == -1){
@@ -168,7 +168,7 @@ module.exports = {
 
     filename = originalOffer.imgName;
 
-    var des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    let des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
 
     const isExistImg = fs.existsSync(des_file)
     if (isExistImg) {
@@ -235,7 +235,7 @@ module.exports = {
     const deletionInfo = await offersCollection.deleteOne({_id: ObjectId(offerId)});
     filename = originalOffer.imgName;
 
-    var des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    let des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
     const isExistImg = fs.existsSync(des_file)
     if (isExistImg) {
       //删除文件
