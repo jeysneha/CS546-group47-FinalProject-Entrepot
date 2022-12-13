@@ -147,9 +147,9 @@
 
   });
 
-  // var params = {};
-  var params = new FormData();
-  var submit = document.getElementById("submit");
+  // let params = {};
+  let params = new FormData();
+  let submit = document.getElementById("submit");
   submit.onclick = function() {
     params.append("upload_image",document.getElementById("file").files[0])
     params.append("senderId", document.getElementById("senderId").innerHTML);

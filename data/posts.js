@@ -54,7 +54,7 @@ const createPost = async (
     extend = file.originalFilename.split(".")[1]
     id = ObjectId();
     filename = id+"."+extend
-    var des_file = path.join(__dirname,'../public/postUploads')+"/"+ filename
+    let des_file = path.join(__dirname,'../public/postUploads')+"/"+ filename
     console.log(des_file) 
     console.log(file.path)
     fs.readFile(file.path,function (err,data){

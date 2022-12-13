@@ -6,7 +6,7 @@ const offerData = data.offers;
 // const path = require('path');
 // const session = require('express-session');
 // const { rmSync } = require('fs');
-// var formidable = require('formidable')
+// let formidable = require('formidable')
 
 
 
@@ -88,7 +88,7 @@ router.route("/:postId").get(async (req, res)=>{
 router.route("/offer/:offerId").get(async (req, res)=>{
   // Route for feteching a ceratin offer
   console.log(req.url.split("?"));
-  var msg;
+  let msg;
   if(req.url.split("?").length == 2){
     console.log("yesyes");
     msg = "You have successfully created an offer!";
@@ -126,22 +126,22 @@ router.post('/',multipartMiddleware,async (req, res) => {
   // console.log(req.files.upload_image);
   // console.log(req.body.offerItem);
 
-  var postId = req.body.postId;
-  // var senderId = req.body.senderId;
+  let postId = req.body.postId;
+  // let senderId = req.body.senderId;
 
   // 之后应改成这个
   // 👇
-  var senderId = req.session.user.userId;
+  let senderId = req.session.user.userId;
 
-  var sellerId = req.body.sellerId;
+  let sellerId = req.body.sellerId;
   // 之后应改成这个
   // 👇
-  // var sellerId = postData.getPostById(sellerId);
+  // let sellerId = postData.getPostById(sellerId);
 
-  var wear = req.body.wear;
-  var offerItem = req.body.offerItem;
-  var itemDesc = req.body.itemDesc;
-  var file = req.files.upload_image;
+  let wear = req.body.wear;
+  let offerItem = req.body.offerItem;
+  let itemDesc = req.body.itemDesc;
+  let file = req.files.upload_image;
 
   try{
     result = await offerData.createOffer(senderId, sellerId, postId, offerItem, itemDesc, wear, file);
@@ -160,17 +160,17 @@ router.put('/offer/:offerId',multipartMiddleware,async (req, res) => {
   // console.log(req.files.upload_image);
   // console.log(req.body.offerItem);
 
-  var offerId = req.params.offerId;
+  let offerId = req.params.offerId;
 
 
-  // var senderId = "buyer";
+  // let senderId = "buyer";
   // 👇
-  var senderId = req.session.user.userId;
+  let senderId = req.session.user.userId;
 
-  var offerItem = req.body.offerItem;
-  var itemDesc = req.body.itemDesc;
-  var wear = req.body.wear;
-  var file = req.files.upload_image;
+  let offerItem = req.body.offerItem;
+  let itemDesc = req.body.itemDesc;
+  let wear = req.body.wear;
+  let file = req.files.upload_image;
 
   try{
     result = await offerData.editOffer(offerId, senderId, offerItem, itemDesc, wear, file);
@@ -186,11 +186,11 @@ router.put('/offer/:offerId',multipartMiddleware,async (req, res) => {
 
 router.delete('/offer/:offerId',async (req, res) => {
 
-  var offerId = req.params.offerId;
+  let offerId = req.params.offerId;
 
-  // var senderId = "buyer";
+  // let senderId = "buyer";
   // 👇
-  var senderId = req.session.user.userId;
+  let senderId = req.session.user.userId;
 
   try{
     result = await offerData.removeOffer(offerId, senderId);
@@ -207,12 +207,12 @@ router.delete('/offer/:offerId',async (req, res) => {
 
 router.put('/status/accept/:offerId',async (req, res) => {
 
-  var offerId = req.params.offerId;
-  var newAcceptStatus = req.body.newAcceptStatus;
+  let offerId = req.params.offerId;
+  let newAcceptStatus = req.body.newAcceptStatus;
 
-  var sellerId = "seller";
+  let sellerId = "seller";
   // 👇
-  // var sellerId = req.session.user.userId;
+  // let sellerId = req.session.user.userId;
 
 
   try{
@@ -228,11 +228,11 @@ router.put('/status/accept/:offerId',async (req, res) => {
 
 router.put('/status/confirmBySeller/:offerId',async (req, res) => {
 
-  var offerId = req.params.offerId;
+  let offerId = req.params.offerId;
 
-  var sellerId = "seller";
+  let sellerId = "seller";
   // 👇
-  // var sellerId = req.session.user.userId;
+  // let sellerId = req.session.user.userId;
 
   try{
     result = await offerData.confirmOfferBySeller(offerId, sellerId);
@@ -249,11 +249,11 @@ router.put('/status/confirmBySeller/:offerId',async (req, res) => {
 
 router.put('/status/confirmByBuyer/:offerId',async (req, res) => {
 
-  var offerId = req.params.offerId;
+  let offerId = req.params.offerId;
 
-  var buyerId = "buyer";
+  let buyerId = "buyer";
   // 👇
-  // var buyerId = req.session.user.userId;
+  // let buyerId = req.session.user.userId;
 
   try{
     result = await offerData.confirmOfferByBuyer(offerId, buyerId);
@@ -271,9 +271,9 @@ router.put('/status/confirmByBuyer/:offerId',async (req, res) => {
 // router.get('/mySent/:userId', async (req, res) => {
 router.get('/mysent/get', async (req, res) => {
   // 'offers/mySent' 👆
-  // var userId = req.params.userId;
+  // let userId = req.params.userId;
   // 👇 之后改
-  var userId  = req.session.user.userId.toString();
+  let userId  = req.session.user.userId.toString();
   // console.log(userId);
   // console.log("11111111111")
   try{
