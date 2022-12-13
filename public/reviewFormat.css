@@ -352,7 +352,8 @@ img {
 }
 
 .container {
-  width: 600px;
+  width: 80%;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -386,6 +387,7 @@ img {
   margin-bottom: 3%;
   box-shadow:0px 0px 35px 5px #003c6d; ;
 }
+
 
 #person-img {
   width: 150px;

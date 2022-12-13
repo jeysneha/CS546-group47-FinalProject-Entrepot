@@ -30,7 +30,7 @@
     height: 280px;
 }
 
-.login-error, .signup-error, .userUpdate-error {
+.login-error, .signup-error, .userUpdate-error, #reviewRegister-error{
     width: 400px;
     text-align: center;
     font-size: 18px;

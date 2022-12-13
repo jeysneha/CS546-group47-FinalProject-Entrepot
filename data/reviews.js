@@ -20,13 +20,22 @@ const createReviews = async (
     body = validation.checkReviewBody(body);
     rating = validation.checkReviewRating(rating);
 
+    //convert rating to int
+    const ratingNum = parseInt(rating);
+
     const usersCol = await users();
 
     //check whether the buyer has the right to give review
-    const poster = await usersCol.findOne(ObjectId(posterId));
+    const poster = await getUserById(posterId);
+    if (!poster) {
+        return {
+            insertedReview: false,
+            Error:`There is no user for id: ${posterId}`,
+        }
+    }
     const tradeWith = poster.tradeWith;
-    let isBuyer = false;
 
+    let isBuyer = false;
     for (const trader of tradeWith) {
         if (trader === buyerId) {
             isBuyer = true;
@@ -41,31 +50,17 @@ const createReviews = async (
     }
 
     // create current date
-    const today = new Date();
-    let yyyy = today.getFullYear();
-    let mm = today.getMonth()+1;
-    let dd = today.getDate();
-    let hr = today.getHours();
-    let min = today.getMinutes();
-    let sec = today.getSeconds();
-    //when mm or dd has only one number add 0 in front of it
-    if (mm < 10) {
-        mm = '0' + mm;
-    }
-    if (dd < 10) {
-        dd = '0' + dd;
-    }
-    const datetime = `${mm}/${dd}/${yyyy}  ${hr}:${min}:${sec}`;
+    const datetime = validation.createDateTime();
 
     //find review rewriter/buyer's username
     const buyer = await getUserById(buyerId);
-
-    let reviewWriter = buyer.username;
-
     if (!buyer) {
-        buyerId = null;
-        reviewWriter = null;
+        return {
+            insertedReview: false,
+            Error:'You cannot give review to this user as you did not have a trade relationship'
+        }
     }
+    let reviewWriter = buyer.username;
 
     let newReview = {
         _id: new ObjectId(),
@@ -74,15 +69,15 @@ const createReviews = async (
         reviewWriter: reviewWriter,
         title: title,
         body: body,
-        rating: rating,
+        rating: ratingNum,
         datetime: datetime
     }
 
     // recalculate overallRating
     const reviews = poster.reviews;
-    let newOverallRating = rating;
+    let newOverallRating = ratingNum;
     if (reviews.length > 0) {
-        let totalRate = rating;
+        let totalRate = ratingNum;
         for (const review of reviews) {
             totalRate += review.rating;
         }
