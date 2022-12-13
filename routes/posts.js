@@ -51,8 +51,11 @@ router
         
         return res.status(200).render('details',{prdobj:cpost});
 
+
+
         } catch (e) {
       return res.status(404).render('error',{ti: "Error Page",error: 'unable to create Post'});
     }
   })
+
 
