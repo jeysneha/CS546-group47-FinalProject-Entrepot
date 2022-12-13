@@ -2,17 +2,19 @@ const mongoCollections = require('../config/mongoCollections');
 const {ObjectId} = require('mongodb');
 const validation = require('../helpers');
 const posts = mongoCollections.posts;
+const path = require('path');
+const fs = require('fs');
 
 const createPost = async (
     title,
     body,
-    images,
+    imgfiles,
     category,
     tradeStatus,
     posterId,
     // datetime
 )=> {
-        if (!title||!body||!images||!category||!tradeStatus||!posterId||!datetime)
+        if (!title||!body||!imgfiles||!category||!tradeStatus||!posterId)
          {
             throw 'All fields need to have valid values'
          }
@@ -20,7 +22,7 @@ const createPost = async (
 
          title=validation.checkPostTitle(title);
          body=validation.existypestring(body);
-         images=validation.existypestring(images);
+         imgfiles=validation.existypestring(imgfiles);
          category=validation.existypestring(category);
          tradeStatus=validation.existypestring(tradeStatus);
          posterId=validation.existypestring(posterId);
@@ -44,12 +46,30 @@ const createPost = async (
         tradeStatus=validation.checktradeStatus(tradeStatus);
 
         posterId=ObjectId(posterId);
+//think
+    //let test=Array.isArray(imgfiles)    
+    if (imgfiles===null || test===false){
+      throw "Your did not upload any file or the imgfile is not an array";
+    }
+    extend = file.originalFilename.split(".")[1]
+    id = ObjectId();
+    filename = id+"."+extend
+    let des_file = path.join(__dirname,'../public/postUploads')+"/"+ filename
+    console.log(des_file) 
+    console.log(file.path)
+    fs.readFile(file.path,function (err,data){
+      fs.writeFile(des_file,data,function(err){
+        if(err){
+          throw "Error: Failed to store the image";
+        }
+      })
+    })
 
         const postCollection=await posts();
         const newPost={
             title:title,
             body:body,
-            images:images,
+            imgfiles:imgfiles,
             category:category,
             tradeStatus:tradeStatus,
             posterId:posterId,
@@ -95,13 +115,13 @@ const getAllPosts = async () => {
     postId,
     title,
     body,
-    images,
+    imgfiles,
     category,
     tradeStatus,
     posterId,
     // datetime
   )=> {
-        if (!postId||!title||!body||!images||!category||!tradeStatus||!posterId||!datetime)
+        if (!postId||!title||!body||!imgfiles||!category||!tradeStatus||!posterId||!datetime)
          {
             throw 'All fields need to have valid values'
          }
@@ -113,7 +133,7 @@ const getAllPosts = async () => {
 
          title=validation.checkPostTitle(title);
          body=validation.existypestring(body);
-         images=validation.existypestring(images);
+         imgfiles=validation.existypestring(imgfiles);
          category=validation.existypestring(category);
          tradeStatus=validation.existypestring(tradeStatus);
          posterId=validation.existypestring(posterId);
@@ -142,7 +162,7 @@ const getAllPosts = async () => {
         const updatedPost={
             title:title,
             body:body,
-            images:images,
+            imgfiles:imgfiles,
             category:category,
             tradeStatus:tradeStatus,
             posterId:posterId,
