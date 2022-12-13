@@ -3,6 +3,7 @@ const offers = mongoCollections.offers;
 const {ObjectId} = require('mongodb');
 const path = require('path');
 var fs = require('fs');
+const users = mongoCollections.users;
 const helpers = require("../offerHelpers")
 
 module.exports = { 
@@ -118,9 +119,24 @@ module.exports = {
 // =================================================   get an offer =========================================================
   async getOfferById (offerId) {
     offersCollection = await offers();
+    usersCollection = await users();
     offerResult = await offersCollection.findOne({"_id":ObjectId(offerId)});
 
     if (offerResult === null) throw 'Error: No offer with that id';
+    
+    // query the two users' information
+    sellerId = offerResult.sellerId;
+    senderId = offerResult.senderId;
+    
+    try{
+      sender = await usersCollection.findOne({"_id":ObjectId(senderId)});
+      seller = await usersCollection.findOne({"_id":ObjectId(sellerId)});
+    }catch(e){
+      throw "Error: Failed to find the corresponding users.";
+    }
+    
+    offerResult.senderContact = sender.email;
+    offerResult.sellerContact = seller.email;
 
 
     offerResult._id = offerResult._id.toString();
@@ -256,7 +272,12 @@ module.exports = {
   async acceptOffer (offerId, sellerId, newAcceptStatus) {
 
     offersCollection = await offers();
-    originalOffer = await this.getOfferById(offerId);
+    try{
+      originalOffer = await this.getOfferById(offerId);
+    }catch(e){
+      throw e;
+    }
+    
 
     if(originalOffer.sellerId != sellerId){
       throw "Error: You have no authority to edit this offer";

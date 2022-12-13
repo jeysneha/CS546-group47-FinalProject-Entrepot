@@ -87,25 +87,30 @@ router.route("/:postId").get(async (req, res)=>{
 
 router.route("/offer/:offerId").get(async (req, res)=>{
   // Route for feteching a ceratin offer
-  console.log(req.url.split("?"));
   var msg;
   if(req.url.split("?").length == 2){
-    console.log("yesyes");
+    
     msg = "You have successfully created an offer!";
   }
   offerId = req.params.offerId;
-  // console.log(typeof postId)
+  userId = req.session.user.userId
+
   try{
     offer = await offerData.getOfferById(offerId);
   }catch(e){
+    // 👇应该render到error page
     return res.status(404).json({code:404, result:e});
   }
-  console.log("testest: ",req.session.user.userId.toString())
+  
   if(offer.senderId == req.session.user.userId.toString()) {
     offer.role = "buyer";
   } else if (offer.sellerId == req.session.user.userId.toString()) {
     offer.role = "seller";
+  } else {
+    console.log("Redirect to Error Page");
   }
+
+
   if (msg != null) {
     offer.msg = msg;
   }
@@ -210,8 +215,9 @@ router.put('/status/accept/:offerId',async (req, res) => {
   var offerId = req.params.offerId;
   var newAcceptStatus = req.body.newAcceptStatus;
 
-  var sellerId = "seller";
+  // var sellerId = "seller";
   // 👇
+  var sellerId = "6394d87cb8d4a1f2b45a16ef";
   // var sellerId = req.session.user.userId;
 
 
