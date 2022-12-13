@@ -217,7 +217,7 @@ router.put('/status/accept/:offerId',async (req, res) => {
 
   // var sellerId = "seller";
   // 👇
-  var sellerId = "6394d87cb8d4a1f2b45a16ef";
+  let sellerId = "6394d87cb8d4a1f2b45a16ef";
   // var sellerId = req.session.user.userId;
 
 
