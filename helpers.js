@@ -167,7 +167,7 @@ module.exports = {
 
     checktradeStatus(tradeStatus){
         tradeStatus=parseInt(tradeStatus,10);
-        if(tradeStatus!==0||tradeStatus!==1){
+        if(tradeStatus!==0||tradeStatus!==1 ||tradeStatus!==2){
             throw "Invalid Status"
         }
     },
