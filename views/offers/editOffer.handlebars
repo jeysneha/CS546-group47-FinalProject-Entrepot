@@ -1,7 +1,6 @@
   
 <div class="alertMessage" id="errorBox" hidden>
   <span class="close" onclick="this.parentElement.style.display='none';">×</span>
-  
 </div>
 <div class="panel-back">
     
@@ -91,7 +90,8 @@
           <label for="offerItem" id="formLabel" class = "inputTitle">
               Offer Item Name	
           </label><br>
-          <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="Offer Item Name">
+          <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="No more than 30 characters.">
+          <div id="offerItemError" class="errorLine" hidden>I'm an error</div>
           <br>
           <br>
   
@@ -113,7 +113,8 @@
           <label for="itemDesc" id="formLabel" class = "inputTitle">
               Offer Item Description	
           </label><br>
-          <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc"></textarea>
+          <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc" placeholder="No more than 200 characters."></textarea>
+          <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
           <br>
           
       </form>
@@ -130,6 +131,7 @@
           
           <label for="file" class="uploadImgButton">Upload Image</label><br>
           <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
+          <div id="imgError" class="errorLine" hidden>I'm an error</div>
           <!-- <p>Preview</p> -->
           <br>
           <img id="image-preview" class="createOfferImg">
@@ -203,65 +205,72 @@
     }
     
     srcToFile(
-            "/offers/images/" + offerData.imgName,
-            'z',
-            'image/'+ offerData.imgName.split(".")[1]
+        "/offers/images/" + offerData.imgName,
+        'z',
+        'image/'+ offerData.imgName.split(".")[1]
     )
     .then(function(file) {
         previousImg = file;
         console.log()
     })
     .then(function(result) {
-        console.log(previousImg);
+        console.log();
     }); 
            
     
 
 
-    console.log(previousImg);
+    //console.log(previousImg);
 
 
-    let fileInput = document.getElementById('file');
-    let info = document.getElementById('imgSizeInfo');
-    
-  
+  let fileInput = document.getElementById('file');
+  let info = document.getElementById('imgSizeInfo');
+  let validImgFlag = false;
+
   fileInput.addEventListener('change', function() {
+        info.className = "errorLine";
+        // 清除背景图片:
+        preview.style.backgroundImage = '';
+        //if (!fileInput.value) {
+            //info.innerHTML = 'You did not upload a image';
+            //return;
+        //}
+        let file = fileInput.files[0];
+        let size = file.size;
+        if (size >= 1 * 1024 * 1024) {
+            //alert('文件大小超出限制');
+            info.innerHTML = 'The images\'s size exceeds maximum. Please upload a new image smaller than 1MB';
+            preview.src = null;
+            preview.setAttribute("hidden", true);
+            return false;
+        }
+        // 获取File信息:
+        // info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
+        info.innerHTML = `Image Size: ${(file.size/1024).toFixed(2)+" KB"}`;
+        if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+            alert('Not a valid image format!');
+            
+            return;
+        }
+        // 读取文件:
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let data = e.target.result;
+            preview.removeAttribute("hidden");
+            preview.setAttribute("display",true);
+            preview.src = data
+        };
+        // 以DataURL的形式读取文件:
+        reader.readAsDataURL(file);
 
+        flag= true;
+        validImgFlag = true;
+        info.className = "errorLine-size";
+        imgError = document.getElementById("imgError");
+        imgError.setAttribute("hidden",true);
+        
 
-      // 清除背景图片:
-      preview.style.backgroundImage = '';
-      if (!fileInput.value) {
-          info.innerHTML = 'You have not select a file.';
-          return;
-      }
-      let file = fileInput.files[0];
-      let size = file.size;
-      if (size >= 1 * 1024 * 1024) {
-          //alert('文件大小超出限制');
-          info.innerHTML = 'Size Exceeds the Maximum.';
-          return false;
-      }
-      // 获取File信息:
-      // info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
-      info.innerHTML = `Image Size: ${file.size/1024}`;
-      if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
-          alert('Not a valid image format, please try again.');
-          return;
-      }
-      // 读取文件:
-      let reader = new FileReader();
-      reader.onload = function(e) {
-          let data = e.target.result;
-          console.log(preview, 'a标签')
-          preview.src = data
-      };
-
-      flag = true;
-
-      // 以DataURL的形式读取文件:
-      reader.readAsDataURL(file);
-
-  });
+    });
 
   // let params = {};
 
@@ -271,13 +280,47 @@
 
   
   submit.onclick = function() {
+    let params = new FormData();
+    let errorFound = false;
+    if (document.getElementById("offerItem").value == null || document.getElementById("offerItem").value.toString().trim().length==0){
+      offerItemError = document.getElementById("offerItemError");
+      offerItemError.removeAttribute("hidden");
+      offerItemError.setAttribute("display", true);
+      offerItemError.innerHTML = "You must provide a not-null name";
+      errorFound = true;
+    }
+    if (document.getElementById("itemDesc").value == null || document.getElementById("itemDesc").value.toString().trim().length==0){
+      itemDescError = document.getElementById("itemDescError");
+      itemDescError.removeAttribute("hidden");
+      itemDescError.setAttribute("display", true);
+      itemDescError.innerHTML = "You must provide a not-null description";
+      errorFound = true;
+      
+    }
     if (flag == true) {
         paramFile = document.getElementById("file").files[0];
     }else{
         paramFile = previousImg;
+        validImgFlag = true;
     }
-    let params = new FormData();
-    console.log(paramFile);
+    
+    
+    if (document.getElementById("file").files[0] == null || document.getElementById("file").files[0] == undefined || validImgFlag != true) {
+      if(paramFile == null){
+        imgError = document.getElementById("imgError");
+        imgError.removeAttribute("hidden");
+        imgError.setAttribute("display", true);
+        imgError.innerHTML = "You must provide a image of your item";
+        errorFound = true;
+      }
+    }
+    if(errorFound == true || validImgFlag != true){
+      return;
+    }
+
+    
+    
+    
     params.append("upload_image",paramFile)
     //params.append("senderId", offerData.senderId);
     params.append("postId", offerData.postId);

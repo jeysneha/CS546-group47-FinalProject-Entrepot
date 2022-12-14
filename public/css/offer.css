@@ -573,3 +573,13 @@ h1 {
     margin-left: 30%;
     margin-right: 30%;
 }
+
+.errorLine {
+    color: red;
+    font-weight: bold;
+}
+
+.errorLine-size {
+    color: rgb(0, 189, 0);
+    font-weight: bold;
+}
