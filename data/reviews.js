@@ -6,6 +6,7 @@ const {getUserById} = require("./users");
 
 const users = mongoCollections.users;
 
+// buyer write review to poster
 const createReviews = async (
     posterId,
     buyerId,
