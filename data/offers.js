@@ -214,7 +214,7 @@ module.exports = {
 
     
     if (updatedInfo.modifiedCount === 0) {
-      throw 'Error: could not update movie successfully';
+      throw 'Error: could not update offer successfully';
     }
 
 

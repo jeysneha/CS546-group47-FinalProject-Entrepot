@@ -3,7 +3,7 @@
 <main>
   <div class="container">
     <h2>make your changes</h1>
-      <form id="product-signup-form" class="center padding" action="/post" method="POST">
+      <form id="product-signup-form" enctype="multipart/form-data" method="POST" class="center padding"  >
         <div class="form-group">
           <label for="name">Product Title:</label>
           <input type="text" class="form-control" id="name" name="name" placeholder="Enter product Name">
@@ -32,11 +32,11 @@
             <option value="other Categories / to be categorized"></option>
           </select>
 
-          <form action="/upload/profilepic" enctype="multipart/form-data" method="POST">
+          
             <label for="picture" class="labels">change product image</label>
             <input type="file" name="picture" accept="image/gif, image/jpeg, image/png, image/jpg" class="btn  bottom-padding" multiple required />
             <input type="submit" class="btn-private btn btn-primary" value="Upload Photo" />
-          </form>
+         
 
 
           <br>
