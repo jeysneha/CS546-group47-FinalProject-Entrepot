@@ -88,7 +88,6 @@ const getUserById = async (userId) => {
         return null;
     }
 
-    //convert all id to string
     user._id = user._id.toString();
 
     return user;
@@ -106,6 +105,7 @@ const getUserByName = async (username) => {
     if (!oldUser) {
         return null;
     }
+    oldUser._id = oldUser._id.toString();
     return oldUser;
 }
 
@@ -156,10 +156,86 @@ const updateUser = async (userId, username, email, originPassword, newPassword) 
 }
 
 
+const updateTradeWith = async(posterId, buyerId) => {
+    //input check
+    posterId = validation.checkId(posterId);
+    buyerId = validation.checkId(buyerId);
+
+    const usersCol = await users();
+
+    //check if they already have trade relationship
+    const poster = await getUserById(posterId);
+    if (!poster) {
+        return {
+            updatedTradeWithBoth: false,
+            error: `Cannot find user with id: ${posterId}`,
+
+        }
+    }
+    const buyer = await getUserById(buyerId);
+    if (!buyer) {
+        return {
+            updatedTradeWithBoth: false,
+            error: `Cannot find user with id: ${buyerId}`,
+        }
+    }
+    let isTradeRelationship = false;
+    const tradeWithArr = poster.tradeWith;
+    for (const trader of tradeWithArr) {
+        if (trader === buyerId) {
+            isTradeRelationship = true;
+            break;
+        }
+    }
+    if (isTradeRelationship) {
+        return {
+            updatedTradeWithBoth: true,
+            error: null,
+        }
+    }
+
+    // when they are not in trade relationship
+    //update poster's tradeWith array
+    const updateInfoPoster = await usersCol.updateOne(
+        {_id: ObjectId(posterId)},
+        {
+            $push: {tradeWith: buyerId},
+        });
+
+    if (updateInfoPoster.matchedCount === 0) {
+        throw `Could not match the user with id: ${posterId}`
+    }
+    if (updateInfoPoster.modifiedCount === 0) {
+        throw `The input information resulted in no change to the user with id: ${posterId} `
+    }
+
+
+    //update buyer's tradeWith array
+    const updateInfoBuyer = await usersCol.updateOne(
+        {_id: ObjectId(buyerId)},
+        {
+            $push: {tradeWith: posterId},
+        });
+
+    if (updateInfoBuyer.matchedCount === 0) {
+        throw `Could not match the user with id: ${buyerId}`
+    }
+    if (updateInfoBuyer.modifiedCount === 0) {
+        throw `The input information resulted in no change to the user with id: ${buyerId} `
+    }
+
+    return {
+        updatedTradeWithBoth: true,
+        error: null,
+    };
+}
+
+
 module.exports = {
     createUser,
     checkUser,
     getUserById,
     getUserByName,
-    updateUser
+    updateUser,
+    updateTradeWith,
 }
