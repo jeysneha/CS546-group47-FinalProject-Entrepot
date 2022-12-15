@@ -7,7 +7,7 @@ const fs = require('fs');
 const {getUserById} = require("./users");
 
 
-//================================================= create a new post
+//================================================= create a new post ===============================================
 const createPost = async (
     title,
     body,
@@ -65,13 +65,11 @@ const createPost = async (
     if (!insertInfo.acknowledged || !insertInfo.insertedId)
         throw 'Could not add your Post';
 
-    const post = await getPostById(id.toString());
-
-    return post;
+    return await getPostById(id.toString());
 };
 
 
-//================================================= get all posts in database
+//================================================= get all posts in database ===============================================
 const getAllPosts = async () => {
     const postCollection = await posts();
     const postList = await postCollection.find({}).toArray();
@@ -86,7 +84,7 @@ const getAllPosts = async () => {
 
 
 
-//================================================= get post by id
+//================================================= get post by id ===============================================
 const getPostById = async (postId) => {
     if (!postId) throw 'You must provide an id to search for';
     if (typeof postId !== 'string') throw 'Id must be a string';
@@ -103,7 +101,7 @@ const getPostById = async (postId) => {
 
 
 
-//================================================= update by user self
+//================================================= update by user self ===============================================
 const updatePost = async (
     postId,
     title,
@@ -142,7 +140,7 @@ const updatePost = async (
         throw 'You have no authority to update this post!'
     }
 
-    //if tradeStatus is not 0, do not allow user to change
+    //if tradeStatus is not 0, do not allow user to update
     if (thePost.tradeStatus !== 0) {
         throw 'You cannot update the post anymore since it is under trade or traded!'
     }
@@ -192,7 +190,7 @@ const updatePost = async (
 
 
 
-//============================================== update trade status to 0
+//============================================== update trade status to 0 ===============================================
 const updateTradeStatusToZero = async(postId) => {
     if (!postId) throw 'Post Id ought to be provided';
     postId = validation.existypestring(postId);
@@ -229,7 +227,7 @@ const updateTradeStatusToZero = async(postId) => {
 
 
 
-//============================================== update trade status to 1
+//============================================== update trade status to 1 ===============================================
 const updateTradeStatusToOne = async(postId) => {
     if (!postId) throw 'Post Id ought to be provided';
     postId = validation.existypestring(postId);
@@ -266,8 +264,8 @@ const updateTradeStatusToOne = async(postId) => {
 
 
 
-//============================================== update trade status to 2
-const updateTradeStatusToOne = async(postId) => {
+//============================================== update trade status to 2 ===============================================
+const updateTradeStatusToTwo = async(postId) => {
     if (!postId) throw 'Post Id ought to be provided';
     postId = validation.existypestring(postId);
     postId = validation.checkId_j(postId);
@@ -299,7 +297,7 @@ const updateTradeStatusToOne = async(postId) => {
 
 
 
-//================================================= delete post by user
+//================================================= delete post by user ===============================================
 const removePost = async (postId) => {
     if (!postId) throw 'Post Id ought to be provided';
     postId = validation.existypestring(postId);
@@ -308,6 +306,11 @@ const removePost = async (postId) => {
     const thePost = await getPostById(postId);
 
     const postCollection = await posts();
+
+    //if tradeStatus is not 0, do not allow user to delete
+    if (thePost.tradeStatus !== 0) {
+        throw 'You cannot delete the post for now since it is under trade or traded!'
+    }
 
     const deletionInfo = await postCollection.deleteOne({_id: ObjectId(postId)});
     if (deletionInfo.deletedCount === 0) {
@@ -319,7 +322,10 @@ const removePost = async (postId) => {
     };
 };
 
+
+
 module.exports = {
     createPost, getAllPosts, getPostById, updatePost,
     removePost, updateTradeStatusToZero, updateTradeStatusToOne,
+    updateTradeStatusToTwo,
 };
