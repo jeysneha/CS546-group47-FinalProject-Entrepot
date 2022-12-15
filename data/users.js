@@ -2,12 +2,14 @@ const mongoCollections = require('../config/mongoCollections');
 const {ObjectId} = require('mongodb');
 const validation = require('../helpers');
 const bcrypt = require('bcryptjs');
+const postsData = require("./posts");
 const saltRounds = 14;
 
 
 const users = mongoCollections.users;
 
 
+//============================================== create a new user =============================================
 const createUser = async (
     username,
     email,
@@ -49,6 +51,8 @@ const createUser = async (
 }
 
 
+
+//========================================== check if user login info is right =========================================
 const checkUser = async(username, password) => {
     //input check
     username = validation.checkUsername(username);
@@ -76,6 +80,9 @@ const checkUser = async(username, password) => {
 }
 
 
+
+
+//============================================== get user object by user ID =========================================
 const getUserById = async (userId) => {
     // validation check
     userId = validation.checkId(userId);
@@ -94,6 +101,9 @@ const getUserById = async (userId) => {
 }
 
 
+
+
+//============================================== get user object by username =========================================
 const getUserByName = async (username) => {
     //input check
     username = validation.checkUsername(username);
@@ -110,6 +120,8 @@ const getUserByName = async (username) => {
 }
 
 
+
+//============================================== update user info by user self =========================================
 const updateUser = async (userId, username, email, originPassword, newPassword) => {
     //input check
     userId = validation.checkId(userId);
@@ -156,6 +168,55 @@ const updateUser = async (userId, username, email, originPassword, newPassword) 
 }
 
 
+
+//============================================== update postId array =================================================
+const updatePostsID = async(userId, postId) => {
+    //input check
+    userId = validation.checkId(userId);
+    postId = validation.checkId(postId);
+
+    const usersCol = await users();
+
+    //check if user exist
+    const user = await getUserById(userId);
+    if (!user) {
+        return {
+            updatedPostsID: false,
+            error: `Cannot find user with id: ${userId}`,
+        }
+    }
+
+    //check is post exist
+    const post = await postsData.getPostById(postId);
+    if (!post) {
+        return {
+            updatedPostsID: false,
+            error: `Cannot find post with id: ${postId}`,
+        }
+    }
+
+    const updateInfo = await usersCol.updateOne(
+        {_id: ObjectId(posterId)},
+        {
+            $push: {postsId: postId},
+        });
+
+    if (updateInfo.matchedCount === 0) {
+        throw `Could not match the user with id: ${userId}`
+    }
+    if (updateInfo.modifiedCount === 0) {
+        throw `The input information resulted in no change to the user with id: ${userId} `
+    }
+
+    return {
+        updatedPostsID: true,
+        error: null,
+    }
+}
+
+
+
+//=========================================== update the tradeWith for both users ======================================
 const updateTradeWith = async(posterId, buyerId) => {
     //input check
     posterId = validation.checkId(posterId);
@@ -231,6 +292,69 @@ const updateTradeWith = async(posterId, buyerId) => {
 }
 
 
+
+
+//=========================================== get all posts relevant to this user ======================================
+const userGetAllPosts = async (posterId) => {
+    //input check
+    posterId = validation.checkId(posterId);
+
+    //check if poster exist
+    const poster = await getUserById(posterId);
+
+    if (!poster) {
+        return {
+            userGetAllPosts: false,
+            error: `Cannot find the user with id: ${posterId} !`
+        }
+    }
+
+    //set three sets of posts of result
+    const zeroStatusPost = [];
+    const oneStatusPost = [];
+    const twoStatusPost = [];
+    const boughtPosts = [];
+
+    const postsArray = poster.postsId;
+
+    // find each post created by poster and classify them depends on tradeStatus
+    for (let i = 0; i < postsArray.length; i++) {
+        const thePost = await postsData.getPostById(postsArray[i]);
+        if (!thePost) {
+            return {
+                userGetAllPosts: false,
+                error: `Cannot find the post with id: ${postsArray[i]} !`
+            }
+        }
+        if (thePost.tradeStatus === 0) {
+            zeroStatusPost.push(thePost);
+        }else if (thePost.tradeStatus === 1) {
+            oneStatusPost.push(thePost);
+        }else if (thePost.tradeStatus === 2) {
+            twoStatusPost.push(thePost);
+        }
+    }
+
+    //find posts that the poster bought but didn't post
+    const allPosts = await postsData.getAllPosts();
+    for (let j = 0; j < allPosts.length; j++) {
+        const eachPost = allPosts[i];
+        if (eachPost.buyerId === posterId) {
+            boughtPosts.push(eachPost);
+        }
+    }
+
+    return {
+        userGetAllPosts: false,
+        error: null,
+        zeroStatusPost: zeroStatusPost,
+        oneStatusPost: oneStatusPost,
+        twoStatusPost: twoStatusPost,
+        boughtPosts: boughtPosts,
+    }
+}
+
+
 module.exports = {
     createUser,
     checkUser,
@@ -238,4 +362,6 @@ module.exports = {
     getUserByName,
     updateUser,
     updateTradeWith,
+    updatePostsID,
+    userGetAllPosts,
 }

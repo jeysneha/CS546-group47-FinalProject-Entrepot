@@ -3,9 +3,11 @@ const router = express.Router();
 const validation = require('../helpers');
 const data = require('../data');
 const usersData = data.users;
+const xss = require('xss');
+const {getUserById} = require("../data/users");
 
 
-
+//=========================================== get profile by user self ======================================
 router
     .route('/profile')
     .get(async (req, res) => {
@@ -51,6 +53,7 @@ router
     }
 })
 
+//=========================================== update user info by user self ======================================
 router
     .route('/update')
     .get(async (req, res) => {
@@ -62,10 +65,10 @@ router
         });
     })
     .put(async (req, res)=> {
-        let username = req.body.usernameInput;
-        let email = req.body.emailInput;
-        let originPassword = req.body.originPasswordInput;
-        let newPassword = req.body.newPasswordInput;
+        let username = xss(req.body.usernameInput);
+        let email = xss(req.body.emailInput);
+        let originPassword = xss(req.body.originPasswordInput);
+        let newPassword = xss(req.body.newPasswordInput);
 
         try{
             username = validation.checkUsername(username);
@@ -109,7 +112,7 @@ router
 })
 
 
-// get other user's profile
+//=========================================== get other user's profile ======================================
 // username with hyperlink including userId
 router
     .route('/:posterId')
@@ -122,7 +125,11 @@ router
             posterId = validation.checkId(posterId);
         }catch (e) {
             //here should render the product detail page
-            return res.status(400).json({Error: e});
+            return res.render('error', {
+                title: 'Entrepôt - Error',
+                hasError: true,
+                error: e
+            });
         }
 
         try{
@@ -139,6 +146,7 @@ router
                 title: 'Entrepôt - Profile',
                 hasError: false,
                 error: null,
+                posterId: posterId,
                 username: posterProfile.username,
                 email: posterProfile.email,
                 overallRating: posterProfile.overallRating,
@@ -150,5 +158,45 @@ router
         }
     })
 
+//=========================================== get all posts by user self ======================================
+router
+    .route('/deal')
+    .get(async (req, res) => {
+        const user = req.session.user;
+        let posterId = user.userId;
+
+        //valid check
+        try {
+            posterId = validation.checkId(posterId);
+        }catch (e) {
+            return res.status(400).render()
+        }
+
+        try {
+            const poster = await getUserById(posterId);
+            //check whether user exist
+            if (!poster) {
+                return res.status(404).json(`Cannot find user with id: ${posterId} !`)
+            }
+
+            //get all classified posts
+            const returnInfo = await usersData.userGetAllPosts(posterId);
+
+            if (!returnInfo.userGetAllPosts){
+                return res.status(404).json(returnInfo.error);
+            }
+
+            res.status(200).render('', {
+                zeroStatusPost: returnInfo.zeroStatusPost,
+                oneStatusPost: returnInfo.oneStatusPost,
+                twoStatusPost: returnInfo.twoStatusPost,
+                boughtPosts: returnInfo.boughtPosts,
+            })
+
+
+        }catch (e) {
+            res.status(500).json(e);
+        }
+    })
 
 module.exports = router;

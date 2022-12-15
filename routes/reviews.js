@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validation = require('../helpers');
 const data = require('../data');
+const xss = require('xss');
 
 const usersData = data.users;
 const reviewsDate = data.reviews;
@@ -46,10 +47,25 @@ router
 router
     .route('/addReview/:posterId')
     .get(async (req, res) => {
+        let posterId = req.params.posterId;
+
+        //error check//
+        try{
+            posterId = validation.checkId(posterId);
+        }catch (e) {
+            //here should render the product detail page
+            return res.render('error', {
+                title: 'Entrepôt - Error',
+                hasError: true,
+                error: e
+            });
+        }
+
         res.status(200).render('reviews/reviewRegister', {
             title: 'Entrepôt - Create Review',
             hasErrors: false,
             error: null,
+            posterId: posterId,
             partial: 'reviewRegister-scripts',
         })
     })
@@ -57,9 +73,9 @@ router
         let posterId = req.params.posterId;
         let user = req.session.user;
         let buyerId = user.userId;
-        let title = req.body.titleInput;
-        let body = req.body.bodyInput;
-        let rating = req.body.ratingInput;
+        let title = xss(req.body.titleInput);
+        let body = xss(req.body.bodyInput);
+        let rating = xss(req.body.ratingInput);
 
         //validation check
         try{

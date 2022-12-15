@@ -3,6 +3,7 @@ const data = require('./data');
 
 const users = data.users;
 const reviews = data.reviews;
+const posts = data.posts;
 
 async function main() {
     const db = await dbConnection.dbConnection();
@@ -57,6 +58,10 @@ async function main() {
     const review8 = await reviews.createReviews(user1Obj._id, user4Obj._id, 'fair', 'this is a fair trade', '3');
     const review9 = await reviews.createReviews(user1Obj._id, user5Obj._id, 'bad', 'this is a bad trade', '2');
     const review10 = await reviews.createReviews(user1Obj._id, user6Obj._id, 'disaster', 'this is a disaster trade', '1');
+
+
+    ////////////////////////////////////////////////// post seed ////////////////////////////////////////////////
+    // const post1 = await posts.createPost('iphone', 'this is a iphone', '')
 
 
 }
