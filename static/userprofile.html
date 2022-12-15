@@ -83,12 +83,12 @@
         
           </div>
         
-          <div class="profile-option">
+          <!-- <div class="profile-option">
             <div class="notification">
               <i class="fa fa-bell"></i>
               <span class="alert-message">3</span>
             </div>
-          </div>
+          </div> -->
         
         </div>
         
@@ -106,15 +106,15 @@
               
               <div class="profile-btn">
         <!--          Deal history will open new window for all products-->
-                <button class="chatbtn" id="chatBtn"><i class="fa fa-comment" ></i>All Posts</button>
-                <button class="createbtn" id="Create-post" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-plus"></i> Update User Info</button>
+                <button class="chatbtn" id="chatBtn"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Deal History</button>
+                <button class="createbtn" id="Create-post" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-user-alt"></i>Update UserInfo</button>
               </div>
         
               <div class="user-rating">
                 <h3 class="rating">{{overallRating}}</h3>
                 <div class="rate">
         <!--            show the star filled according to the overallRating-->
-                  <div class="star-outer">
+                  <!-- <div class="star-outer">
                     <div class="star-inner">
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
@@ -122,7 +122,7 @@
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
                     </div>
-                  </div>
+                  </div> -->
         <!--            here include total number of reviews-->
                   <span class="no-of-user-rate"><span> {{reviews.length}}  </span>&nbsp;&nbsp;reviews</span>
                 </div>

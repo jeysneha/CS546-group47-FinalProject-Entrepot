@@ -6,12 +6,7 @@
 
   </div>
 
-  <div class="profile-option">
-    <div class="notification">
-      <i class="fa fa-bell"></i>
-      <span class="alert-message">3</span>
-    </div>
-  </div>
+  
 
 </div>
 
@@ -26,27 +21,23 @@
 <!--          Lorem ipsum dolor sit amet, hello how consectetur adipisicing elit. Sint consectetur provident magni yohoho consequuntur, voluptatibus ghdfff exercitationem at quis similique. Optio, amet!-->
 <!--        </p>-->
 <!--      </div>-->
-      
-      <div class="profile-btn">
+        <div class="profile-btn">
 <!--          Deal history will open new window for all products-->
-        <button class="chatbtn" id="chatBtn"><i class="fa fa-comment" ></i>All Posts</button>
-        <button class="createbtn" id="Create-post" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-plus"></i> Update User Info</button>
-<!--          here should add a button for create review, only show when isSelf is false and the url is 'http://localhost:3000/review/addReview/{{posterId}} -->
-      </div>
+           <button class="chatbtn" id="dealhbtn"><i class="fa fa-shopping-cart" ></i>Deal History</button>
+           {{#if isSelf}}
+           <button class="createbtn" id="Update-info" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-user-alt"></i> Update UserInfo</button>
+           {{else}}
+           <button class="createbtn" id="Add-review" onclick="window.open('http://localhost:3000/review/addReview');"><i class="fa fa-plus"></i> Add Review</button>
+           {{/if}}
+
+         </div>
+
 
       <div class="user-rating">
-        <h3 class="rating">{{overallRating}}</h3>
+        <h3 class="rating">{{overallRating}}/5</h3>
         <div class="rate">
 <!--            show the star filled according to the overallRating-->
-          <div class="star-outer">
-            <div class="star-inner">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </div>
-          </div>
+          
 <!--            here include total number of reviews-->
           <span class="no-of-user-rate"><span> {{reviews.length}}  </span>&nbsp;&nbsp;reviews</span>
         </div>
@@ -79,4 +70,3 @@
   </div>
 </div>
 </main>
-
