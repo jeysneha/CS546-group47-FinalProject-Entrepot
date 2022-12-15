@@ -2,7 +2,7 @@ const mongoCollections = require('../config/mongoCollections');
 const {ObjectId} = require('mongodb');
 const validation = require('../helpers');
 const bcrypt = require('bcryptjs');
-const {getPostById} = require("./posts");
+const postsData = require("./posts");
 const saltRounds = 14;
 
 
@@ -187,7 +187,7 @@ const updatePostsID = async(userId, postId) => {
     }
 
     //check is post exist
-    const post = await getPostById(postId);
+    const post = await postsData.getPostById(postId);
     if (!post) {
         return {
             updatedPostsID: false,
@@ -296,7 +296,62 @@ const updateTradeWith = async(posterId, buyerId) => {
 
 //=========================================== get all posts relevant to this user ======================================
 const userGetAllPosts = async (posterId) => {
+    //input check
+    posterId = validation.checkId(posterId);
 
+    //check if poster exist
+    const poster = await getUserById(posterId);
+
+    if (!poster) {
+        return {
+            userGetAllPosts: false,
+            error: `Cannot find the user with id: ${posterId} !`
+        }
+    }
+
+    //set three sets of posts of result
+    const zeroStatusPost = [];
+    const oneStatusPost = [];
+    const twoStatusPost = [];
+    const boughtPosts = [];
+
+    const postsArray = poster.postsId;
+
+    // find each post created by poster and classify them depends on tradeStatus
+    for (let i = 0; i < postsArray.length; i++) {
+        const thePost = await postsData.getPostById(postsArray[i]);
+        if (!thePost) {
+            return {
+                userGetAllPosts: false,
+                error: `Cannot find the post with id: ${postsArray[i]} !`
+            }
+        }
+        if (thePost.tradeStatus === 0) {
+            zeroStatusPost.push(thePost);
+        }else if (thePost.tradeStatus === 1) {
+            oneStatusPost.push(thePost);
+        }else if (thePost.tradeStatus === 2) {
+            twoStatusPost.push(thePost);
+        }
+    }
+
+    //find posts that the poster bought but didn't post
+    const allPosts = await postsData.getAllPosts();
+    for (let j = 0; j < allPosts.length; j++) {
+        const eachPost = allPosts[i];
+        if (eachPost.buyerId === posterId) {
+            boughtPosts.push(eachPost);
+        }
+    }
+
+    return {
+        userGetAllPosts: false,
+        error: null,
+        zeroStatusPost: zeroStatusPost,
+        oneStatusPost: oneStatusPost,
+        twoStatusPost: twoStatusPost,
+        boughtPosts: boughtPosts,
+    }
 }
 
 
@@ -308,4 +363,5 @@ module.exports = {
     updateUser,
     updateTradeWith,
     updatePostsID,
+    userGetAllPosts,
 }
