@@ -1,7 +1,5 @@
 const express = require("express");
-const path = require("path");
 const app = express();
-// const publicPath = path.resolve(__dirname, "/public");
 const session = require("express-session");
 const exphbs = require("express-handlebars");
 const configRoutes = require("./routes");
@@ -85,8 +83,7 @@ app.use('/user/update', (req, res, next) => {
 configRoutes(app);
 
 
-app.listen(3000, (req, res) => {
+app.listen(3000, () => {
     console.log('Now we got a server');
     console.log('Your routes will be running on http://localhost:3000');
 })
-

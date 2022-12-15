@@ -182,8 +182,8 @@
 
 <script type="text/javascript">
 
-    var flag = false;
-    var previousImg;
+    let flag = false;
+    let previousImg;
     offerData = {{{result}}};
     // console.log(offerData);
     let preview = document.getElementById('image-preview');
@@ -224,28 +224,28 @@
     let fileInput = document.getElementById('file');
     let info = document.getElementById('imgSizeInfo');
     
-  // 监听change事件:
+  
   fileInput.addEventListener('change', function() {
 
 
       // 清除背景图片:
       preview.style.backgroundImage = '';
       if (!fileInput.value) {
-          info.innerHTML = '没有选择文件';
+          info.innerHTML = 'You have not select a file.';
           return;
       }
       let file = fileInput.files[0];
       let size = file.size;
       if (size >= 1 * 1024 * 1024) {
-          alert('文件大小超出限制');
-          info.innerHTML = '文件大小超出限制';
+          //alert('文件大小超出限制');
+          info.innerHTML = 'Size Exceeds the Maximum.';
           return false;
       }
       // 获取File信息:
       // info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
       info.innerHTML = `Image Size: ${file.size/1024}`;
       if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
-          alert('不是有效的图片文件!');
+          alert('Not a valid image format, please try again.');
           return;
       }
       // 读取文件:
@@ -263,9 +263,9 @@
 
   });
 
-  // var params = {};
+  // let params = {};
 
-  var submit = document.getElementById("submit");
+  let submit = document.getElementById("submit");
 
   
 
@@ -276,7 +276,7 @@
     }else{
         paramFile = previousImg;
     }
-    var params = new FormData();
+    let params = new FormData();
     console.log(paramFile);
     params.append("upload_image",paramFile)
     //params.append("senderId", offerData.senderId);

@@ -147,14 +147,15 @@
 
   });
 
-  // var params = {};
-  var params = new FormData();
-  var submit = document.getElementById("submit");
+  // let params = {};
+  let params = new FormData();
+  let submit = document.getElementById("submit");
   submit.onclick = function() {
     params.append("upload_image",document.getElementById("file").files[0])
-    params.append("senderId", document.getElementById("senderId").innerHTML);
+    // 已无用 params.append("senderId", document.getElementById("senderId").innerHTML);
     params.append("postId", document.getElementById("postId").innerHTML);
-    params.append("sellerId", "seller");
+    // 👇尚未修改
+    params.append("sellerId", "6394d87cb8d4a1f2b45a16ef");
     params.append("offerItem", document.getElementById("offerItem").value);
     params.append("itemDesc", document.getElementById("itemDesc").value);
     params.append("wear", document.getElementById("wear").value);

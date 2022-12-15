@@ -9,7 +9,6 @@ const usersData = data.users;
 router.route('/').get(async (req, res) => {
     res.render('landing/landing', {
         title: 'Entrepôt',
-        partial: 'landing-scripts'
     })
 })
 
@@ -20,7 +19,7 @@ router
     .get(async (req, res) => {
         if (req.session.user) {
             //if user is authenticated
-            res.redirect('/products');
+            res.redirect('/user/profile');
         }else {
             res.render('landing/userRegister', {
                 title: 'Entrepôt - Sign-up',
@@ -45,7 +44,6 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
-                partial: 'userRegister-scripts'
             });
         }
 
@@ -58,7 +56,6 @@ router
                     title: 'Entrepôt - Sign-up',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-                    partial: 'userRegister-scripts'
                 });
             }
 
@@ -67,7 +64,6 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: false,
                     error: null,
-                    partial: 'userLogin-scripts'
                 });
             }
         }catch (e) {
@@ -75,17 +71,18 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
-                partial: 'userRegister-scripts'
             });
         }
     })
 
-//login pages
+
+
+//login page
 router
     .route('/login')
     .get(async (req, res) => {
         if (req.session.user) {
-            res.redirect('/products');
+            res.redirect('/user/profile');
         }else {
             res.render('landing/userLogin', {
                 title: 'Entrepôt - Log-in',
@@ -108,7 +105,6 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
-                partial: 'userLogin-scripts',
             });
         }
 
@@ -121,7 +117,6 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-                    partial: 'userLogin-scripts',
                 })
             }
 
@@ -130,7 +125,6 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-                    partial: 'userLogin-scripts',
                 })
             }
 
@@ -140,7 +134,7 @@ router
                     username: username,
                     userId: authUser.userId
                 };
-                res.redirect('/products');
+                res.redirect('/user/profile');
             }
 
         }catch (e) {
@@ -148,7 +142,6 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
-                partial: 'userLogin-scripts',
             });
         }
     })

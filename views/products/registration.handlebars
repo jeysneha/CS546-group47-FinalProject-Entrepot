@@ -1,0 +1,57 @@
+<h1>{{title}}</h1>
+
+<main>
+  <div class="container">
+    <h2>make your changes</h1>
+      <form id="product-signup-form" enctype="multipart/form-data" method="POST" class="center padding"  >
+        <div class="form-group">
+          <label for="name">Product Title:</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter product Name">
+        </div>
+
+        <div class="form-group">
+          <label for="product-body">Product body:</label>
+          <input type="text" class="form-control" id="address" name="productBody" placeholder="Enternbody of product">
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="proCate">
+            <option value="elec">Choose Your Category</option>
+            <option value="Apparel & Accessories"></option>
+            <option value="Jewelry & Watches"></option>
+            <option value="Motors, style & Fashion"></option>
+            <option value="home & garden"></option>
+            <option value="sporting Goods"></option>
+            <option value=" Health & Wellness"></option>
+            <option value="Medical Health"></option>
+            <option value="Children & infants"></option>
+            <option value="Pets & Pets supplies"></option>
+            <option value="Consumer Electronic Goods"></option>
+            <option value="Home improvement"></option>
+            <option value="Collectibles & Art"></option>
+            <option value="other Categories / to be categorized"></option>
+          </select>
+
+          
+            <label for="picture" class="labels">change product image</label>
+            <input type="file" name="picture" accept="image/gif, image/jpeg, image/png, image/jpg" class="btn  bottom-padding" multiple required />
+            <input type="submit" class="btn-private btn btn-primary" value="Upload Photo" />
+         
+
+
+          <br>
+
+
+          <button type="submit" id="btn-id" class="btn btn-primary">Submit</button>
+          <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
+      </form>
+
+      {{#if errorcode}}
+
+      <p class="error">{{message}}</p>
+      {{/if}}
+
+
+  </div>
+
+</main>

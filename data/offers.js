@@ -2,7 +2,8 @@ const mongoCollections = require('../config/mongoCollections');
 const offers = mongoCollections.offers;
 const {ObjectId} = require('mongodb');
 const path = require('path');
-var fs = require('fs');
+const fs = require('fs');
+const users = mongoCollections.users;
 const helpers = require("../offerHelpers")
 
 module.exports = { 
@@ -29,8 +30,8 @@ module.exports = {
     extend = file.originalFilename.split(".")[1]
     id = ObjectId();
     filename = id+"."+extend
-    // var des_file = path.join(__dirname,'../uploads')+"/"+file.originalFilename;
-    var des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    // let des_file = path.join(__dirname,'../uploads')+"/"+file.originalFilename;
+    let des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
     console.log(des_file) //上传路径：des_file
     console.log(file.path) //临时文件路径：file.path
 
@@ -51,7 +52,7 @@ module.exports = {
     } catch(e) {
       throw e;
     }
-    var status = 0;
+    let status = 0;
     if (offersArray.length !=0 ){
       for(i=0;i<offersArray.length;i++){
         if(offersArray[i].status == 1 || offersArray[i].status == -1){
@@ -118,9 +119,24 @@ module.exports = {
 // =================================================   get an offer =========================================================
   async getOfferById (offerId) {
     offersCollection = await offers();
+    usersCollection = await users();
     offerResult = await offersCollection.findOne({"_id":ObjectId(offerId)});
 
     if (offerResult === null) throw 'Error: No offer with that id';
+    
+    // query the two users' information
+    sellerId = offerResult.sellerId;
+    senderId = offerResult.senderId;
+    
+    try{
+      sender = await usersCollection.findOne({"_id":ObjectId(senderId)});
+      seller = await usersCollection.findOne({"_id":ObjectId(sellerId)});
+    }catch(e){
+      throw "Error: Failed to find the corresponding users.";
+    }
+    
+    offerResult.senderContact = sender.email;
+    offerResult.sellerContact = seller.email;
 
 
     offerResult._id = offerResult._id.toString();
@@ -168,7 +184,7 @@ module.exports = {
 
     filename = originalOffer.imgName;
 
-    var des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    let des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
 
     const isExistImg = fs.existsSync(des_file)
     if (isExistImg) {
@@ -198,7 +214,7 @@ module.exports = {
 
     
     if (updatedInfo.modifiedCount === 0) {
-      throw 'Error: could not update movie successfully';
+      throw 'Error: could not update offer successfully';
     }
 
 
@@ -235,7 +251,7 @@ module.exports = {
     const deletionInfo = await offersCollection.deleteOne({_id: ObjectId(offerId)});
     filename = originalOffer.imgName;
 
-    var des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    let des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
     const isExistImg = fs.existsSync(des_file)
     if (isExistImg) {
       //删除文件
@@ -256,7 +272,12 @@ module.exports = {
   async acceptOffer (offerId, sellerId, newAcceptStatus) {
 
     offersCollection = await offers();
-    originalOffer = await this.getOfferById(offerId);
+    try{
+      originalOffer = await this.getOfferById(offerId);
+    }catch(e){
+      throw e;
+    }
+    
 
     if(originalOffer.sellerId != sellerId){
       throw "Error: You have no authority to edit this offer";

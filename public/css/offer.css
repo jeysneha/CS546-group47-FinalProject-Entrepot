@@ -564,3 +564,12 @@ h1 {
     border-radius: 10px;
     margin-left: 5%;
 }
+
+.LimitPWeight {
+    width: 40%;
+    max-width: 200px;
+    word-wrap:break-word;
+    text-align: center;
+    margin-left: 30%;
+    margin-right: 30%;
+}

@@ -58,6 +58,7 @@ router
             title: 'Entrepôt - Update User Info',
             hasErrors: false,
             error: null,
+            partial: 'userUpdate-scripts',
         });
     })
     .put(async (req, res)=> {
@@ -94,6 +95,8 @@ router
                     error: 'Internal Server Error',
                 });
             }
+
+            user.username = username;
 
             res.status(200).redirect('/user/profile');
         }catch (e) {

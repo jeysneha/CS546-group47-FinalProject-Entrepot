@@ -1,16 +1,16 @@
 
 
-var userId = "buyer";
-var data;
+let userId = "buyer";
+let data;
 
-var ongoingButtonIds = [];
-var awaitingButtonIds = [];
-var finishedButtonIds = [];
+let ongoingButtonIds = [];
+let awaitingButtonIds = [];
+let finishedButtonIds = [];
 
-var ongoingBoxIds = [];
-var awaitingBoxIds = [];
-var finishedBoxIds = [];
-var failedBoxIds = [];
+let ongoingBoxIds = [];
+let awaitingBoxIds = [];
+let finishedBoxIds = [];
+let failedBoxIds = [];
 
 init();
 
@@ -31,7 +31,7 @@ function init() {
     otherOffersBoxId = [];
     // get all the offer of a ceratin post
     data = getAll().result;
-    // show the current accepted offer
+    
     
     // show the offers list
     bindList("ongoing");
@@ -43,7 +43,7 @@ function init() {
 
 
 function getAll() {
-    var result;
+    let result;
     $.ajax({
         methods: "get",
         // url:'/offers/mySent/'+userId,
@@ -62,9 +62,9 @@ function getImage(tagName,imgName){
 
 function bindList(elementId){
 
-    var products = document.getElementById(elementId); //找到tbody标签
+    let products = document.getElementById(elementId); //找到tbody标签
     
-    var subData = [];
+    let subData = [];
     if(elementId == "ongoing"){
         for(i=0;i<data.length;i++){
             if(data[i].status == 1){
@@ -91,17 +91,41 @@ function bindList(elementId){
         }
     }
 
-    for (var i = 0; i < subData.length; i++) { //对stus进行循环遍历，并建立tr标签
+    for (let i = 0; i < subData.length; i++) { //对stus进行循环遍历，并建立tr标签
         id = subData[i]._id;
+
+        switch (subData[i].wear) {
+            case '10':
+                subData[i].wear = "Like New";
+              break;
+              case '8':
+                subData[i].wear = "Good Condition";
+              break;
+              case '6':
+                subData[i].wear = "Fair Condition";
+              break;
+              case'4':
+              subData[i].wear = "Poor Condition";
+              break;
+              case '2':
+                subData[i].wear = "Need Repair";
+              break;
+              case '0':
+                subData[i].wear = "Sold As Component";
+              break;
+          }
+
+        subData[i].itemDesc = subData[i].itemDesc.slice(0,30) + "...";
+
         confirmByBuyer = subData[i].confirmByBuyer;
         // console.log(elementId,id);
-        var div1 = document.createElement('div');
+        let div1 = document.createElement('div');
 
         
         
         div1.className = "product";
         products.appendChild(div1);
-        var div2 = document.createElement('div');
+        let div2 = document.createElement('div');
         div2.className = "product-under";
         div1.appendChild(div2);
 
@@ -286,9 +310,9 @@ function bindList(elementId){
         h4.innerHTML = subData[i].offerItem;
         div4.appendChild(h4);
 
-        span = document.createElement("span");
-        span.className = "stars";
-        div4.appendChild(span);
+        wearDegree = document.createElement("p");
+        wearDegree.innerHTML = subData[i].wear;
+        div4.appendChild(wearDegree);
 
         p = document.createElement("p");
         p.innerHTML = subData[i].itemDesc;

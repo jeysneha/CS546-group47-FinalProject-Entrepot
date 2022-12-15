@@ -15,7 +15,7 @@
 }
 .login-page, .signup-page, .landing-page, .userUpdate-page {
     width:80%;
-    height: 70vh;
+    height: 85vh;
     margin-left: 10%;
     margin-right: 10%;
     display: flex;
@@ -24,17 +24,22 @@
     background: url("https://starry-lixu.oss-cn-hangzhou.aliyuncs.com/202209141908599.jpg") fixed no-repeat;
     background-size: cover;
 }
-.login-error, .signup-error, .userUpdate-error {
-    margin-left: auto;
-    width: 800px;
+
+.login-content, .signup-content {
+    width: 400px;
+    height: 280px;
+}
+
+.login-error, .signup-error, .userUpdate-error, #reviewRegister-error{
+    width: 400px;
     text-align: center;
     font-size: 18px;
     color: #D0342C;
 }
 .login-form, .signup-form {
-    width: 50%;
+    width: 400px;
     height: 280px;
-    margin-left: 25%;
+    /*margin-left: 25%;*/
     margin-right: 25%;
     display: flex;
     flex-direction: column;

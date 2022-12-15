@@ -1,12 +1,13 @@
 
 
 
-// var postId = "67891012aed";
-var postId = "post00001";
+// let postId = "67891012aed";
+let postId = "post00001";
 
 
 function getAll() {
-    var result;
+    let
+ result;
     $.ajax({
     methods: "get",
     url:'/offers/'+postId,
@@ -18,11 +19,11 @@ function getAll() {
 })
 return result;
 }
-var exchg = "../public/offerUploads/exchg.png";
-var data;
-var otherOffersAcceptButtonId = [];
-var acceptedOfferId;
-var otherOffersBoxId = [];
+let exchg = "../public/offerUploads/exchg.png";
+let data;
+let otherOffersAcceptButtonId = [];
+let acceptedOfferId;
+let otherOffersBoxId = [];
 
 init();
 
@@ -120,19 +121,23 @@ function currentAccept(){
 
 function bindList(){
 
-    var products = document.getElementById('products'); //找到tbody标签
+    let
+ products = document.getElementById('products'); //找到tbody标签
     
     
-    for (var i = 0; i < data.length; i++) { //对stus进行循环遍历，并建立tr标签
+    for (let
+     i = 0; i < data.length; i++) { //对stus进行循环遍历，并建立tr标签
         id = data[i]._id;
-        var div1 = document.createElement('div');
+        let
+     div1 = document.createElement('div');
 
         boxId = "boxId" + i;
         otherOffersBoxId.push(boxId);
         div1.setAttribute("id",boxId);
         div1.className = "product";
         products.appendChild(div1);
-        var div2 = document.createElement('div');
+        let
+     div2 = document.createElement('div');
         div2.className = "product-under";
         div1.appendChild(div2);
 
@@ -209,7 +214,8 @@ function bindList(){
 }
 
 function ifAccept() {
-    var isAccept;
+    let
+ isAccept;
     for(i=0;i<data.length;i++) {
         if(data[i].acceptStatus == 1) {
             isAccept = true;

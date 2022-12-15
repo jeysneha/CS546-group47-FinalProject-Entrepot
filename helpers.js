@@ -4,14 +4,14 @@ module.exports = {
 
     checkUsername(name) {
         if (!name) {
-            throw 'User name is not provided!'
+            throw 'Username is not provided!'
         }
         if (typeof name !== 'string') {
-            throw 'User name should be a string!'
+            throw 'Username should be a string!'
         }
         name = name.trim();
         if (name === '') {
-            throw 'User name cannot be empty string or spaces only!'
+            throw 'Username cannot be empty string or spaces only!'
         }
         if (name.length < 4) {
             throw 'Username must contain at least 4 characters!'
@@ -131,10 +131,62 @@ module.exports = {
         if (typeof rating !== 'string') {
             throw 'Invalid rating input!'
         }
-        rating = parseFloat(rating);
-        if (rating < 1 || rating > 5) {
-            throw 'The review rating should be in range of 1-5 (inclusive)'
+        const ratingRegex = /^[1-5]$/;
+        if (!ratingRegex.test(rating)) {
+            throw 'Review rating must be an integer from 1 to 5 (1 is lowest, 5 is highest)!'
         }
         return rating;
-    }
+    },
+
+    createDateTime() {
+        // create current date
+        const today = new Date();
+        let yyyy = today.getFullYear();
+        let mm = today.getMonth()+1;
+        let dd = today.getDate();
+        let hr = today.getHours();
+        let min = today.getMinutes();
+        let sec = today.getSeconds();
+        //when mm or dd has only one number add 0 in front of it
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        return `${mm}/${dd}/${yyyy}  ${hr}:${min}:${sec}`;
+    },
+
+    existypestring(input) {
+        if (typeof input !=='string' ||input.trim().length === 0) {
+            throw 'Input has to be a string and it cannot be an empty string or string with just spaces'
+        }
+        input=input.trim()
+        return input;
+    },
+
+    checkPostTitle(title) {
+        if (title === '') {
+            throw 'Post title cannot be empty string or space only!'
+        }
+        if(title.trim().length<2) throw 'Title must be at least two characters';
+        let pattern = /[^a-zA-Z0-9 ]/g;
+        let result = pattern.test(title);
+        if(result===true){
+            throw 'Title can only contain letters a-z, A-Z or numbers'
+         }
+        return title;
+    },
+
+    checkId_j(id) {
+        if (!ObjectId.isValid(id)) throw 'invalid object ID';
+        return id;
+      },
+
+    checktradeStatus(tradeStatus){
+        tradeStatus=parseInt(tradeStatus,10);
+        if(tradeStatus!==0||tradeStatus!==1 ||tradeStatus!==2){
+            throw "Invalid Status"
+        }
+    },
 }

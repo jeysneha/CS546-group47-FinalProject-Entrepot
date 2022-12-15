@@ -36,7 +36,7 @@
       </div>
           
 
-    <div id="div5" hidden>111</div>
+    
   </main>
 
 
@@ -46,9 +46,9 @@
   <script type="text/javascript">
 
 
-    // var offerId = '63928aa6f9cd290b164e738c';
-    var offerData;
-    var statusColor;
+    // let offerId = '63928aa6f9cd290b164e738c';
+    let offerData;
+    let statusColor;
     
 
     init();
@@ -64,11 +64,14 @@
         console.log("================", offerData.role)
         if(offerData.role == "buyer") {
           editButton.innerHTML = "Edit";
-          if(offerData.status != -1 || offerData.status != 0) {
+          
+          if(offerData.status != -1 && offerData.status != 0) {
             editButton.className = "edit-banned";
-            //offerData.setAttribute("disabled","disabled");
+            editButton.setAttribute("disabled","disabled");
+            
           }else{
             editButton.className = "uploadImgButton" ;
+            editButton.href = '/offers/edit/'+offerId;
           }
         }
         else if (offerData.role == "seller") {
@@ -94,11 +97,7 @@
           span.onclick = "this.parentElement.style.display='none';";
           msgBox.appendChild(span);
         }
-
-
         
-        //console.log(offerData);
-        //getOfferById();
         getImage();
 
         switch (offerData.wear) {
@@ -182,9 +181,13 @@
 
       offerDescTag = document.createElement("p");
       offerDescTag.innerHTML = "Description:  " + offerData.itemDesc;
+      offerDescTag.className = "LimitPWeight";
 
       offerWearTag = document.createElement("p");
       offerWearTag.innerHTML = "Degree of Wear:  " + offerData.wear;
+
+      offerContactTag = document.createElement("p");
+      offerContactTag.innerHTML = "Contact:  " + offerData.senderContact;
 
       postItemTag = document.createElement("p");
       postItemTag.innerHTML = "Item:  " + 123456;
@@ -192,8 +195,8 @@
       postUserTag = document.createElement("p");
       postUserTag.innerHTML = "User:  " + 123456;
 
-      postIdTag = document.createElement("p");
-      postIdTag.innerHTML = "ID:  " + 123456;
+      contactTag = document.createElement("p");
+      contactTag.innerHTML = "Contact:  " + offerData.sellerContact;
 
       statusContent = document.createElement("p");
       statusContent.innerHTML = "Status: " + offerData.status;
@@ -212,6 +215,7 @@
       detailSection.appendChild(offerNameTag);
       detailSection.appendChild(offerDescTag);
       detailSection.appendChild(offerWearTag);
+      detailSection.appendChild(offerContactTag);
 
       detailSection.appendChild(document.createElement("br"));
 
@@ -219,9 +223,9 @@
       postHeadline.innerHTML = "POST";
       postHeadline.className = "inputTitle";
       detailSection.appendChild(postHeadline);
-      detailSection.appendChild(postIdTag);
       detailSection.appendChild(postItemTag);
       detailSection.appendChild(postUserTag);
+      detailSection.appendChild(contactTag);
     }
 
   

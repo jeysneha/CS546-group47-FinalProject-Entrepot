@@ -10,92 +10,83 @@
     <link type="text/css" href=".././public/reviewFormat.css" rel="stylesheet" />
     <link rel='stylesheet' href='.././public/css/offer.css' >
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
-<!--    <script src="JS/jquery-3.5.1.min.js"></script>-->
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<!--    <title>Entrepôt</title>-->
+    <!--    <script src="JS/jquery-3.5.1.min.js"></script>-->
+
+    <!--    <title>Entrepôt</title>-->
     <title>{{ title }}</title>
 </head>
 
 <body>
-    <!--Navbar-->
-    <nav>
-        <div class="navbar-top">
-            <div>
-                <button id="menuButton"><i class="fas fa-bars"></i></button>
-                <!--Logo-->
-                <a href="index.html">
-                    <h2 class="logo">LOGO</h2>
-                    <img class="logo" src=".././public/images/logo.JPG" />
+<!--Navbar-->
+<nav>
+    <div class="navbar-top">
+        <div>
+            <button id="menuButton"><i class="fas fa-bars"></i></button>
+            <!--Logo-->
+            <a href="index.html">
+                <h2 class="logo">LOGO</h2>
+                <img class="logo" src=".././public/images/logo.JPG" />
+            </a>
+        </div>
+        <div>
+            <!--My account part-->
+            <div class="account">
+                <a href="/user/profile">
+                    <button class="account-btn">
+                        <i class="fas fa-user-alt"></i>
+                    </button>
+                    <span class="account-text">My account</span>
                 </a>
-            </div>
-            <div>
-                <!--My account part-->
-                <div class="account">
-                    <a href="/user/profile">
-                        <button class="account-btn">
-                            <i class="fas fa-user-alt"></i>
-                        </button>
-                        <span class="account-text">My account</span>
-                    </a>
-                    <!--When we click the btnShowAccountInfo this section will be displayed-->
-                </div>
+                <!--When we click the btnShowAccountInfo this section will be displayed-->
             </div>
         </div>
-        <!-- Navbar bottom part -->
+    </div>
+    <!-- Navbar bottom part -->
 
-        <!-- Here I put the links to the other pages or nav links -->
-        <div class="navbar" id="navbar">
-            <div class="links">
-                <ul>
+    <!-- Here I put the links to the other pages or nav links -->
+    <div class="navbar" id="navbar">
+        <div class="links">
+            <ul>
 
-                    <li class="nav-links">
-                        <a href="index.html" class="link">Product Listing</a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="product_details.html" class="link">Product Details</a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="offer_management.html" class="link">Offer Management</a>
-                    </li>
-                    <li class="nav-links">
-                        <a href="deal_history.html" class="link">Deal History</a>
-                    </li>
-                </ul>
-            </div>
+                <li class="nav-links">
+                    <a href="index.html" class="link">Product Listing</a>
+                </li>
+                <li class="nav-links">
+                    <a href="product_details.html" class="link">Product Details</a>
+                </li>
+                <li class="nav-links">
+                    <a href="offer_management.html" class="link">Offer Management</a>
+                </li>
+                <li class="nav-links">
+                    <a href="deal_history.html" class="link">Deal History</a>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 
+<!--<div>-->
+<!--    {{#if hasErrors}}-->
+<!--    <p class="error">-->
+<!--        {{error}}-->
+<!--    </p>-->
+<!--    {{/if}}-->
+<!--</div>-->
 
-
-
-
-
-    <body>
-
-<h1>{{title}}</h1>
-
-<body>
-
-    {{#if hasErrors}}
-        <p class="error">
-            {{error}}
-        </p>
-    {{/if}}
-
-    <form action="/review/addReview/6387f1fd73e6af3e6a39b074" method="post">
-     <main class="main">
-            <section class="container">
-              <div class="title">
+<form action="/review/addReview/6387f1fd73e6af3e6a39b074" method="post">
+    <main class="main">
+        <section class="container">
+            <div class="title">
                 <h2>Reviews Card</h2>
                 <div class="underline"></div>
-              </div>
-              <article class="review">
-                
+            </div>
+            <article class="review">
+
                 <label for="titleInput">
                     Title:
                 </label>
@@ -105,62 +96,59 @@
                     Rating:
                 </label>
                 <input id="ratingInput" name="ratingInput" type="number"/>
-                
+
                 <label for="bodyInput">
                     Description:
                 </label>
                 <textarea id="bodyInput" name="bodyInput" rows="5" width="50%"></textarea>
 
-                  <br>
+                <br>
                 <div class="bottonjj">
-                <button class="button-4" type="submit">Submit</button>
+                    <button class="button-4" type="submit">Submit</button>
                 </div>
-                
-                
-              </article>
-            </section>
-          </main>
-
-    </form>
-    </body>
 
 
-    <footer class="main-footer">
-        <div class="footer-second">
-            <div class="footer-column-2">
-                <h3>Customer service</h3>
-                <a href="/static/contact.html">Contact Us</a>
-                <a href="#">common questions</a>
-            </div>
-            <div class="footer-column-3">
-                <h3>About us</h3>
-                <a href="/static/landingpage.html">Who we are</a>
-                <a href="/static/privacy_policy.html">Privacy Policy</a>
-            </div>
+            </article>
+        </section>
+    </main>
+</form>
+
+<footer class="main-footer">
+    <div class="footer-second">
+        <div class="footer-column-2">
+            <h3>Customer service</h3>
+            <a href="/static/contact.html">Contact Us</a>
+            <a href="#">common questions</a>
         </div>
-        <ul class="footer-last">
-            <li>
-                <p><i class="fab fa-cc-mastercard"></i></p>
-            </li>
-            <li>
-                <p><i class="fab fa-cc-paypal"></i></p>
-            </li>
-            <li>
-                <p><i class="fab fa-cc-visa"></i></p>
-            </li>
-            <li>
-                <p><i class="fab fa-cc-amex"></i></p>
-            </li>
-        </ul>
-
-        <div class="col-md-6 col-12 tm-color-gray tm-copyright">
-            Copyright 2022 Entrepôt group
+        <div class="footer-column-3">
+            <h3>About us</h3>
+            <a href="/static/landingpage.html">Who we are</a>
+            <a href="/static/privacy_policy.html">Privacy Policy</a>
         </div>
-    </footer>
+    </div>
+    <ul class="footer-last">
+        <li>
+            <p><i class="fab fa-cc-mastercard"></i></p>
+        </li>
+        <li>
+            <p><i class="fab fa-cc-paypal"></i></p>
+        </li>
+        <li>
+            <p><i class="fab fa-cc-visa"></i></p>
+        </li>
+        <li>
+            <p><i class="fab fa-cc-amex"></i></p>
+        </li>
+    </ul>
 
-    {{#if partial}}
-        {{> (lookup . 'partial') }}
-    {{/if}}
+    <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+        Copyright 2022 Entrepôt group
+    </div>
+</footer>
+
+<!--{{#if partial}}-->
+<!--{{> (lookup . 'partial') }}-->
+<!--{{/if}}-->
 <!--    <script src="JS/script.js"></script>-->
 </body>
 

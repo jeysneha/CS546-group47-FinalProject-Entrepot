@@ -49,7 +49,8 @@ router
         res.status(200).render('reviews/reviewRegister', {
             title: 'Entrepôt - Create Review',
             hasErrors: false,
-            error: null
+            error: null,
+            partial: 'reviewRegister-scripts',
         })
     })
     .post(async (req, res) => {
@@ -96,7 +97,6 @@ router
             }
 
             res.status(200).redirect(`/user/${posterId}`);
-            // res.status(200).json('Insert review successfully!');
 
         }catch (e) {
             res.status(500).json({Error: e});
