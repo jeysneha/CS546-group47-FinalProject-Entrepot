@@ -1,4 +1,3 @@
-//require express, express router and bcrypt as shown in lecture code
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
@@ -7,9 +6,6 @@ const offerData = data.offers;
 // const session = require('express-session');
 // const { rmSync } = require('fs');
 // let formidable = require('formidable')
-
-
-
 const path = require("path")
 const multiparty = require('connect-multiparty');
 const multer = require("multer")
