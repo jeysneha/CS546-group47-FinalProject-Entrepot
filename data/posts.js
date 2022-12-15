@@ -4,7 +4,7 @@ const validation = require('../helpers');
 const posts = mongoCollections.posts;
 const path = require('path');
 const fs = require('fs');
-const {getUserById, updatePostsID} = require("./users");
+const usersData = require("./users");
 
 
 //================================================= create a new post ===============================================
@@ -68,7 +68,7 @@ const createPost = async (
     }
 
     //after create the post update poster's postId array
-    const updateUserInfo = await updatePostsID(posterId, id.toString());
+    const updateUserInfo = await usersData.updatePostsID(posterId, id.toString());
     if (!updateUserInfo.updatedPostsID) {
         throw updateUserInfo.error;
     }
