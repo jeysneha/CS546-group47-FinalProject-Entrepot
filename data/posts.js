@@ -35,7 +35,7 @@ const createPost = async (
     const id = ObjectId();
     const filename = id + "." + extend
 
-    const img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
+    const img_dir = path.join(__dirname, '../public/postimgesUploads') + "/" + filename
     console.log(img_dir)
     console.log(imgFile.path)
 
@@ -73,7 +73,12 @@ const createPost = async (
         throw updateUserInfo.error;
     }
 
-    return await getPostById(id.toString());
+    //if no post, throw first
+    const post = await getPostById(id.toString());
+    if (!post) {
+        `Cannot find the post with id: ${id.toString()} !`
+    }
+    return post;
 };
 
 
@@ -121,7 +126,7 @@ const updatePost = async (
     category,
     posterId,
 ) => {
-    if (!postId || !title || !body || !imgFile || !category || !posterId || !datetime) {
+    if (!postId || !title || !body || !imgFile  || !posterId || !datetime ||!category) {
         throw 'All fields need to have valid values'
     }
     postId = validation.existypestring(postId);
@@ -139,6 +144,9 @@ const updatePost = async (
 
     //check postId exist
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`
+    }
 
     //check posterId exist
     const thePoster = await usersData.getUserById(posterId);
@@ -159,7 +167,7 @@ const updatePost = async (
     //update image with the same filename
     const filename = thePost.imgFile;
 
-    let img_dir = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    let img_dir = path.join(__dirname,'../public/postimgesUploads')+"/"+ filename
 
     const isExistImg = fs.existsSync(img_dir)
     if (isExistImg) {
@@ -167,7 +175,7 @@ const updatePost = async (
         fs.unlinkSync(img_dir)
     }
 
-    //将文件存入本地服务器文件中
+
     fs.readFile(imgFile.path,function (err,data){
         fs.writeFile(img_dir,data,function(err){
             if(err){
@@ -195,7 +203,12 @@ const updatePost = async (
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 
 }
 
@@ -208,6 +221,9 @@ const updateTradeStatusToZero = async(postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`;
+    }
 
     const postCollection = await posts();
 
@@ -216,7 +232,7 @@ const updateTradeStatusToZero = async(postId) => {
     }
 
     if (thePost.tradeStatus === 0) {
-        return await getPostById(postId);
+        return thePost;
     }
 
     const updatedPost = {
@@ -232,11 +248,13 @@ const updateTradeStatusToZero = async(postId) => {
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 }
-
-
-
 
 //============================================== update trade status to 1 ===============================================
 const updateTradeStatusToOne = async(postId) => {
@@ -245,6 +263,9 @@ const updateTradeStatusToOne = async(postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`
+    }
 
     const postCollection = await posts();
 
@@ -253,7 +274,7 @@ const updateTradeStatusToOne = async(postId) => {
     }
 
     if (thePost.tradeStatus === 1) {
-        return await getPostById(postId);
+        return thePost;
     }
 
     const updatedPost = {
@@ -269,11 +290,13 @@ const updateTradeStatusToOne = async(postId) => {
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 }
-
-
-
 
 //============================================== update trade status to 2 ===============================================
 const updateTradeStatusToTwo = async(postId) => {
@@ -282,6 +305,9 @@ const updateTradeStatusToTwo = async(postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`
+    }
 
     const postCollection = await posts();
 
@@ -302,7 +328,12 @@ const updateTradeStatusToTwo = async(postId) => {
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 }
 
 
@@ -315,6 +346,9 @@ const removePost = async (postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        `Cannot find the post with id: ${postId} !`
+    }
 
     const postCollection = await posts();
 

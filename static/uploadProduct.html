@@ -71,19 +71,12 @@
         </div>
       </div>
     </div>
-    <!-- Navbar bottom part -->
-
-    <!-- Here I put the links to the other pages or nav links -->
-
   </nav>
 
 
 
-
-
-
   <main>
-    <div class="container">
+    <div class="container" style="background-color:violet;">
       <form id="product-signup-form" class="center padding" action="/post" method="POST">
         <div class="form-group">
           <h1>Post for exchange:</h1>
@@ -118,7 +111,7 @@
 
           <form action="/upload/profilepic" enctype="multipart/form-data" method="POST">
             <br>
-            <label for="picture" class="labels">Upload product image</label>
+            <label for="picture" class="labels">Upload product image:</label>
             <input type="file" id="product-image" accept="image/*" class="btn  bottom-padding" required />
             <input type="submit" class="btn-private btn btn-primary" value="Upload Photo" />
           </form>
@@ -127,7 +120,8 @@
       <br>
       <br>
 
-      <button type="submit" id="btn-id" class="btn btn-primary">Submit</button>
+      <button type="submit" id="btn-id" class="btn btn-primary" style="text-align:center; margin-left: 250px;">
+        Submit</button>
       <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
       </form>
 
