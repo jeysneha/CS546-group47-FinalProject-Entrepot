@@ -1,7 +1,7 @@
 const mongoCollections = require('../config/mongoCollections');
 const {ObjectId} = require("mongodb");
 const validation = require('../helpers');
-const {getUserById} = require("./users");
+const usersData = require('./users');
 
 
 const users = mongoCollections.users;
@@ -27,7 +27,7 @@ const createReviews = async (
     const usersCol = await users();
 
     //check whether the buyer has the right to give review
-    const poster = await getUserById(posterId);
+    const poster = await usersData.getUserById(posterId);
     if (!poster) {
         return {
             insertedReview: false,
@@ -54,7 +54,7 @@ const createReviews = async (
     const datetime = validation.createDateTime();
 
     //find review rewriter/buyer's username
-    const buyer = await getUserById(buyerId);
+    const buyer = await usersData.getUserById(buyerId);
     if (!buyer) {
         return {
             insertedReview: false,
