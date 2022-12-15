@@ -146,5 +146,11 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
 });
 
 
+router.route("/images/:imgName").get(async (req, res)=>{
+    // Route for fetching image of a certain offer;
+    res.status(200).sendFile(path.resolve("public/postUploads/"+req.params.imgName));
+})
+
+
 module.exports = router;
 

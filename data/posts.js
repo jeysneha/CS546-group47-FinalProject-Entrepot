@@ -4,7 +4,7 @@ const validation = require('../helpers');
 const posts = mongoCollections.posts;
 const path = require('path');
 const fs = require('fs');
-const {getUserById} = require("./users");
+const {getUserById, updatePostsID} = require("./users");
 
 
 //================================================= create a new post ===============================================
@@ -62,8 +62,16 @@ const createPost = async (
 
     }
     const insertInfo = await postCollection.insertOne(newPost);
-    if (!insertInfo.acknowledged || !insertInfo.insertedId)
+    if (!insertInfo.acknowledged || !insertInfo.insertedId) {
         throw 'Could not add your Post';
+
+    }
+
+    //after create the post update poster's postId array
+    const updateUserInfo = await updatePostsID(posterId, id.toString());
+    if (!updateUserInfo.updatedPostsID) {
+        throw updateUserInfo.error;
+    }
 
     return await getPostById(id.toString());
 };
@@ -94,7 +102,10 @@ const getPostById = async (postId) => {
     if (!ObjectId.isValid(postId)) throw 'invalid object ID';
     const postCollection = await posts();
     const posto = await postCollection.findOne({_id: ObjectId(postId)});
-    if (posto === null) throw `No Post with that id: ${postId}`;
+    // if (posto === null) throw `No Post with that id: ${postId}`;
+    if (!posto) {
+        return null;
+    }
     posto._id = posto._id.toString();
     return posto;
 };
