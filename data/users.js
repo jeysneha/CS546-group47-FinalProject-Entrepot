@@ -195,6 +195,7 @@ const updatePostsID = async(userId, postId) => {
         }
     }
 
+    //update user's postsId
     const updateInfo = await usersCol.updateOne(
         {_id: ObjectId(posterId)},
         {

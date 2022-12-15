@@ -3,6 +3,7 @@ const router = express.Router();
 const data = require('../data');
 const {ObjectId} = require('mongodb');
 const postData = data.posts;
+const usersData = data.users;
 const path = require('path');
 const multiparty = require('connect-multiparty');
 const multer = require("multer")
@@ -16,7 +17,7 @@ router
         //code here for GET
         try {
             const prList = await postData.getAllPosts();
-            return res.status(200).render('list', {productarray: prList})
+            return res.status(200).render('products/list', {productArray: prList})
         } catch (e) {
             res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
 
@@ -75,8 +76,6 @@ router
         }
 
     })
-
-
     .delete(async (req, res) => {
         //code here for DELETE
         /* try {
@@ -133,6 +132,16 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
 
     try {
         const postObj = await postData.createPost(title, body, imgFile, category, posterId)
+
+        //after create the post update poster's postId array
+        const updateUserInfo = await usersData.updatePostsID(posterId, postObj._id);
+        if (!updateUserInfo.updatedPostsID) {
+            return res.status(400).render('/products/registration', {
+                title: 'Entrepôt - Create post',
+                hasError: true,
+                error: updateUserInfo.error
+            });
+        }
 
         return res.status(200).render('products/details', {postObj: postObj});
 

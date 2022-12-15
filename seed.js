@@ -61,7 +61,7 @@ async function main() {
 
 
     ////////////////////////////////////////////////// post seed ////////////////////////////////////////////////
-    // const post1 = await posts.createPost('iphone', 'this is a iphone', '')
+    // const post1 = await posts.createPost('iphone', 'this is a iphone', product1, 'home & garden', user1Obj._id);
 
 
 }

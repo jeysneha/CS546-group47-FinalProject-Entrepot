@@ -67,12 +67,6 @@ const createPost = async (
 
     }
 
-    //after create the post update poster's postId array
-    const updateUserInfo = await usersData.updatePostsID(posterId, id.toString());
-    if (!updateUserInfo.updatedPostsID) {
-        throw updateUserInfo.error;
-    }
-
     //if no post, throw first
     const post = await getPostById(id.toString());
     if (!post) {
@@ -80,6 +74,7 @@ const createPost = async (
     }
     return post;
 };
+
 
 
 //================================================= get all posts in database ===============================================
@@ -91,7 +86,6 @@ const getAllPosts = async () => {
         postList[i]._id = postList[i]._id.toString()
 
     }
-    console.log(postList)
     return postList;
 };
 
