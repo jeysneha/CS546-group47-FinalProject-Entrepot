@@ -111,8 +111,11 @@ router.route('/postRegister').get(async (req, res) => {
         title: 'Entrepôt - Create post',
         hasError: false,
         error: null
-    })
+    });
 })
+
+
+
 router.post('/postRegister', multipartMiddleware, async (req, res) => {
     //code here for POST
     const session = req.session.user;

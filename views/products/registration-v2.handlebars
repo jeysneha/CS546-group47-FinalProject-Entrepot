@@ -1,0 +1,237 @@
+  <div class="alertMessage" id="errorBox" hidden>
+  <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+</div>
+<div class="panel-back">
+    
+  <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
+    <section class="panel-detail-left" id="detailSection">
+          <h1> Register a new Post</h1>
+      <label for="postId" id="formLabel" class = "inputTitle">
+              Desired PostId	
+      </label>
+      
+      <form enctype="multipart/form-data" id="file_upload">
+      <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
+
+          <p id="postId" name="postId">post00001</p>
+          
+          <br>
+          <label for="offerItem" id="formLabel" class = "inputTitle">
+              Offer Item Name	
+          </label><br>
+          <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="No more than 30 characters.">
+          <div id="offerItemError" class="errorLine" hidden>I'm an error</div>
+          <br>
+          <br>
+  
+          <label for="itemDesc" id="formLabel" class = "inputTitle">
+            Degree of wear	
+          </label><br>
+          <select class="createInputWear" id = "wear">
+            <option value="10">Like New</option>
+            <option value="8">Good Condition</option>
+            <option value="6">Fair Condition</option>
+            <option value="4">Poor Condition</option>
+            <option value="2">Need Repair</option>
+            <option value="0">Sold As Component</option>
+          </select>
+            </input>
+          <br><br>
+
+
+            <label for="itemDesc" id="formLabel" class = "inputTitle">
+              Offer Item Description	
+          </label><br>
+          <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc" placeholder="No more than 200 characters."></textarea>
+          <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
+          <br>
+
+          
+          
+      </form>
+      </section>
+
+
+      <section class="panel-detail-right">
+        
+        <div style="text-align: center;">
+            <p class = "inputTitle">Upload An Image</p>
+        </div>
+        
+        <p>
+          <label for="file" class="uploadImgButton">Upload Image</label>
+          <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
+          <div id="imgError" class="errorLine" hidden>I'm an error</div>
+          <!-- <p>Preview</p> -->
+          <img id="image-preview" class="createOfferImg">
+          <p id="imgSizeInfo" class="errorLine"></p>
+          <input type="button" value="SUBMIT" id="submit" class="createOfferButton" style="margin-bottom: 0%;"/>
+          </p>
+    </section>
+</div>
+    
+</div>
+    
+    
+
+    <div id="div5" hidden>111</div>
+  </main>
+  <footer>
+    <div class="footer-second">
+      <div class="footer-column-2">
+        <h3>Customer service</h3>
+        <a href="#">Contact</a>
+        <a href="#">Track your order</a>
+      </div>
+      <div class="footer-column-3">
+        <h3>About us</h3>
+        <a href="#">Who we are</a>
+        <a href="#">Our Services</a>
+      </div>
+    </div>
+    <ul class="footer-last">
+      <li>
+        <p><i class="fab fa-cc-mastercard"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-paypal"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-visa"></i></p>
+      </li>
+      <li>
+        <p><i class="fab fa-cc-amex"></i></p>
+      </li>
+    </ul>
+  </footer>
+
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+
+  <script type="text/javascript">
+        
+  let fileInput = document.getElementById('file');
+  let info = document.getElementById('imgSizeInfo');
+  let preview = document.getElementById('image-preview');
+  let validImgFlag = false;
+  // 监听change事件:
+  fileInput.addEventListener('change', function() {
+      info.className = "errorLine";
+      // 清除背景图片:
+      preview.style.backgroundImage = '';
+      //if (!fileInput.value) {
+          //info.innerHTML = 'You did not upload a image';
+          //return;
+      //}
+      let file = fileInput.files[0];
+      let size = file.size;
+      if (size >= 1 * 1024 * 1024) {
+          //alert('文件大小超出限制');
+          info.innerHTML = 'The images\'s size exceeds maximum. Please upload a new image smaller than 1MB';
+          return false;
+      }
+      // 获取File信息:
+      // info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
+      info.innerHTML = `Image Size: ${(file.size/1024).toFixed(2)+" KB"}`;
+      if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+          alert('Not a valid image format!');
+          return;
+      }
+      // 读取文件:
+      let reader = new FileReader();
+      reader.onload = function(e) {
+          let data = e.target.result;
+          preview.src = data
+      };
+      // 以DataURL的形式读取文件:
+      reader.readAsDataURL(file);
+
+      validImgFlag = true;
+      info.className = "errorLine-size";
+      imgError = document.getElementById("imgError");
+      imgError.setAttribute("hidden",true);
+      //imgError.setAttribute("display", true);
+      //imgError.innerHTML = "You must provide a image of your item";
+
+  });
+
+  // let params = {};
+  ;
+  let submit = document.getElementById("submit");
+  submit.onclick = function() {
+    let params = new FormData();
+    let errorFound = false;
+    if (document.getElementById("offerItem").value == null || document.getElementById("offerItem").value.toString().trim().length==0){
+      offerItemError = document.getElementById("offerItemError");
+      offerItemError.removeAttribute("hidden");
+      offerItemError.setAttribute("display", true);
+      offerItemError.innerHTML = "You must provide a not-null name";
+      errorFound = true;
+    }
+    if (document.getElementById("itemDesc").value == null || document.getElementById("itemDesc").value.toString().trim().length==0){
+      itemDescError = document.getElementById("itemDescError");
+      itemDescError.removeAttribute("hidden");
+      itemDescError.setAttribute("display", true);
+      itemDescError.innerHTML = "You must provide a not-null description";
+      errorFound = true;
+      
+    }
+    if (document.getElementById("file").files[0] == null || document.getElementById("file").files[0] == undefined || validImgFlag != true) {
+      imgError = document.getElementById("imgError");
+      imgError.removeAttribute("hidden");
+      imgError.setAttribute("display", true);
+      imgError.innerHTML = "You must provide a image of your item";
+      errorFound = true;
+      
+    }
+    if(errorFound == true || validImgFlag != true){
+      return;
+    }
+    
+
+    params.append("upload_image",document.getElementById("file").files[0])
+    // 已无用 params.append("senderId", document.getElementById("senderId").innerHTML);
+    params.append("postId", document.getElementById("postId").innerHTML);
+    // 👇尚未修改
+    params.append("sellerId", "639a56511572f2134759d2b8");
+    params.append("offerItem", document.getElementById("offerItem").value);
+    params.append("itemDesc", document.getElementById("itemDesc").value);
+    params.append("wear", document.getElementById("wear").value);
+
+    
+    $.ajax({
+    url: '/offers',
+    data: params,
+    cache: false,
+    // contentType: 'multipart/form-data',
+    contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+    processData: false,
+    type: 'POST',
+    success: function(data){
+      id = data.result._id;
+      
+      document.location.href = "/offers/offer/"+id+"?created=true";
+    },
+    error: function(data){            
+      errorBox = document.getElementById("errorBox");
+
+      errorBox.removeAttribute("hidden");
+      errorBox.setAttribute("display", true);
+      errorBox.innerHTML = data.responseJSON.result;
+      span = document.createElement("span");
+      span.innerHTML = "×";
+      span.className = "close";
+      //span.onclick = "this.parentElement.style.display='none';";
+      span.onclick = function closeWarningBox() {
+                      document.getElementById("errorBox").removeAttribute("display");
+                      document.getElementById("errorBox").setAttribute("hidden",true);
+                    };
+      errorBox.appendChild(span);
+                    
+    }
+});
+
+};
+  
+  </script>
