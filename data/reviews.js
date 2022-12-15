@@ -85,7 +85,7 @@ const createReviews = async (
         newOverallRating = Math.round(totalRate * 10.0 / (reviews.length+1)) / 10;
     }
 
-    // update movie's reviews and overallRating
+    // update user's reviews and overallRating
     const updateInfo = await usersCol.updateOne(
         {_id: ObjectId(posterId)},
         {
