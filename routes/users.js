@@ -122,7 +122,11 @@ router
             posterId = validation.checkId(posterId);
         }catch (e) {
             //here should render the product detail page
-            return res.status(400).json({Error: e});
+            return res.render('error', {
+                title: 'Entrepôt - Error',
+                hasError: true,
+                error: e
+            });
         }
 
         try{
@@ -139,6 +143,7 @@ router
                 title: 'Entrepôt - Profile',
                 hasError: false,
                 error: null,
+                posterId: posterId,
                 username: posterProfile.username,
                 email: posterProfile.email,
                 overallRating: posterProfile.overallRating,

@@ -46,10 +46,25 @@ router
 router
     .route('/addReview/:posterId')
     .get(async (req, res) => {
+        let posterId = req.params.posterId;
+
+        //error check//
+        try{
+            posterId = validation.checkId(posterId);
+        }catch (e) {
+            //here should render the product detail page
+            return res.render('error', {
+                title: 'Entrepôt - Error',
+                hasError: true,
+                error: e
+            });
+        }
+
         res.status(200).render('reviews/reviewRegister', {
             title: 'Entrepôt - Create Review',
             hasErrors: false,
             error: null,
+            posterId: posterId,
             partial: 'reviewRegister-scripts',
         })
     })
