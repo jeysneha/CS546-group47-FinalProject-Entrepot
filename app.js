@@ -63,6 +63,14 @@ app.use('/offers', (req, res, next)=> {
     }
 })
 
+app.use('/posts', (req, res, next) => {
+    if (!req.session.user) {
+        return res.status(403).redirect('/');
+    }else {
+        next();
+    }
+})
+
 app.use('/products', (req, res, next) => {
     if (!req.session.user) {
         return res.status(403).redirect('/');
