@@ -1,49 +1,150 @@
-<div>
-  <h2 style="text-align: center; box-shadow: 1.5rem;">Information We Collect and How We Collect It</h2>
-  <h3>Information You Provide to Us.</h3>
-  <ul>
-    <li>Entrepôt collects information that you provide directly to us when you sign up and use the Entrepôt service
-      including:
-    </li>
-    <li>Information when you register or update the details of your account,</li>
-    <li> with other users, provide reviews or other comments, purchase services from entrepot,</li>
-    <li> request customer support, or otherwise communicate with us.</li>
-  </ul>
-  <h2>The types of information we may collect include:</h2>
-  <ul>
-    <li>your name,</li>
-    <li>email address,</li>
-    <li>telephone number,</li>
-    <li>postal address including city, state, and zip code,</li>
-    <li>photographs of posted items,</li>
-    <li>written descriptions of your posted items,</li>
-    <li>bids you make on items,</li>
-    <li>reviews or comments you make on the entrepot Service,</li>
-    <li>all messages with other users or with us sent through the entrepot messaging service or to entrepot directly,</li>
-    <li>any other information you choose to provide.</li>
-  </ul>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link type="text/css" href="../public/css/main.css" rel="stylesheet" />
+  <link type="text/css" href="/public/landing.css" rel="stylesheet" />
+  <link type="text/css" href="/public/profile.css" rel="stylesheet" />
+  <link type="text/css" href="/public/reviewFormat.css" rel="stylesheet" />
+  <link rel='stylesheet' href='/public/css/offer.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  <!--Navbar-->
+  <nav>
+    <div class="navbar-top">
+      <div style="margin-top: 0%;">
+        <!--Logo-->
+        <a href="index.html">
+          <img class="logo" src="../public/images/logo.JPG" />
+        </a>
+      </div>
+      <div class="navbar" id="navbar">
+        <div class="links">
+          <ul>
+
+            <li class="nav-links">
+              <a href="index.html" class="link">Product Listing</a>
+            </li>
+            <li class="nav-links">
+              <a href="product_details.html" class="link">Product Details</a>
+            </li>
+            <li class="nav-links">
+              <a href="offer_management.html" class="link">My Posts</a>
+            </li>
+            <li class="nav-links">
+              <a href="/offers/myOffers" class="link">My Sent</a>
+            </li>
+            <li class="nav-links">
+              <a href="deal_history.html" class="link">Deal History</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <!--My account part-->
+        <div style="width: 200px; margin:0px">
+          <a href="/user/profile">
+            <button class="account-btn">
+              <i class="fas fa-user-alt"></i>
+            </button>
+            <span class="account-text">My account</span>
+          </a>
+          <!--When we click the btnShowAccountInfo this section will be displayed-->
+        </div>
+        <div style="width: 200px; margin-left: -80px">
+          <a href="#">
+            <button class="account-btn">
+            </button>
+            <span class="account-text"> log out </span>
+          </a>
+          <!--When we click the btnShowAccountInfo this section will be displayed-->
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div style="margin-left:50px;">
+    <h2 style="text-align: center; box-shadow: 1.5rem;">Information We Collect and How We Collect It</h2>
+    <h3>Information You Provide to Us.</h3>
+    <ul>
+      <li>Entrepôt collects information that you provide directly to us when you sign up and use the Entrepôt service
+        including:
+      </li>
+      <li>Information when you register or update the details of your account,</li>
+      <li> with other users, provide reviews or other comments, purchase services from entrepot,</li>
+      <li> request customer support, or otherwise communicate with us.</li>
+    </ul>
+    <h2>The types of information we may collect include:</h2>
+    <ul>
+      <li>your name,</li>
+      <li>email address,</li>
+      <li>telephone number,</li>
+      <li>postal address including city, state, and zip code,</li>
+      <li>photographs of posted items,</li>
+      <li>written descriptions of your posted items,</li>
+      <li>bids you make on items,</li>
+      <li>reviews or comments you make on the entrepot Service,</li>
+      <li>all messages with other users or with us sent through the entrepot messaging service or to entrepot directly,
+      </li>
+      <li>any other information you choose to provide.</li>
+    </ul>
 
 
 
-  <h2>How We Use Your Information.</h2>
-  <ul>
-    <Li>Verify your login information to allow you to access and use the Entrepôt Service, to personalize the entrepot
-      Service,</Li>
-    <li>and to optimize the location and type of offers presented to you when you use the entrepot Service;</li>
-    <li>Connect you to other users on the entrepot Service via friends lists when authorized by you;</li>
-    <li>Create and maintain a trusted and safer environment on the OfferUp Service, including through detection and
-      prevention
-      of fraud, unauthorized access, intrusion, and service interruption;</li>
-    <li>Conduct investigations and to respond to disputes between users, error resolution, and other similar customer
-      support
-      service;</li>
+    <h2>How We Use Your Information.</h2>
+    <ul>
+      <Li>Verify your login information to allow you to access and use the Entrepôt Service, to personalize the entrepot
+        Service,</Li>
+      <li>and to optimize the location and type of offers presented to you when you use the entrepot Service;</li>
+      <li>Connect you to other users on the entrepot Service via friends lists when authorized by you;</li>
+      <li>Create and maintain a trusted and safer environment on the OfferUp Service, including through detection and
+        prevention
+        of fraud, unauthorized access, intrusion, and service interruption;</li>
+      <li>Conduct investigations and to respond to disputes between users, error resolution, and other similar customer
+        support
+        service;</li>
       participate, such as verifying your identity and address, and conduct checks against various publicly available
       databases;</li>
-    <li>Operate, protect, improve and optimize the Entrepôt Service, our business, and our users’ experience;
-      Perform analytics, conduct research, and monitor and analyze trends, usage and activities in connection with the
-      OfferUp
-      Service;</li>
-    <li>Communicate with you about products, services, offers, promotions, rewards, and events offered by Entrepôt and
-      others;</li>
-  </ul>
-</div>
+      <li>Operate, protect, improve and optimize the Entrepôt Service, our business, and our users’ experience;
+        Perform analytics, conduct research, and monitor and analyze trends, usage and activities in connection with the
+        OfferUp
+        Service;</li>
+      <li>Communicate with you about products, services, offers, promotions, rewards, and events offered by Entrepôt and
+        others;</li>
+    </ul>
+  </div>
+
+  <footer class="main-footer">
+    <div class="footer-second">
+      <div class="footer-column-2">
+        <h3>Customer service</h3>
+        <a href="/static/contact.html">Contact Us</a>
+        <a href="#">common questions</a>
+      </div>
+      <div class="footer-column-3">
+        <h3>About us</h3>
+        <a href="/static/landingpage.html">Who we are</a>
+        <a href="/static/privacy_policy.html">Privacy Policy</a>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+      Copyright 2022 Entrepôt group
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

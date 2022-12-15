@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link type="text/css" href="/public/css/main.css" rel="stylesheet" />
+  <link type="text/css" href="../public/css/main.css" rel="stylesheet" />
   <link type="text/css" href="/public/landing.css" rel="stylesheet" />
   <link type="text/css" href="/public/profile.css" rel="stylesheet" />
   <link type="text/css" href="/public/reviewFormat.css" rel="stylesheet" />
@@ -25,7 +25,7 @@
       <div style="margin-top: 0%;">
         <!--Logo-->
         <a href="index.html">
-          <img class="logo" src="/public/images/logo.JPG" />
+          <img class="logo" src="../public/images/logo.JPG" />
         </a>
       </div>
       <div class="navbar" id="navbar">
@@ -120,7 +120,7 @@
       <br>
       <br>
 
-      <button type="submit" id="btn-id" class="btn btn-primary" style="text-align:center; margin-left: 250px;">
+      <button type="submit" id="btn-id" class="btn btn-primary" style="text-align:center;">
         Submit</button>
       <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
       </form>
@@ -161,7 +161,6 @@
   {{#if partial}}
   {{> (lookup . 'partial') }}
   {{/if}}
-  <!--    <script src="JS/script.js"></script>-->
 </body>
 
 </html>

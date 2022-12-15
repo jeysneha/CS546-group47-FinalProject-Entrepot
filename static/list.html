@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link type="text/css" href="../public/css/main.css" rel="stylesheet" />
+  <link type="text/css" href="/public/landing.css" rel="stylesheet" />
+  <link type="text/css" href="/public/profile.css" rel="stylesheet" />
+  <link type="text/css" href="/public/reviewFormat.css" rel="stylesheet" />
+  <link rel='stylesheet' href='/public/css/offer.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <title>{{ title }}</title>
+</head>
+
+<body>
+  <!--Navbar-->
+  <nav>
+    <div class="navbar-top">
+      <div style="margin-top: 0%;">
+        <!--Logo-->
+        <a href="index.html">
+          <img class="logo" src="../public/images/logo.JPG" />
+        </a>
+      </div>
+      <div class="navbar" id="navbar">
+        <div class="links">
+          <ul>
+
+            <li class="nav-links">
+              <a href="index.html" class="link">Product Listing</a>
+            </li>
+            <li class="nav-links">
+              <a href="product_details.html" class="link">Product Details</a>
+            </li>
+            <li class="nav-links">
+              <a href="offer_management.html" class="link">My Posts</a>
+            </li>
+            <li class="nav-links">
+              <a href="/offers/myOffers" class="link">My Sent</a>
+            </li>
+            <li class="nav-links">
+              <a href="deal_history.html" class="link">Deal History</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <!--My account part-->
+        <div style="width: 200px; margin:0px">
+          <a href="/user/profile">
+            <button class="account-btn">
+              <i class="fas fa-user-alt"></i>
+            </button>
+            <span class="account-text">My account</span>
+          </a>
+          <!--When we click the btnShowAccountInfo this section will be displayed-->
+        </div>
+        <div style="width: 200px; margin-left: -80px">
+          <a href="#">
+            <button class="account-btn">
+            </button>
+            <span class="account-text"> log out </span>
+          </a>
+          <!--When we click the btnShowAccountInfo this section will be displayed-->
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <body>
+    <main>
+      <section class="main-section">
+        <div class="product-container">
+          <h3 style="text-align:center; color:coral">Popular Exchanges</h3>
+          <div class="products">
+            <div class="product">
+              <div class="product-under">
+                <figure class="product-image">
+                  {{!-- <img src="images/headphone.jpg" alt="headphone" /> --}}
+                  {{#each images}}
+                  <img src="{{this}}" alt="Image">
+                  {{/each}}
+
+                  <div class="product-over">
+                    <button class="btn btn-small addToCart" data-product-id="1">
+                      <i class="fas fa-cart-plus"></i>offer to exchange
+                    </button>
+                    <a href="detail_page.html" class="btn btn-small">More Info</a>
+                  </div>
+                </figure>
+                <div class="product-summary">
+                  <h4 class="productName">{{this.title}}</h4>
+                  <span class="stars"></span>
+                  <p>
+                    {{#each categories}}
+                  <p>{{this}}</p>
+                  {{/each}}
+                  {{!-- bought in 2020, barely used --}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <div class="footer-second">
+        <div class="footer-column-2">
+          <h3>Customer service</h3>
+          <a href="/static/contact.html">Contact Us</a>
+          <a href="#">common questions</a>
+        </div>
+        <div class="footer-column-3">
+          <h3>About us</h3>
+          <a href="/static/landingpage.html">Who we are</a>
+          <a href="/static/privacy_policy.html">Privacy Policy</a>
+        </div>
+      </div>
+
+
+      <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+        Copyright 2022 Entrepôt group
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    {{#if partial}}
+    {{> (lookup . 'partial') }}
+    {{/if}}
+  </body>
+
+</html>
