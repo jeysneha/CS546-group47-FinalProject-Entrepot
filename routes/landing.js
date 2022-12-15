@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const validation = require('../helpers');
+const xss = require('xss');
 const data = require('../data');
 const usersData = data.users;
 
@@ -30,9 +31,9 @@ router
         }
     })
     .post(async (req, res) => {
-        let username = req.body.usernameInput;
-        let email = req.body.emailInput;
-        let password = req.body.passwordInput;
+        let username = xss(req.body.usernameInput);
+        let email = xss(req.body.emailInput);
+        let password = xss(req.body.passwordInput);
 
         // input check
         try{
@@ -93,8 +94,8 @@ router
         }
     })
     .post(async (req, res) => {
-        let username = req.body.usernameInput;
-        let password = req.body.passwordInput;
+        let username = xss(req.body.usernameInput);
+        let password = xss(req.body.passwordInput);
 
         //input check
         try{
