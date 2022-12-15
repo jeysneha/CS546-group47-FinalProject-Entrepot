@@ -1,8 +1,9 @@
 <main>
-    <div class="container">
-        <h1>Post for exchange:</h1>
+    <div class="container" style="background-color:violet;">
         <form id="product-signup-form" class="center padding" action="/post" method="POST">
             <div class="form-group">
+                <h1>Post for exchange:</h1>
+
                 <label for="name">Product Title:</label>
                 <input type="text" class="form-control" id="product-title" name="name" placeholder="Enter product Name">
             </div>
@@ -13,7 +14,7 @@
                     placeholder="Enternbody of product">
             </div>
             <div class="form-group">
-                <label for="category">Category</label>
+                <label for="category">Category:</label>
                 <select id="product-Cate">
                     <option value="elec">Choose Your Category</option>
                     <option value="Apparel & Accessories"></option>
@@ -32,16 +33,18 @@
                 </select>
 
                 <form action="/upload/profilepic" enctype="multipart/form-data" method="POST">
-                    <label for="picture" class="labels">Upload product image</label>
+                    <br>
+                    <label for="picture" class="labels">Upload product image:</label>
                     <input type="file" id="product-image" accept="image/*" class="btn  bottom-padding" required />
                     <input type="submit" class="btn-private btn btn-primary" value="Upload Photo" />
                 </form>
 
         </form>
         <br>
+        <br>
 
-
-        <button type="submit" id="btn-id" class="btn btn-primary">Submit</button>
+        <button type="submit" id="btn-id" class="btn btn-primary" style="text-align:center; margin-left: 250px;">
+            Submit</button>
         <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
         </form>
 
