@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validation = require('../helpers');
 const data = require('../data');
+const xss = require('xss');
 
 const usersData = data.users;
 const reviewsDate = data.reviews;
@@ -72,9 +73,9 @@ router
         let posterId = req.params.posterId;
         let user = req.session.user;
         let buyerId = user.userId;
-        let title = req.body.titleInput;
-        let body = req.body.bodyInput;
-        let rating = req.body.ratingInput;
+        let title = xss(req.body.titleInput);
+        let body = xss(req.body.bodyInput);
+        let rating = xss(req.body.ratingInput);
 
         //validation check
         try{
