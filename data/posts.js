@@ -4,6 +4,7 @@ const validation = require('../helpers');
 const posts = mongoCollections.posts;
 const path = require('path');
 const fs = require('fs');
+//functions from user
 const {getUserById, updatePostsID} = require("./users");
 
 
@@ -35,7 +36,7 @@ const createPost = async (
     const id = ObjectId();
     const filename = id + "." + extend
 
-    const img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
+    const img_dir = path.join(__dirname, '../public/postimgesUploads') + "/" + filename
     console.log(img_dir)
     console.log(imgFile.path)
 
@@ -69,6 +70,7 @@ const createPost = async (
 
     //after create the post update poster's postId array
     const updateUserInfo = await updatePostsID(posterId, id.toString());
+    //posterId is the same as userId and id is the postId
     if (!updateUserInfo.updatedPostsID) {
         throw updateUserInfo.error;
     }
@@ -121,7 +123,7 @@ const updatePost = async (
     category,
     posterId,
 ) => {
-    if (!postId || !title || !body || !imgFile || !category || !posterId || !datetime) {
+    if (!postId || !title || !body || !imgFile  || !posterId || !datetime ||!category) {
         throw 'All fields need to have valid values'
     }
     postId = validation.existypestring(postId);
@@ -159,7 +161,7 @@ const updatePost = async (
     //update image with the same filename
     const filename = thePost.imgFile;
 
-    let img_dir = path.join(__dirname,'../public/offerUploads')+"/"+ filename
+    let img_dir = path.join(__dirname,'../public/postimgesUploads')+"/"+ filename
 
     const isExistImg = fs.existsSync(img_dir)
     if (isExistImg) {
@@ -167,7 +169,7 @@ const updatePost = async (
         fs.unlinkSync(img_dir)
     }
 
-    //将文件存入本地服务器文件中
+
     fs.readFile(imgFile.path,function (err,data){
         fs.writeFile(img_dir,data,function(err){
             if(err){
@@ -235,9 +237,6 @@ const updateTradeStatusToZero = async(postId) => {
     return await getPostById(postId);
 }
 
-
-
-
 //============================================== update trade status to 1 ===============================================
 const updateTradeStatusToOne = async(postId) => {
     if (!postId) throw 'Post Id ought to be provided';
@@ -271,9 +270,6 @@ const updateTradeStatusToOne = async(postId) => {
 
     return await getPostById(postId);
 }
-
-
-
 
 //============================================== update trade status to 2 ===============================================
 const updateTradeStatusToTwo = async(postId) => {
