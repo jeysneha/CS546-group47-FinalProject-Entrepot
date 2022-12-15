@@ -2,27 +2,34 @@
 
 <main>
   <div class="container">
-    <h2>make your changes</h1>
-      <form id="product-signup-form" enctype="multipart/form-data" method="POST" class="center padding"  >
+    <h1>Create your Post</h1>
+
+      <div id="postRegister-error">
+          {{#if hasError}}
+              {{error}}
+          {{/if}}
+      </div>
+
+      <form action="/posts/postRegister" id="product-signup-form" enctype="multipart/form-data" method="POST" class="center padding"  >
         <div class="form-group">
-          <label for="name">Product Title:</label>
-          <input type="text" class="form-control" id="name" name="name" placeholder="Enter product Name">
+          <label for="postRegister-name">Product Title:</label>
+          <input type="text" class="form-control" id="postRegister-name" name="postRegTitleInput" placeholder="Enter product Name">
         </div>
 
         <div class="form-group">
-          <label for="product-body">Product body:</label>
-          <input type="text" class="form-control" id="address" name="productBody" placeholder="Enternbody of product">
+          <label for="postRegister-body">Product body:</label>
+          <input type="text" class="form-control" id="postRegister-body" name="postRegBodyInput" placeholder="Enternbody of product">
         </div>
         <div class="form-group">
-          <label for="category">Category</label>
-          <select id="proCate">
+          <label for="postRegister-category">Category</label>
+          <select id="postRegister-category" name="postRegCategoryInput">
             <option value="elec">Choose Your Category</option>
             <option value="Apparel & Accessories"></option>
             <option value="Jewelry & Watches"></option>
             <option value="Motors, style & Fashion"></option>
             <option value="home & garden"></option>
             <option value="sporting Goods"></option>
-            <option value=" Health & Wellness"></option>
+            <option value="Health & Wellness"></option>
             <option value="Medical Health"></option>
             <option value="Children & infants"></option>
             <option value="Pets & Pets supplies"></option>
@@ -32,11 +39,11 @@
             <option value="other Categories / to be categorized"></option>
           </select>
 
-          
-            <label for="picture" class="labels">change product image</label>
-            <input type="file" name="picture" accept="image/gif, image/jpeg, image/png, image/jpg" class="btn  bottom-padding" multiple required />
+<!--          here should be improved for image upload-->
+            <label for="postRegister-img" class="labels">change product image</label>
+            <input type="file" id="postRegister-img" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" class="btn  bottom-padding" multiple required />
             <input type="submit" class="btn-private btn btn-primary" value="Upload Photo" />
-         
+
 
 
           <br>
@@ -44,6 +51,7 @@
 
           <button type="submit" id="btn-id" class="btn btn-primary">Submit</button>
           <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
+        </div>
       </form>
 
       {{#if errorcode}}
@@ -53,5 +61,4 @@
 
 
   </div>
-
 </main>
