@@ -39,6 +39,16 @@ router.route("/myPosts").get(async (req, res) => {
   });
 });
 
+router.route("/edi").get(async (req, res) => {
+  console.log("2312312312321");
+  res.render('products/registration-v2', {
+      title: 'Entrepôt - Create post',
+      hasError: false,
+      error: null
+  });
+})
+
+
 
 
 router.route("/createOffer").get(async (req, res) => {
@@ -347,6 +357,7 @@ router.route("/post/:postId").get(async (req, res)=>{
   })
   // res.status(200).json({code:200, result:offer});
 })
+
 
 
 

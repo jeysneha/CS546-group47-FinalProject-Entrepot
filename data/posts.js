@@ -4,7 +4,7 @@ const validation = require('../helpers');
 const posts = mongoCollections.posts;
 const path = require('path');
 const fs = require('fs');
-const usersData = require("./users");
+const usersData = require("../data").users;
 
 
 //================================================= create a new post ===============================================
@@ -35,7 +35,7 @@ const createPost = async (
     const id = ObjectId();
     const filename = id + "." + extend
 
-    const img_dir = path.join(__dirname, '../public/postimgesUploads') + "/" + filename
+    const img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
     console.log(img_dir)
     console.log(imgFile.path)
 
@@ -68,13 +68,22 @@ const createPost = async (
     }
 
     //after create the post update poster's postId array
-    const updateUserInfo = await usersData.updatePostsID(posterId, id.toString());
+    try{
+        updateUserInfo = await usersData.updatePostsID(posterId, id.toString());
+    }catch(e){
+        throw e;
+    }
+    
     if (!updateUserInfo.updatedPostsID) {
         throw updateUserInfo.error;
     }
 
     //if no post, throw first
-    const post = await getPostById(id.toString());
+    try{
+        post = await this.getPostById(id.toString());
+    }catch(e){
+        throw e;
+    }
     if (!post) {
         `Cannot find the post with id: ${id.toString()} !`
     }

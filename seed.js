@@ -1,6 +1,6 @@
 const dbConnection = require('./config/mongoConnection');
 const data = require('./data');
-
+const fs = require('fs');
 const users = data.users;
 const reviews = data.reviews;
 const posts = data.posts;
@@ -62,6 +62,14 @@ async function main() {
 
     ////////////////////////////////////////////////// post seed ////////////////////////////////////////////////
     // const post1 = await posts.createPost('iphone', 'this is a iphone', '')
+    filename = "product1.png"
+    path = path.join(__dirname, '../public/postUploads') + "/" + filename
+    let file;
+    fs.readFile(path, function (err, data) {
+        file = data;
+    })
+    
+
 
 
 }

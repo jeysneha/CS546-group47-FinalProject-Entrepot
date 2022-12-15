@@ -22,8 +22,8 @@ function init() {
     otherOffersAcceptButtonId = [];
     otherOffersBoxId = [];
     // get all the offer of a ceratin post
-    data = getAll().result;
-    
+    data = getAll();
+    console.log(data);
     
     // show the offers list
     bindList("ongoing");
@@ -38,7 +38,7 @@ function getAll() {
     $.ajax({
         methods: "get",
         // url:'/offers/mySent/'+userId,
-        url:'/users/mysent/get',
+        url:'/users/deal',
         cache: false,
         async: false,
         success: function (data) {

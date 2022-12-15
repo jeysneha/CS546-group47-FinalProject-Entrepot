@@ -105,6 +105,7 @@ router
     });
 
 router.route('/postRegister').get(async (req, res) => {
+    
     res.render('/products/registration', {
         title: 'Entrepôt - Create post',
         hasError: false,
@@ -134,14 +135,21 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
 
     try {
         const postObj = await postData.createPost(title, body, imgFile, category, posterId)
-
+        console.log("11111");
         return res.status(200).render('products/details', {postObj: postObj});
 
     } catch (e) {
-        return res.status(500).render('/products/registration', {
+        // return res.status(500).render('/products/registration', {
+        //     title: 'Entrepôt - Create post',
+        //     hasError: true,
+        //     error: 4,
+        //     result: e
+        // });
+        return res.status(500).json({
             title: 'Entrepôt - Create post',
             hasError: true,
-            error: 4
+            error: 4,
+            result: e
         });
     }
 });
