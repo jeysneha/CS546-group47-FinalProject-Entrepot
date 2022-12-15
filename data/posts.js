@@ -73,7 +73,12 @@ const createPost = async (
         throw updateUserInfo.error;
     }
 
-    return await getPostById(id.toString());
+    //if no post, throw first
+    const post = await getPostById(id.toString());
+    if (!post) {
+        `Cannot find the post with id: ${id.toString()} !`
+    }
+    return post;
 };
 
 
@@ -139,6 +144,9 @@ const updatePost = async (
 
     //check postId exist
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`
+    }
 
     //check posterId exist
     const thePoster = await usersData.getUserById(posterId);
@@ -195,7 +203,12 @@ const updatePost = async (
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 
 }
 
@@ -208,6 +221,9 @@ const updateTradeStatusToZero = async(postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`;
+    }
 
     const postCollection = await posts();
 
@@ -216,7 +232,7 @@ const updateTradeStatusToZero = async(postId) => {
     }
 
     if (thePost.tradeStatus === 0) {
-        return await getPostById(postId);
+        return thePost;
     }
 
     const updatedPost = {
@@ -232,7 +248,12 @@ const updateTradeStatusToZero = async(postId) => {
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 }
 
 
@@ -245,6 +266,9 @@ const updateTradeStatusToOne = async(postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`
+    }
 
     const postCollection = await posts();
 
@@ -253,7 +277,7 @@ const updateTradeStatusToOne = async(postId) => {
     }
 
     if (thePost.tradeStatus === 1) {
-        return await getPostById(postId);
+        return thePost;
     }
 
     const updatedPost = {
@@ -269,7 +293,12 @@ const updateTradeStatusToOne = async(postId) => {
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 }
 
 
@@ -282,6 +311,9 @@ const updateTradeStatusToTwo = async(postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        throw `Cannot find the post with id: ${postId} !`
+    }
 
     const postCollection = await posts();
 
@@ -302,7 +334,12 @@ const updateTradeStatusToTwo = async(postId) => {
         throw 'could not update the post successfully';
     }
 
-    return await getPostById(postId);
+    //if no post, throw first
+    const post = await getPostById(postId);
+    if (!post) {
+        `Cannot find the post with id: ${postId} !`
+    }
+    return post;
 }
 
 
@@ -315,6 +352,9 @@ const removePost = async (postId) => {
     postId = validation.checkId_j(postId);
 
     const thePost = await getPostById(postId);
+    if (!thePost) {
+        `Cannot find the post with id: ${postId} !`
+    }
 
     const postCollection = await posts();
 

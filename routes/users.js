@@ -4,9 +4,10 @@ const validation = require('../helpers');
 const data = require('../data');
 const usersData = data.users;
 const xss = require('xss');
+const {getUserById} = require("../data/users");
 
 
-
+//=========================================== get profile by user self ======================================
 router
     .route('/profile')
     .get(async (req, res) => {
@@ -52,6 +53,7 @@ router
     }
 })
 
+//=========================================== update user info by user self ======================================
 router
     .route('/update')
     .get(async (req, res) => {
@@ -110,7 +112,7 @@ router
 })
 
 
-// get other user's profile
+//=========================================== get other user's profile ======================================
 // username with hyperlink including userId
 router
     .route('/:posterId')
@@ -156,5 +158,45 @@ router
         }
     })
 
+//=========================================== get all posts by user self ======================================
+router
+    .route('/deal')
+    .get(async (req, res) => {
+        const user = req.session.user;
+        let posterId = user.userId;
+
+        //valid check
+        try {
+            posterId = validation.checkId(posterId);
+        }catch (e) {
+            return res.status(400).render()
+        }
+
+        try {
+            const poster = await getUserById(posterId);
+            //check whether user exist
+            if (!poster) {
+                return res.status(404).json(`Cannot find user with id: ${posterId} !`)
+            }
+
+            //get all classified posts
+            const returnInfo = await usersData.userGetAllPosts(posterId);
+
+            if (!returnInfo.userGetAllPosts){
+                return res.status(404).json(returnInfo.error);
+            }
+
+            res.status(200).render('', {
+                zeroStatusPost: returnInfo.zeroStatusPost,
+                oneStatusPost: returnInfo.oneStatusPost,
+                twoStatusPost: returnInfo.twoStatusPost,
+                boughtPosts: returnInfo.boughtPosts,
+            })
+
+
+        }catch (e) {
+            res.status(500).json(e);
+        }
+    })
 
 module.exports = router;
