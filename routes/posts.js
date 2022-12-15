@@ -75,8 +75,6 @@ router
         }
 
     })
-
-
     .delete(async (req, res) => {
         //code here for DELETE
         /* try {
