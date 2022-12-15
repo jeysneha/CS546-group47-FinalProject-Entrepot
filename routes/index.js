@@ -11,7 +11,7 @@ const constructorMethod = (app) => {
     app.use('/offers', offersRoutes);
     app.use('/user', userRoutes);
     app.use('/review', reviewsRoutes);
-    app.user('/posts', postsRoutes);
+    app.use('/posts', postsRoutes);
 
     // all other urls return 404
     app.use('*', (req, res) => {
