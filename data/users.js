@@ -338,7 +338,7 @@ const userGetAllPosts = async (posterId) => {
     //find posts that the poster bought but didn't post
     const allPosts = await postsData.getAllPosts();
     for (let j = 0; j < allPosts.length; j++) {
-        const eachPost = allPosts[i];
+        const eachPost = allPosts[j];
         if (eachPost.buyerId === posterId) {
             boughtPosts.push(eachPost);
         }
