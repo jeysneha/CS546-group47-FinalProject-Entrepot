@@ -175,8 +175,6 @@ const updatePostsID = async(userId, postId) => {
     userId = validation.checkId(userId);
     postId = validation.checkId(postId);
 
-    const usersCol = await users();
-
     //check if user exist
     const user = await getUserById(userId);
     if (!user) {
@@ -196,9 +194,9 @@ const updatePostsID = async(userId, postId) => {
     }
 
     //update user's postsId
-    
+    const usersCol = await users();
     const updateInfo = await usersCol.updateOne(
-        {_id: ObjectId(posterId)},
+        {_id: ObjectId(userId)},
         {
             $push: {postsId: postId},
         });
