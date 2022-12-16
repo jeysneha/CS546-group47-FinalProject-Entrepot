@@ -17,10 +17,30 @@ router.route("/").get(async (req, res) => {
   //
   // res.sendFile(path.resolve('static/offerList.html'));
   console.log(req.session.user.userId);
+
+
+
   res.render("offers/offerList", {
     title: 'Entrepôt - Offer List',
   });
 
+});
+
+router.route("/offersOf/:postId").get(async (req, res) => {
+  try{
+    postItem = await postData.getPostById(req.params.postId);
+  }catch(e){
+    return res.render("offers/offerList", {
+      title: 'Entrepôt - Offer List',
+      postid: "'"+req.params.postId+"'"
+    });
+  }
+  
+  res.render("offers/offerList", {
+    title: 'Entrepôt - Offer List',
+    postid: "'"+req.params.postId+"'",
+    postImgName: "'"+postItem.imgFile+"'"
+  });
 });
 
 router.route("/myOffers").get(async (req, res) => {
@@ -320,7 +340,7 @@ router.route("/post/:postId").get(async (req, res)=>{
   let msg;
   if(req.url.split("?").length == 2){
     
-    msg = "You have successfully created an offer!";
+    msg = "You have successfully registered a new post!";
   }
   postId = req.params.postId;
   userId = req.session.user.userId
@@ -333,7 +353,7 @@ router.route("/post/:postId").get(async (req, res)=>{
   }
 
   try{
-    user = await userData.getUserById(post.posterId);
+    user = await userData.getUserById(postItem.posterId);
     postItem.contact = user.email;
   }catch(e) {
     console.log(e);

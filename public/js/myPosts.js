@@ -7,6 +7,11 @@ let finishedButtonIds = [];
 let ongoingBoxIds = [];
 let finishedBoxIds = [];
 
+let ongoingPosts;
+let freezedPosts;
+let finishedPosts;
+let boughtPosts;
+
 init();
 
 function init() {
@@ -25,10 +30,16 @@ function init() {
     data = getAll();
     console.log(data);
     
+    ongoingPosts = data.zeroStatusPost;
+    freezedPosts = data.oneStatusPost;
+    finishedPosts = data.twoStatusPost;
+    boughtPosts = data.boughtPosts;
+
     // show the offers list
     bindList("ongoing");
+    bindList("freezed");
     bindList("finished");
-    
+    bindList("bought");
 
 }
 
@@ -38,11 +49,14 @@ function getAll() {
     $.ajax({
         methods: "get",
         // url:'/offers/mySent/'+userId,
-        url:'/users/deal',
+        url:'/user/deal',
         cache: false,
         async: false,
         success: function (data) {
-        result = data}
+        result = data},
+        error: function(data) {
+            result = data
+        }
     })
     return result;
 }
@@ -57,17 +71,13 @@ function bindList(elementId){
     
     let subData = [];
     if(elementId == "ongoing"){
-        for(i=0;i<data.length;i++){
-            if(data[i].status == 1 || data[i].status == 0){
-                subData.push(data[i]);
-            }
-        }
+        subData = ongoingPosts;
+    }else if(elementId == "freezed"){
+        subData = freezedPosts;
     }else if(elementId == "finished"){
-        for(i=0;i<data.length;i++){
-            if(data[i].status == 2){
-                subData.push(data[i]);
-            }
-        }
+        subData = finishedPosts;
+    }else if(elementId == "bought"){
+        subData = boughtPosts;
     }
 
     for (let i = 0; i < subData.length; i++) { //对stus进行循环遍历，并建立tr标签
@@ -94,7 +104,7 @@ function bindList(elementId){
         //       break;
         //   }
 
-        subData[i].itemDesc = subData[i].itemDesc.slice(0,30) + "...";
+        subData[i].itemDesc = subData[i].body.slice(0,30) + "...";
 
         postStatus = subData[i].tradeStatus;
         
@@ -113,9 +123,9 @@ function bindList(elementId){
         div2.appendChild(figure);
 
 
-        imgName = subData[i].imgName;
+        imgName = subData[i].imgFile;
         img = document.createElement("img");
-        img.src = "images/"+imgName;
+        img.src = "/posts/images/"+imgName;
         img.alt=subData[i].offerItem;
         figure.appendChild(img);
 
@@ -124,11 +134,12 @@ function bindList(elementId){
         figure.appendChild(div3);
         
         // offer management button
-        mgmButton = document.createElement("button");
+        mgmButton = document.createElement("a");
         mgmButtonId = "mgmButton" + i;
         mgmButton.setAttribute("id",mgmButtonId);
         mgmButton.className = "btn-small-accept";
         mgmButton.innerHTML = "Offer Management";
+        mgmButton.href = "/offers/offersOf/" + id;
         myIdMgm = document.createAttribute("myid-mgm");
         myIdMgm.nodeValue = id;
         mgmButton.attributes.setNamedItem(myIdMgm);
