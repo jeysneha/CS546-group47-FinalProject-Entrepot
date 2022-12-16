@@ -16,8 +16,8 @@ router
     .get(async (req, res) => {
         //code here for GET
         try {
-            const prList = await postData.getAllPosts();
-            return res.status(200).render('products/list', {productArray: prList})
+            const activePosts = await postData.getActivePosts();
+            return res.status(200).render('products/list', {productArray: activePosts})
         } catch (e) {
             res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
 

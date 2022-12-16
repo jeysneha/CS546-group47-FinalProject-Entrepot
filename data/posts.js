@@ -86,7 +86,7 @@ const createPost = async (
 
 
 
-//================================================= get all posts in database ===============================================
+//================================================= get all posts in database =======================================
 const getAllPosts = async () => {
     const postCollection = await posts();
     const postList = await postCollection.find({}).toArray();
@@ -97,6 +97,23 @@ const getAllPosts = async () => {
     }
     return postList;
 };
+
+
+
+//=================================== get all posts for showing on productList page ===================================
+const getActivePosts = async () => {
+    const allPosts = await getAllPosts();
+
+    const activePosts = [];
+
+    //when post status is 2, it will not be shown on list page
+    for (let i = 0; i < allPosts.length; i++) {
+        if (allPosts[i].tradeStatus < 2) {
+            activePosts.push(allPosts[i]);
+        }
+    }
+    return activePosts;
+}
 
 
 
@@ -375,5 +392,5 @@ const removePost = async (postId) => {
 module.exports = {
     createPost, getAllPosts, getPostById, updatePost,
     removePost, updateTradeStatusToZero, updateTradeStatusToOne,
-    updateTradeStatusToTwo,
+    updateTradeStatusToTwo, getActivePosts,
 };
