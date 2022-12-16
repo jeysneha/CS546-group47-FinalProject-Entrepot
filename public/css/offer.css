@@ -583,3 +583,51 @@ h1 {
     color: rgb(0, 189, 0);
     font-weight: bold;
 }
+
+
+.goButton {
+    border: 2px solid #e68b23; 
+    display: inline-block;
+    border-radius: 10px;
+    background-color: #e68b23;
+    
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    width: 120px;
+    transition: all 0.5s;
+    cursor: pointer;
+    /* margin: 50px; */
+    margin-bottom: 5px;
+}
+
+.goButton:hover  {
+    padding-left: 30px;
+    border: none;
+    background-color: #915108;
+}
+
+.goButton:focus {
+    outline: none;
+    border: none;
+}
+
+.filterTitle {
+    background-color: #1c74bd;
+    color:white;
+    outline-style: none ;
+    border: 2px solid #1c74bd; 
+    margin-right: 0%;
+    border-radius: 10px;
+    
+    
+    font-size: 14px;
+    font-weight: 700;
+    font-family: "Microsoft soft";
+    
+}
+
+
+

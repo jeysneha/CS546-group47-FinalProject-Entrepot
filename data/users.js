@@ -315,33 +315,52 @@ const userGetAllPosts = async (posterId) => {
     const twoStatusPost = [];
     const boughtPosts = [];
 
-    const postsArray = poster.postsId;
+    // const postsArray = poster.postsId;
+    result = []
+    try{
+        allPosts = await postsData.getAllPosts();
+        for(i=0;i<allPosts.length;i++){
+            if(allPosts[i].posterId == posterId){
+                if (allPosts[i].tradeStatus === 0) {
+                    zeroStatusPost.push(allPosts[i]);
+                }else if (allPosts[i].tradeStatus === 1) {
+                    oneStatusPost.push(allPosts[i]);
+                }else if (allPosts[i].tradeStatus === 2) {
+                    twoStatusPost.push(allPosts[i]);
+                }
+            }
+        }
+    }
+    catch(e){
+        throw e;
+    }
 
     
     
     
     // find each post created by poster and classify them depends on tradeStatus
-    for (let i = 0; i < postsArray.length; i++) {
-        thePost = await postsData.getPostById(postsArray[i]);
-        console.log(thePost)
-        if (!thePost) {
-            return {
-                userGetAllPosts: false,
-                error: `Cannot find the post with id: ${postsArray[i]} !`
-            }
-        }
+    // for (let i = 0; i < postsArray.length; i++) {
+    //     thePost = await postsData.getPostById(postsArray[i]);
+    //     // console.log(thePost)
+    //     // console.log("1111111111111111111111111111111111111")
+    //     if (!thePost) {
+    //         return {
+    //             userGetAllPosts: false,
+    //             error: `Cannot find the post with id: ${postsArray[i]} !`
+    //         }
+    //     }
         
-        if (thePost.tradeStatus === 0) {
-            zeroStatusPost.push(thePost);
-        }else if (thePost.tradeStatus === 1) {
-            oneStatusPost.push(thePost);
-        }else if (thePost.tradeStatus === 2) {
-            twoStatusPost.push(thePost);
-        }
-    }
+    //     if (thePost.tradeStatus === 0) {
+    //         zeroStatusPost.push(thePost);
+    //     }else if (thePost.tradeStatus === 1) {
+    //         oneStatusPost.push(thePost);
+    //     }else if (thePost.tradeStatus === 2) {
+    //         twoStatusPost.push(thePost);
+    //     }
+    // }
     
     //find posts that the poster bought but didn't post
-    const allPosts = await postsData.getAllPosts();
+    
     
     for (let j = 0; j < allPosts.length; j++) {
         eachPost = allPosts[j];

@@ -1,5 +1,8 @@
 
 <main>
+    <div class="alertMessage" id="errorBox" hidden>
+    <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+    </div>
   <div class="panel-myOffers-back">
       <div class="panel-myOffers">
     {{!-- <section class="main-section"> --}}
@@ -255,6 +258,21 @@ function bindList(){
                         document.getElementById("products").removeChild(document.getElementById(otherOffersBoxId[i]));
                     }
                     init();
+                },
+                error: function(data) {
+                    errorBox = document.getElementById("errorBox");
+                    errorBox.removeAttribute("hidden");
+                    errorBox.setAttribute("display", true);
+                    errorBox.innerHTML = data.responseJSON.result;
+                    span = document.createElement("span");
+                    span.innerHTML = "×";
+                    span.className = "close";
+                    //span.onclick = "this.parentElement.style.display='none';";
+                    span.onclick = function closeWarningBox() {
+                                    document.getElementById("errorBox").removeAttribute("display");
+                                    document.getElementById("errorBox").setAttribute("hidden",true);
+                                    };
+                    errorBox.appendChild(span);
                 }
             })
         };
@@ -335,7 +353,22 @@ $('#confirmButton').click((event) => {
                 document.getElementById("products").removeChild(document.getElementById(otherOffersBoxId[i]));
             }
             init();
-        }
+        },
+        error: function(data) {
+                    errorBox = document.getElementById("errorBox");
+                    errorBox.removeAttribute("hidden");
+                    errorBox.setAttribute("display", true);
+                    errorBox.innerHTML = data.responseJSON.result;
+                    span = document.createElement("span");
+                    span.innerHTML = "×";
+                    span.className = "close";
+                    //span.onclick = "this.parentElement.style.display='none';";
+                    span.onclick = function closeWarningBox() {
+                                    document.getElementById("errorBox").removeAttribute("display");
+                                    document.getElementById("errorBox").setAttribute("hidden",true);
+                                    };
+                    errorBox.appendChild(span);
+                }
     })
 })
 

@@ -244,43 +244,49 @@ function bindList(elementId){
             deletebutton.attributes.setNamedItem(myId);
 
             deletebutton.onclick = function(){
-                $.ajax({
-                    type: "delete",
-                    url: "/offers/offer/"+this.getAttribute("myid"),
-                    cache: false,
-                    async: false,
-                    success: function (data) {
-
-                        
-
-                        for(i=0;i<ongoingBoxIds.length;i++){
-                            document.getElementById("ongoing").removeChild(document.getElementById(ongoingBoxIds[i]));
+                const ans = window.confirm("Are your sure to delete the offer?");
+                if(ans){
+                    $.ajax({
+                        type: "delete",
+                        url: "/offers/offer/"+this.getAttribute("myid"),
+                        cache: false,
+                        async: false,
+                        success: function (data) {
+    
+                            
+    
+                            for(i=0;i<ongoingBoxIds.length;i++){
+                                document.getElementById("ongoing").removeChild(document.getElementById(ongoingBoxIds[i]));
+                            }
+                            for(i=0;i<awaitingBoxIds.length;i++){
+                                document.getElementById("awaiting").removeChild(document.getElementById(awaitingBoxIds[i]));
+                            }
+                            for(i=0;i<finishedBoxIds.length;i++){
+                                document.getElementById("finished").removeChild(document.getElementById(finishedBoxIds[i]));
+                            }
+                            for(i=0;i<failedBoxIds.length;i++){
+                                document.getElementById("failed").removeChild(document.getElementById(failedBoxIds[i]));
+                            }
+                            init();
+                        },
+                        error: function (data) {
+                            
+                            errorBox = document.getElementById("errorBox");
+    
+                            errorBox.removeAttribute("hidden");
+                            errorBox.setAttribute("display", true);
+                            errorBox.innerHTML = data.responseJSON.result;
+                            span = document.createElement("span");
+                            span.innerHTML = "×";
+                            span.className = "close";
+                            span.onclick = "this.parentElement.style.display='none';";
+                            errorBox.appendChild(span);
                         }
-                        for(i=0;i<awaitingBoxIds.length;i++){
-                            document.getElementById("awaiting").removeChild(document.getElementById(awaitingBoxIds[i]));
-                        }
-                        for(i=0;i<finishedBoxIds.length;i++){
-                            document.getElementById("finished").removeChild(document.getElementById(finishedBoxIds[i]));
-                        }
-                        for(i=0;i<failedBoxIds.length;i++){
-                            document.getElementById("failed").removeChild(document.getElementById(failedBoxIds[i]));
-                        }
-                        init();
-                    },
-                    error: function (data) {
-                        
-                        errorBox = document.getElementById("errorBox");
-
-                        errorBox.removeAttribute("hidden");
-                        errorBox.setAttribute("display", true);
-                        errorBox.innerHTML = data.responseJSON.result;
-                        span = document.createElement("span");
-                        span.innerHTML = "×";
-                        span.className = "close";
-                        span.onclick = "this.parentElement.style.display='none';";
-                        errorBox.appendChild(span);
-                    }
-                })
+                    });
+                }else{
+                    return
+                }
+                
             };
             div3.appendChild(deletebutton);
         } else if (elementId=="finished"){

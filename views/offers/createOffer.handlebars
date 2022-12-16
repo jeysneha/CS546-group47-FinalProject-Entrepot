@@ -14,7 +14,7 @@
       <form enctype="multipart/form-data" id="file_upload">
       <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
 
-          <p id="postId" name="postId">post00001</p>
+          <p id="postId" name="postId"></p>
           
           <br>
           <label for="offerItem" id="formLabel" class = "inputTitle">
@@ -77,41 +77,17 @@
 
     <div id="div5" hidden>111</div>
   </main>
-  <footer>
-    <div class="footer-second">
-      <div class="footer-column-2">
-        <h3>Customer service</h3>
-        <a href="#">Contact</a>
-        <a href="#">Track your order</a>
-      </div>
-      <div class="footer-column-3">
-        <h3>About us</h3>
-        <a href="#">Who we are</a>
-        <a href="#">Our Services</a>
-      </div>
-    </div>
-    <ul class="footer-last">
-      <li>
-        <p><i class="fab fa-cc-mastercard"></i></p>
-      </li>
-      <li>
-        <p><i class="fab fa-cc-paypal"></i></p>
-      </li>
-      <li>
-        <p><i class="fab fa-cc-visa"></i></p>
-      </li>
-      <li>
-        <p><i class="fab fa-cc-amex"></i></p>
-      </li>
-    </ul>
-  </footer>
+  
 
   
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 
   <script type="text/javascript">
-        
+
+  let postId = {{{postId}}};
+  document.getElementById("postId").innerHTML = postId;
+
   let fileInput = document.getElementById('file');
   let info = document.getElementById('imgSizeInfo');
   let preview = document.getElementById('image-preview');
@@ -194,8 +170,8 @@
     params.append("upload_image",document.getElementById("file").files[0])
     // 已无用 params.append("senderId", document.getElementById("senderId").innerHTML);
     params.append("postId", document.getElementById("postId").innerHTML);
-    // 👇尚未修改
-    params.append("sellerId", "639a56511572f2134759d2b8");
+    // 👇尚未修改 已改
+    // params.append("sellerId", "639a56511572f2134759d2b8");
     params.append("offerItem", document.getElementById("offerItem").value);
     params.append("itemDesc", document.getElementById("itemDesc").value);
     params.append("wear", document.getElementById("wear").value);

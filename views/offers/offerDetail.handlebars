@@ -61,7 +61,7 @@
 
         editButton = document.getElementById("editButton");
         allButton = document.getElementById("allMySentButton");
-        console.log("================", offerData.role)
+        //console.log("================", offerData.role)
         if(offerData.role == "buyer") {
           editButton.innerHTML = "Edit";
           
@@ -167,7 +167,7 @@
     function getImage(){
         // document.getElementById("img").src = "images/"+imgName;
         document.getElementById("image-offer").src = "/offers/images/" + offerData.imgName;
-        document.getElementById("image-post").src = "/offers/images/" + offerData.imgName;
+        document.getElementById("image-post").src = "/posts/images/" + offerData.postImgName;
     }
 
     function fillData() {
