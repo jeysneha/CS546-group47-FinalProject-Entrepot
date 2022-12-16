@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const validation = require('../helpers');
-const {ObjectId} = require('mongodb');
-const postData = data.posts;
+// const {ObjectId} = require('mongodb');
+const postsData = data.posts;
 const usersData = data.users;
 const path = require('path');
 const multiparty = require('connect-multiparty');
-const multer = require("multer")
+// const multer = require("multer")
 const multipartMiddleware = multiparty();
 const xss = require('xss');
 const {getPostById} = require("../data/posts");
@@ -18,7 +18,7 @@ router
     .get(async (req, res) => {
         //code here for GET
         try {
-            const activePosts = await postData.getActivePosts();
+            const activePosts = await postsData.getActivePosts();
             return res.status(200).render('products/list', {productArray: activePosts})
         } catch (e) {
             res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
@@ -76,7 +76,7 @@ router
             return res.status(400).render('error', {error: e});
         }
         try {
-            const single_post = await postData.getPostById(req.params.postId);
+            const single_post = await postsData.getPostById(req.params.postId);
             return res.status(200).render('details', {prdobj: single_post});
         } catch (e) {
             return res.status(404).render('error', {ti: "Error Page", error: 'Post Not found'});
@@ -96,7 +96,7 @@ router
         }*/
 
         try {
-            await postData.getPostById(req.params.postId);
+            await postsData.getPostById(req.params.postId);
 
 
         } catch (e) {
@@ -104,7 +104,7 @@ router
         }
         try {
 
-            const upost = await postData.updatePost(
+            const upost = await postsData.updatePost(
                 req.params.postId,
                 userInfo.title,
                 userInfo.body,
@@ -126,20 +126,20 @@ router
            return res.status(400).json({error: e});
          }*/
         try {
-            await postData.getPostById(req.params.postId);
+            await postsData.getPostById(req.params.postId);
 
         } catch (e) {
             return res.status(404).render('error', {ti: "Error Page", error: 'Post not found'});
         }
 
         try {
-            const del = await postData.getPostById(req.params.postId);
+            const del = await postsData.getPostById(req.params.postId);
             del._id = del._id.toString()
             const obj = {};
             obj.postId = del._id
             obj.deleted = true
             //let ans=`{"movieId": ${del._id}, "deleted": true}`
-            await postData.removePost(req.params.postId);
+            await postsData.removePost(req.params.postId);
             return res.status(200).render('delete', {d_obj: obj});
         } catch (e) {
             return res.status(500).send('Internal Server Error');
@@ -177,7 +177,7 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
     }
 
     try {
-        const postObj = await postData.createPost(title, body, imgFile, category, posterId)
+        const postObj = await postsData.createPost(title, body, imgFile, category, posterId)
         
         //after create the post update poster's postId array
         

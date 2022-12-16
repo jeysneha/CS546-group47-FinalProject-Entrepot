@@ -23,11 +23,13 @@
 <!--      </div>-->
         <div class="profile-btn">
 <!--          Deal history will open new window for all products-->
-           <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
            {{#if isSelf}}
-           <button class="createbtn" id="Update-info" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-user-alt"></i> Update UserInfo</button>
+               <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
+               <button class="createbtn" id="Update-info" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-user-alt"></i> Update UserInfo</button>
            {{else}}
-           <button class="createbtn" id="Add-review" onclick="window.open('http://localhost:3000/review/addReview');"><i class="fa fa-plus"></i> Add Review</button>
+<!--               deal history for other users-->
+               <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
+               <button class="createbtn" id="Add-review" onclick="window.open('http://localhost:3000/review/addReview/{{posterId}}');"><i class="fa fa-plus"></i> Add Review</button>
            {{/if}}
 
          </div>
