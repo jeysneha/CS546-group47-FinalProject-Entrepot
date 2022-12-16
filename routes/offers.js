@@ -39,7 +39,7 @@ router.route("/myPosts").get(async (req, res) => {
   });
 });
 
-router.route("/edi").get(async (req, res) => {
+router.route("/postRegister").get(async (req, res) => {
   console.log("2312312312321");
   res.render('products/registration-v2', {
       title: 'Entrepôt - Create post',

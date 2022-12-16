@@ -136,18 +136,25 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
 
     try {
         const postObj = await postData.createPost(title, body, imgFile, category, posterId)
-
+        console.log(7);
         //after create the post update poster's postId array
-        const updateUserInfo = await usersData.updatePostsID(posterId, postObj._id);
+        
+        console.log(posterId, postObj._id);
+        updateUserInfo = await usersData.updatePostsID(posterId, postObj._id);
+        console.log(8);
+
+        
         if (!updateUserInfo.updatedPostsID) {
-            return res.status(400).render('/products/registration', {
+            return res.status(400).json({
                 title: 'Entrepôt - Create post',
                 hasError: true,
-                error: updateUserInfo.error
+                error: updateUserInfo.error,
+                result:e
             });
         }
+        console.log(9);
 
-        return res.status(200).render('products/details', {postObj: postObj});
+        return res.status(200).json({result: postObj});
 
     } catch (e) {
         // return res.status(500).render('/products/registration', {
