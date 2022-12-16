@@ -220,7 +220,7 @@ const updatePost = async (
         {$set: updatedPost}
     );
     if (updatedInfo.modifiedCount === 0) {
-        throw 'could not update the post successfully';
+        throw `The input information resulted in no change to the post!`;
     }
 
     //if no post, throw first
