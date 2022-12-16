@@ -1,0 +1,66 @@
+<main>
+    <div class="alertMessage" id="errorBox">
+      <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+      <!-- <p id="errorContent"></p> -->
+    </div>
+    
+    <div class="panel-myOffers-back">
+      <div class="panel-myOffers">
+            <div class="myOffersHead">Welcome to Entrepot!</div>
+            <br><br>
+            <span>
+              <label for="selectCategory" class="filterTitle">Category
+                <select class="createInputWear" id="selectCategory" name="categoryInput">
+                  <option value="0">All</option>
+                  <option value="1">Apparel or Accessories</option>
+                  <option value="2">Jewelry or Watches</option>
+                  <option value="3">Motors, style or Fashion</option>
+                  <option value="4">home or garden</option>
+                  <option value="5">sporting Goods</option>
+                  <option value="6">Health or Wellness</option>
+                  <option value="7">Medical Health</option>
+                  <option value="8">Children or infants</option>
+                  <option value="9">Pets or Pets supplies</option>
+                  <option value="10">Consumer Electronic Goods</option>
+                  <option value="11">Home improvement</option>
+                  <option value="12">Collectibles or Art</option>
+                  <option value="13">other Categories / to be categorized</option>
+                </select>
+              </label>
+              
+                
+             
+              <label for="selectCategory" class="filterTitle" >Product Status
+                <select class="createInputWear" id="selectStatus" name="statusInput">
+                <option value="0">All</option>
+                <option value="1">Active</option>
+                <option value="2">Negotiating</option>
+              </select>
+              </label>
+              
+              <button class = "goButton" id="goButton">👉Go!</button>
+            </span>
+            
+
+            <div class="myLineHead"> </div>
+            <div class="product-container" id="zone1">
+              {{!-- <p class="myOffersTitle">Active Products</p> --}}
+              {{!-- <div class="myLine"> </div> --}}
+              <div class="products" id="ongoing">
+            </div></div>
+
+            
+      
+      </div>
+          
+    </div>
+    
+            
+    
+
+    
+</main>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+<script type="text/javascript" src='../../public/js/allProducts.js'></script>

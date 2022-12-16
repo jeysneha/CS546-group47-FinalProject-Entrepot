@@ -36,8 +36,8 @@ const createPost = async (
     const filename = id + "." + extend
 
     const img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
-    console.log(img_dir)
-    console.log(imgFile.path)
+    // console.log(img_dir)
+    // console.log(imgFile.path)
 
     // save the imgFile path to server
     fs.readFile(imgFile.path, function (err, data) {
@@ -78,9 +78,9 @@ const createPost = async (
     }
     
     if (!post) {
-        `Cannot find the post with id: ${id.toString()} !`
+        throw `Cannot find the post with id: ${id.toString()} !`
     }
-    console.log(6);
+    
     return post;
 };
 
@@ -278,43 +278,47 @@ const updateTradeStatusToZero = async(postId) => {
 
 //============================================== update trade status to 1 ===============================================
 const updateTradeStatusToOne = async(postId) => {
+    
     if (!postId) throw 'Post Id ought to be provided';
     postId = validation.existypestring(postId);
     postId = validation.checkId_j(postId);
-
+    
     const thePost = await getPostById(postId);
+    
     if (!thePost) {
         throw `Cannot find the post with id: ${postId} !`
     }
-
+    
     const postCollection = await posts();
-
+    
     if (thePost.tradeStatus === 2) {
         throw 'You cannot update the post anymore since it has been traded!'
     }
-
+    
     if (thePost.tradeStatus === 1) {
         return thePost;
     }
-
+    
     const updatedPost = {
         tradeStatus: 1,
     }
-
+    
     const updatedInfo = await postCollection.updateOne(
         {_id: ObjectId(postId)},
         {$set: updatedPost}
     );
-
+    
     if (updatedInfo.modifiedCount === 0) {
         throw 'could not update the post successfully';
     }
-
+    
     //if no post, throw first
     const post = await getPostById(postId);
+    
     if (!post) {
         `Cannot find the post with id: ${postId} !`
     }
+    
     return post;
 }
 

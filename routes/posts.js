@@ -19,7 +19,7 @@ router
         //code here for GET
         try {
             const activePosts = await postsData.getActivePosts();
-            return res.status(200).render('products/list', {productArray: activePosts})
+            return res.status(200).render('products/list2', {productArray: activePosts})
         } catch (e) {
             res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
 
@@ -140,7 +140,7 @@ router
             obj.deleted = true
             //let ans=`{"movieId": ${del._id}, "deleted": true}`
             await postsData.removePost(req.params.postId);
-            return res.status(200).render('delete', {d_obj: obj});
+            return res.status(200).json({result: obj});
         } catch (e) {
             return res.status(500).send('Internal Server Error');
         }
@@ -181,7 +181,7 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
         
         //after create the post update poster's postId array
         
-        console.log(posterId, postObj._id);
+        //console.log(posterId, postObj._id);
         const updateUserInfo = await usersData.updatePostsID(posterId, postObj._id);
         
 
@@ -194,7 +194,7 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
                 result:e
             });
         }
-        console.log(9);
+        
 
         return res.status(200).json({result: postObj});
 
