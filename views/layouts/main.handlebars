@@ -46,9 +46,7 @@
 <nav>
     <div class="navbar-top">
         <div style="margin-top: 0%;">
-            <a href="/posts/products">
-                <img class="logo" src="/public/images/logo.JPG"/>
-            </a>
+            <img class="logo" alt="Entrepot logo" src="/public/images/logo.JPG"/>
         </div>
         <div class="navbar" id="navbar">
             <div class="links">
@@ -72,16 +70,17 @@
         </div>
         <div>
             <!--My account part-->
-            <div style="width: 200px; margin:0px">
+            <div style="width: 160px">
                 <a href="/user/profile">
                     <button class="account-btn">
                         <i class="fas fa-user-alt"></i>
+                        My account
                     </button>
-                    <span class="account-text">My account</span>
+<!--                    <span class="account-text">My account</span>-->
                 </a>
             </div>
             {{#unless noLogOut}}
-                <div style="width: 200px; margin-left: -80px">
+                <div style="width: 160px">
                     <button class="account-btn" id="logout-btn"> Log out</button>
                     <script type="text/javascript" src="/public/js/userLogout.js"></script>
                 </div>
@@ -103,12 +102,12 @@
 <footer class="main-footer">
     <div class="footer-second">
         <div class="footer-column-2">
-            <h3>Customer service</h3>
+            <h2>Customer service</h2>
             <a href="/static/contact.html">Contact Us</a>
             <a href="#">common questions</a>
         </div>
         <div class="footer-column-3">
-            <h3>About us</h3>
+            <h2>About us</h2>
             <a href="/static/landingpage.html">Who we are</a>
             <a href="/static/privacy_policy.html">Privacy Policy</a>
         </div>

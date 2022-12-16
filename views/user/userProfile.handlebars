@@ -1,19 +1,15 @@
 <main>
 <div class="profile-header">
-
-  <div class="profile-nav-info">
-    <h1 class="user-name">{{username}}</h1>
-
-  </div>
-
-  
-
+    <h1 class="user-name">Name: {{username}}</h1>
 </div>
 
 <div class="main-bd">
   <div class="left-side">
     <div class="profile-side">
-      <p class="user-mail"><i class="fa fa-envelope"></i>{{email}}</p>
+      <p class="user-mail">
+          <i class="fa fa-envelope"></i>
+          {{email}}
+      </p>
 
 <!--      <div class="user-bio">-->
 <!--        <h3>Bio</h3>-->
@@ -25,7 +21,7 @@
 <!--          Deal history will open new window for all products-->
            {{#if isSelf}}
                <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
-               <button class="createbtn" id="Update-info" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-user-alt"></i> Update UserInfo</button>
+               <button class="createbtn" id="Update-info" onclick="location.href= 'http://localhost:3000/user/update' ;"><i class="fa fa-user-alt"></i> Update UserInfo</button>
            {{else}}
 <!--               deal history for other users-->
                <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
@@ -36,12 +32,14 @@
 
 
       <div class="user-rating">
-        <h3 class="rating">{{overallRating}}/5</h3>
+        <h2 class="rating">Overall Rate: {{overallRating}}/5</h2>
         <div class="rate">
 <!--            show the star filled according to the overallRating-->
           
 <!--            here include total number of reviews-->
-          <span class="no-of-user-rate"><span> {{reviews.length}}  </span>&nbsp;&nbsp;reviews</span>
+          <span class="no-of-user-rate">
+              Total: {{reviews.length}} reviews
+          </span>
         </div>
               
       </div>
@@ -57,8 +55,8 @@
       <ul>
         {{#each reviews}}
         <li class="each-review">
-            <h4>Title: {{this.title}}</h4>
-            <h5>Rating: {{this.rating}}</h5>
+            <h3>Title: {{this.title}}</h3>
+            <h4>Rating: {{this.rating}}</h4>
             <h5>Description: {{this.body}}</h5>
             <h6>From: {{this.reviewWriter}}</h6>
             <p>Date/Time: {{this.datetime}}</p>

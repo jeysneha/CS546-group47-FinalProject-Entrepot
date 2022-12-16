@@ -21,7 +21,7 @@ router
     .get(async (req, res) => {
         if (req.session.user) {
             //if user is authenticated
-            res.status(200).redirect('/user/profile');
+            res.status(200).redirect('/posts/products');
         }else {
             res.status(200).render('landing/userRegister', {
                 title: 'Entrepôt - Sign-up',
@@ -89,7 +89,7 @@ router
     .route('/login')
     .get(async (req, res) => {
         if (req.session.user) {
-            res.redirect('/user/profile');
+            res.redirect('/posts/products');
         }else {
             res.render('landing/userLogin', {
                 title: 'Entrepôt - Log-in',
@@ -145,7 +145,7 @@ router
                     username: username,
                     userId: authUser.userId
                 };
-                res.redirect('/user/profile');
+                res.redirect('/posts/products');
             }
 
         }catch (e) {
