@@ -1,5 +1,5 @@
 const mongoCollections = require('../config/mongoCollections');
-const {ObjectId, TopologyDescription} = require('mongodb');
+const {ObjectId} = require('mongodb');
 const validation = require('../helpers');
 const bcrypt = require('bcryptjs');
 const postsData = require("./posts");
@@ -216,6 +216,52 @@ const updatePostsID = async(userId, postId) => {
 
 
 
+//========================================== delete post from user array ===============================================
+const deletePostFromUser = async(userId, postId) => {
+    //input check
+    userId = validation.checkId(userId);
+    postId = validation.checkId(postId);
+
+    //check if user exist
+    const user = await getUserById(userId);
+    if (!user) {
+        return {
+            deleteUserPost: false,
+            error: `Cannot find user with id: ${userId} !`,
+        }
+    }
+
+    //check is post exist
+    const post = await postsData.getPostById(postId);
+    if (post) {
+        return {
+            deleteUserPost: false,
+            error: `Post with id: ${postId} should be deleted!`,
+        }
+    }
+
+    //update user's postsId
+    const usersCol = await users();
+    const updateInfo = await usersCol.updateOne(
+        {_id: ObjectId(userId)},
+        {
+            $pull: {postsId: postId},
+        });
+
+    if (updateInfo.matchedCount === 0) {
+        throw `Could not match the user with id: ${userId}`
+    }
+    if (updateInfo.modifiedCount === 0) {
+        throw `The input information resulted in no change to the user with id: ${userId} `
+    }
+
+    return {
+        deleteUserPost: true,
+        error: null,
+    }
+}
+
+
 //=========================================== update the tradeWith for both users ======================================
 const updateTradeWith = async(posterId, buyerId) => {
     //input check
@@ -372,4 +418,5 @@ module.exports = {
     updateTradeWith,
     updatePostsID,
     userGetAllPosts,
+    deletePostFromUser,
 }
