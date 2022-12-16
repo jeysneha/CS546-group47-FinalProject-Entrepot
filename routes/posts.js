@@ -136,12 +136,12 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
 
     try {
         const postObj = await postData.createPost(title, body, imgFile, category, posterId)
-        console.log(7);
+        
         //after create the post update poster's postId array
         
         console.log(posterId, postObj._id);
         const updateUserInfo = await usersData.updatePostsID(posterId, postObj._id);
-        console.log(8);
+        
 
         
         if (!updateUserInfo.updatedPostsID) {

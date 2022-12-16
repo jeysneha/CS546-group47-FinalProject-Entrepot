@@ -6,7 +6,50 @@ const usersData = data.users;
 const xss = require('xss');
 const {getUserById} = require("../data/users");
 
+//=========================================== get all posts by user self ======================================
+router
+    .route('/deal')
+    .get(async (req, res) => {
+        
+        const user = req.session.user;
+        let posterId = user.userId;
+        
+        //valid check
+        try {
+            posterId = validation.checkId(posterId);
+        }catch (e) {
+            
+            return res.status(400).json(e)
+        }
+        
+        try {
+            
+            const poster = await getUserById(posterId);
+            
+            //check whether user exist
+            if (!poster) {
+                return res.status(404).json(`Cannot find user with id: ${posterId} !`)
+            }
+            
+            //get all classified posts
+            const returnInfo = await usersData.userGetAllPosts(posterId);
+            
+            if (!returnInfo.userGetAllPosts){
+                return res.status(404).json(returnInfo.error);
+            }
+            
+            res.status(200).json({
+                zeroStatusPost: returnInfo.zeroStatusPost,
+                oneStatusPost: returnInfo.oneStatusPost,
+                twoStatusPost: returnInfo.twoStatusPost,
+                boughtPosts: returnInfo.boughtPosts,
+            })
+            
 
+        }catch (e) {
+            res.status(500).json(e);
+        }
+    })
 //=========================================== get profile by user self ======================================
 router
     .route('/profile')
@@ -156,47 +199,8 @@ router
         }catch (e) {
             res.status(500).json({Error: e});
         }
-    })
-
-//=========================================== get all posts by user self ======================================
-router
-    .route('/deal')
-    .get(async (req, res) => {
-        const user = req.session.user;
-        let posterId = user.userId;
-
-        //valid check
-        try {
-            posterId = validation.checkId(posterId);
-        }catch (e) {
-            return res.status(400).render()
-        }
-
-        try {
-            const poster = await getUserById(posterId);
-            //check whether user exist
-            if (!poster) {
-                return res.status(404).json(`Cannot find user with id: ${posterId} !`)
-            }
-
-            //get all classified posts
-            const returnInfo = await usersData.userGetAllPosts(posterId);
-
-            if (!returnInfo.userGetAllPosts){
-                return res.status(404).json(returnInfo.error);
-            }
-
-            res.status(200).render('', {
-                zeroStatusPost: returnInfo.zeroStatusPost,
-                oneStatusPost: returnInfo.oneStatusPost,
-                twoStatusPost: returnInfo.twoStatusPost,
-                boughtPosts: returnInfo.boughtPosts,
-            })
+    });
 
 
-        }catch (e) {
-            res.status(500).json(e);
-        }
-    })
 
 module.exports = router;
