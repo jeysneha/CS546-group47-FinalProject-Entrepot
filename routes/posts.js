@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
+const validation = require('../helpers');
 const {ObjectId} = require('mongodb');
 const postData = data.posts;
 const usersData = data.users;
@@ -9,8 +10,9 @@ const multiparty = require('connect-multiparty');
 const multer = require("multer")
 const multipartMiddleware = multiparty();
 const xss = require('xss');
+const {getPostById} = require("../data/posts");
 
-//test
+//get all active posts for products listing page
 router
     .route('/products')
     .get(async (req, res) => {
@@ -23,6 +25,46 @@ router
 
         }
     });
+
+
+//update post
+router.get('/updated/:postId', async(req, res) => {
+    let postId = req.params.postId;
+    let post;
+    //param check
+    try{
+        postId = validation.checkId(postId);
+    }catch (e) {
+        return res.status(400).json({
+            code: 400,
+            result: e,
+        })
+    }
+
+    //get pos info
+    try{
+        post = await getPostById(postId);
+
+        if (!post) {
+            return res.status(400).json({
+                code: 400,
+                result: `Cannot find post with id ${postId} !`,
+            })
+        }
+    }catch (e) {
+        return res.status(500).json({
+            code: 500,
+            result: e,
+        })
+    }
+
+    //return post info to js
+    res.status(200).render('/products/updatePost', {
+        code: 200,
+        result: JSON.stringify(post)
+    })
+
+})
 
 router
     .route('/:postId')

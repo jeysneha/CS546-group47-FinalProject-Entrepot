@@ -4,7 +4,7 @@ const validation = require('../helpers');
 const data = require('../data');
 const usersData = data.users;
 const xss = require('xss');
-const {getUserById} = require("../data/users");
+const {getUserById, getUserByName} = require("../data/users");
 
 //=========================================== get all posts by user self ======================================
 router
@@ -100,10 +100,36 @@ router
 router
     .route('/update')
     .get(async (req, res) => {
+        let user = req.session.user;
+        let username = user.username;
+        let owner;
+        let email;
+        try {
+            owner = await getUserByName(username);
+            email = owner.email;
+            if (!owner) {
+                return res.status(400).render('user/userUpdate', {
+                    title: 'Entrepôt - Update User Info',
+                    hasErrors: true,
+                    error: `Cannot find the user with name ${username}`,
+                    partial: 'userUpdate-scripts',
+                })
+            }
+        } catch (e) {
+            return res.status(400).render('user/userUpdate', {
+                title: 'Entrepôt - Update User Info',
+                hasErrors: true,
+                error: e,
+                partial: 'userUpdate-scripts',
+            })
+        };
+
         res.status(200).render('user/userUpdate', {
             title: 'Entrepôt - Update User Info',
             hasErrors: false,
             error: null,
+            username: username,
+            email: email,
             partial: 'userUpdate-scripts',
         });
     })
@@ -167,7 +193,7 @@ router
         try{
             posterId = validation.checkId(posterId);
         }catch (e) {
-            //here should render the product detail page
+            //here should render the product detail fpage
             return res.render('error', {
                 title: 'Entrepôt - Error',
                 hasError: true,

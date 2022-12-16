@@ -23,7 +23,7 @@
 <!--      </div>-->
         <div class="profile-btn">
 <!--          Deal history will open new window for all products-->
-           <button class="chatbtn" id="dealhbtn"><i class="fa fa-shopping-cart" ></i>Deal History</button>
+           <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
            {{#if isSelf}}
            <button class="createbtn" id="Update-info" onclick="window.open('http://localhost:3000/user/update');"><i class="fa fa-user-alt"></i> Update UserInfo</button>
            {{else}}
