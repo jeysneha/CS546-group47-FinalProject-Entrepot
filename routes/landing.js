@@ -8,7 +8,7 @@ const usersData = data.users;
 
 // first page of our application, it's an introduction page
 router.route('/').get(async (req, res) => {
-    res.render('landing/landing', {
+    res.status(200).render('landing/landing', {
         title: 'Entrepôt',
     })
 })
@@ -20,9 +20,9 @@ router
     .get(async (req, res) => {
         if (req.session.user) {
             //if user is authenticated
-            res.redirect('/user/profile');
+            res.status(200).redirect('/user/profile');
         }else {
-            res.render('landing/userRegister', {
+            res.status(200).render('landing/userRegister', {
                 title: 'Entrepôt - Sign-up',
                 hasErrors: false,
                 error: null,
