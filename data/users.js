@@ -345,7 +345,7 @@ const userGetAllPosts = async (posterId) => {
     }
 
     return {
-        userGetAllPosts: false,
+        userGetAllPosts: true,
         error: null,
         zeroStatusPost: zeroStatusPost,
         oneStatusPost: oneStatusPost,

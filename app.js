@@ -71,13 +71,13 @@ app.use('/posts', (req, res, next) => {
     }
 })
 
-app.use('/products', (req, res, next) => {
-    if (!req.session.user) {
-        return res.status(403).redirect('/');
-    }else {
-        next();
-    }
-})
+// app.use('/products', (req, res, next) => {
+//     if (!req.session.user) {
+//         return res.status(403).redirect('/');
+//     }else {
+//         next();
+//     }
+// })
 
 app.use('/user/update', (req, res, next) => {
     if (req.method && req.body._method) {

@@ -10,6 +10,7 @@ const usersData = data.users;
 router.route('/').get(async (req, res) => {
     res.status(200).render('landing/landing', {
         title: 'Entrepôt',
+        noLogOut: true,
     })
 })
 
@@ -26,6 +27,7 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: false,
                 error: null,
+                noLogOut: true,
                 partial: 'userRegister-scripts'
             })
         }
@@ -45,6 +47,7 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
+                noLogOut: true,
             });
         }
 
@@ -57,6 +60,7 @@ router
                     title: 'Entrepôt - Sign-up',
                     hasErrors: true,
                     error: 'Internal Server Error!',
+                    noLogOut: true,
                 });
             }
 
@@ -65,6 +69,7 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: false,
                     error: null,
+                    noLogOut: true,
                 });
             }
         }catch (e) {
@@ -72,6 +77,7 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
+                noLogOut: true,
             });
         }
     })
@@ -89,6 +95,7 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: false,
                 error: null,
+                noLogOut: true,
                 partial: 'userLogin-scripts',
             })
         }
@@ -106,6 +113,7 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
+                noLogOut: true,
             });
         }
 
@@ -118,6 +126,7 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
+                    noLogOut: true,
                 })
             }
 
@@ -126,6 +135,7 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
+                    noLogOut: true,
                 })
             }
 
@@ -143,30 +153,29 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
+                noLogOut: true,
             });
         }
     })
 
 
-router.route('/products').get(async (req, res) => {
-    const user = req.session.user;
-    const username = user.username;
-    const datetime = new Date().toUTCString();
-
-    res.status(200).render('products', {
-        title: 'Entrepôt - Products',
-        username: username,
-        datetime: datetime,
-    })
-})
+// router.route('/products').get(async (req, res) => {
+//     const user = req.session.user;
+//     const username = user.username;
+//     const datetime = new Date().toUTCString();
+//
+//     res.status(200).render('products', {
+//         title: 'Entrepôt - Products',
+//         username: username,
+//         datetime: datetime,
+//     })
+// })
 
 router
     .route('/logout')
     .get(async (req, res) => {
         req.session.destroy();
-        res.render('user/logout', {
-            title: 'Entrepôt - Log-out'
-        })
+        res.status(200).json()
     })
 
 module.exports = router;

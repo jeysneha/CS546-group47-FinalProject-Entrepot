@@ -25,16 +25,16 @@
             background: #555;
         }
     </style>
-    <link type="text/css" href="/public/css/main.css" rel="stylesheet" />
-    <link type="text/css" href="/public/landing.css" rel="stylesheet" />
-    <link type="text/css" href="/public/profile.css" rel="stylesheet" />
-    <link type="text/css" href="/public/reviewFormat.css" rel="stylesheet" />
+    <link type="text/css" href="/public/css/main.css" rel="stylesheet"/>
+    <link type="text/css" href="/public/landing.css" rel="stylesheet"/>
+    <link type="text/css" href="/public/profile.css" rel="stylesheet"/>
+    <link type="text/css" href="/public/reviewFormat.css" rel="stylesheet"/>
     <link rel='stylesheet' href='/public/css/offer.css'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
-        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
-        crossorigin="anonymous" />
+          integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+          crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
     <!--    <title>Entrepôt</title>-->
@@ -42,93 +42,89 @@
 </head>
 
 <body>
-    <!--Navbar-->
-    <nav>
-        <div class="navbar-top">
-            <div style="margin-top: 0%;">
-                <a href="index.html">
-                    <img class="logo" src="/public/images/logo.JPG" />
+<!--Navbar-->
+<nav>
+    <div class="navbar-top">
+        <div style="margin-top: 0%;">
+            <a href="index.html">
+                <img class="logo" src="/public/images/logo.JPG"/>
+            </a>
+        </div>
+        <div class="navbar" id="navbar">
+            <div class="links">
+                <ul>
+
+                    <li class="nav-links">
+                        <a href="/posts/products" class="link">Product Listing</a>
+                    </li>
+                    <li class="nav-links">
+                        <a href="product_details.html" class="link">Product Details</a>
+                    </li>
+                    <li class="nav-links">
+                        <a href="/offers/myPosts" class="link">My Posts</a>
+                    </li>
+                    <li class="nav-links">
+                        <a href="/offers/myOffers" class="link">My Sent</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div>
+            <!--My account part-->
+            <div style="width: 200px; margin:0px">
+                <a href="/user/profile">
+                    <button class="account-btn">
+                        <i class="fas fa-user-alt"></i>
+                    </button>
+                    <span class="account-text">My account</span>
                 </a>
             </div>
-            <div class="navbar" id="navbar">
-                <div class="links">
-                    <ul>
-
-                        <li class="nav-links">
-                            <a href="/posts/products" class="link">Product Listing</a>
-                        </li>
-                        <li class="nav-links">
-                            <a href="product_details.html" class="link">Product Details</a>
-                        </li>
-                        <li class="nav-links">
-                            <a href="/offers/myPosts" class="link">My Posts</a>
-                        </li>
-                        <li class="nav-links">
-                            <a href="/offers/myOffers" class="link">My Sent</a>
-                        </li>
-                    
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <!--My account part-->
-                <div style="width: 200px; margin:0px">
-                    <a href="/user/profile">
-                        <button class="account-btn">
-                            <i class="fas fa-user-alt"></i>
-                        </button>
-                        <span class="account-text">My account</span>
-                    </a>
-                </div>
+            {{#unless noLogOut}}
                 <div style="width: 200px; margin-left: -80px">
-                    <a href="/logout">
-                        <button class="account-btn" id="logout-btn">
-                        </button>
-                        <span class="account-text"> log out </span>
-                    </a>
+                    <button class="account-btn" id="logout-btn"> Log out</button>
+                    <script type="text/javascript" src="/public/js/userLogout.js"></script>
                 </div>
-            </div>
+            {{/unless}}
+
         </div>
-        <!-- Navbar bottom part -->
+    </div>
+    <!-- Navbar bottom part -->
 
 
-    </nav>
+</nav>
 
 
+<body>
+{{{body}}}
+</body>
 
 
-
-
-    <body>
-        {{{body}}}
-    </body>
-
-
-    <footer class="main-footer">
-        <div class="footer-second">
-            <div class="footer-column-2">
-                <h3>Customer service</h3>
-                <a href="/static/contact.html">Contact Us</a>
-                <a href="#">common questions</a>
-            </div>
-            <div class="footer-column-3">
-                <h3>About us</h3>
-                <a href="/static/landingpage.html">Who we are</a>
-                <a href="/static/privacy_policy.html">Privacy Policy</a>
-            </div>
+<footer class="main-footer">
+    <div class="footer-second">
+        <div class="footer-column-2">
+            <h3>Customer service</h3>
+            <a href="/static/contact.html">Contact Us</a>
+            <a href="#">common questions</a>
         </div>
-
-
-        <div class="col-md-6 col-12 tm-color-gray tm-copyright">
-            Copyright 2022 Entrepôt group
+        <div class="footer-column-3">
+            <h3>About us</h3>
+            <a href="/static/landingpage.html">Who we are</a>
+            <a href="/static/privacy_policy.html">Privacy Policy</a>
         </div>
-    </footer>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"
+
+    <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+        Copyright 2022 Entrepôt group
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    {{#if partial}}
+{{#if partial}}
     {{> (lookup . 'partial') }}
-    {{/if}}
+{{/if}}
 </body>
 
 </html>
