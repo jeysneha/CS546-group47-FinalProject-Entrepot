@@ -187,7 +187,7 @@ const updatePost = async (
     //update image with the same filename
     const filename = thePost.imgFile;
 
-    let img_dir = path.join(__dirname,'../public/postimgesUploads')+"/"+ filename
+    let img_dir = path.join(__dirname,'../public/postUploads')+"/"+ filename
 
     const isExistImg = fs.existsSync(img_dir)
     if (isExistImg) {
