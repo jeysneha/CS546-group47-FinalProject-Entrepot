@@ -9,32 +9,35 @@
         </div>
 
         <form action="/register" method="post" id="registration-form" class="signup-form">
-            <h3> Welcome to Entrepôt </h3>
+            <h1 class="signup-title"> Welcome to Entrepôt </h1>
 
-            <label for="register-usernameInput"></label>
+            <label for="register-usernameInput">username</label>
             <input
                     type="text"
                     id="register-usernameInput"
                     name="usernameInput"
-                    placeholder="username"/>
+                    placeholder="username"
+                    required/>
 
-            <label for="register-emailInput"></label>
+            <label for="register-emailInput">E-mail</label>
             <input
                     name="emailInput"
                     id="register-emailInput"
-                    placeholder="email"/>
+                    placeholder="email"
+                    required/>
 
-            <label for="register-passwordInput"></label>
+            <label for="register-passwordInput">password</label>
             <input
                     type="password"
                     id="register-passwordInput"
                     name="passwordInput"
-                    placeholder="password"/>
+                    placeholder="password"
+                    required/>
 
 
             <button type="submit">Submit</button>
             <br>
-            <a href="/login" target="_blank" class="login-link">Click here to log-in!</a>
+            <a href="/login" target="_blank" class="login-link" aria-label="click to login">Click here to log-in!</a>
         </form>
     </div>
         
