@@ -7,22 +7,18 @@
       
         <div style="text-align:center;padding: 3%;width: 50%;margin: auto;">
           <section class="panel-detail-left" id="detailSection">
-            <h1>Offer Detail</h1>
+            <h1>Post Detail</h1>
             <div id="detailsContent" style="text-align: center;">
             </div>
-            <br>
             </p>
         </section>
-
-
         <section class="panel-detail-right">
-
           <p class="inputTitle">Post Item Image</p>
           <img id="image-post" class="offerDetailImg">
-        
           </p>
           <a id="editButton">Edit</a>
-          <label onclick = "document.location.href = '/offers/myPosts'" class="btn-viewMyOffers">Back To MyPosts</label>
+          <a id="viewOffersButton">View Offers</a>
+          <label onclick = "document.location.href = '/offers/myPosts'" class="btn-viewMyOffers">Back To MyDeals</label>
           {{!-- <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">Back To MyOffers</a> --}}
       </section>
         </div>
@@ -50,36 +46,38 @@
     function init(){
 
         postData = {{{result}}};
+        console.log(postData);
         postId  =  postData._id;
 
         editButton = document.getElementById("editButton");
         //allButton = document.getElementById("allMySentButton");
-        
-        if(offerData.role == "seller") {
+        viewOffersButton = document.getElementById("viewOffersButton");
+        if(postData.role == "seller") {
           editButton.innerHTML = "Edit";
-          
-          if(postData.tradeStatus == 1 || offerData.tradeStatus == 2) {
+          viewOffersButton.href = "/offers/offersOf/" +postId;
+          viewOffersButton.className = "uploadImgButton"
+          if(postData.tradeStatus == 1 || postData.tradeStatus == 2) {
             editButton.className = "edit-banned";
             editButton.setAttribute("disabled","disabled");
             
           }else{
             editButton.className = "uploadImgButton" ;
             // 👇修改为修改post页面
-            editButton.href = '/offers/edit/'+offerId;
+            editButton.href = '/offers/edit/'+postId;
           }
         }
-        else if (offerData.role == "viewer") {
+        else if (postData.role == "viewer") {
           document.getElementById("detailSection").removeChild(document.getElementById("allMySentButton"));
           document.getElementById("detailSection").removeChild(document.getElementById("editButton"));
         } 
 
 
 
-        if(offerData.msg != null) {
+        if(postData.msg != null) {
           msgBox = document.getElementById("errorBox");
           msgBox.removeAttribute("hidden");
           msgBox.setAttribute("display", true);
-          msgBox.innerHTML = offerData.msg;
+          msgBox.innerHTML = postData.msg;
           msgBox.className = "successMessage";
           span = document.createElement("span");
           span.innerHTML = "×";
@@ -91,7 +89,7 @@
         getImage();
 
         
-        switch (postData.status) {
+        switch (postData.tradeStatus) {
             case 0:
             postData.tradeStatus = "Awaiting Offers";
             statusColor = "#e68b23";
@@ -146,12 +144,9 @@
       statusContent.style.backgroundColor = statusColor;
       // detailSection.appendChild(document.createElement("br"));
       detailSection.appendChild(statusContent);
-      detailSection.appendChild(document.createElement("br"));
 
-      postHeadline = document.createElement("h3");
-      postHeadline.innerHTML = "POST";
-      postHeadline.className = "inputTitle";
-      detailSection.appendChild(postHeadline);
+
+
       detailSection.appendChild(postIdTag);
       detailSection.appendChild(postNameTag);
       detailSection.appendChild(postDescTag);

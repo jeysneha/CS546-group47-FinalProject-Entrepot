@@ -317,15 +317,20 @@ const userGetAllPosts = async (posterId) => {
 
     const postsArray = poster.postsId;
 
+    
+    
+    
     // find each post created by poster and classify them depends on tradeStatus
     for (let i = 0; i < postsArray.length; i++) {
-        const thePost = await postsData.getPostById(postsArray[i]);
+        thePost = await postsData.getPostById(postsArray[i]);
+        console.log(thePost)
         if (!thePost) {
             return {
                 userGetAllPosts: false,
                 error: `Cannot find the post with id: ${postsArray[i]} !`
             }
         }
+        
         if (thePost.tradeStatus === 0) {
             zeroStatusPost.push(thePost);
         }else if (thePost.tradeStatus === 1) {
@@ -334,18 +339,21 @@ const userGetAllPosts = async (posterId) => {
             twoStatusPost.push(thePost);
         }
     }
-
+    
     //find posts that the poster bought but didn't post
     const allPosts = await postsData.getAllPosts();
+    
     for (let j = 0; j < allPosts.length; j++) {
-        const eachPost = allPosts[i];
-        if (eachPost.buyerId === posterId) {
+        eachPost = allPosts[j];
+        
+        if (posterId === eachPost.buyerId ) {
             boughtPosts.push(eachPost);
         }
     }
+    
 
     return {
-        userGetAllPosts: false,
+        userGetAllPosts: true,
         error: null,
         zeroStatusPost: zeroStatusPost,
         oneStatusPost: oneStatusPost,

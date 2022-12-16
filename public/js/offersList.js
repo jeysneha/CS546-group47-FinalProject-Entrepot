@@ -2,12 +2,13 @@
 
 
 // let postId = "67891012aed";
-let postId = "post00001";
+// postId = "post00001";
+let postId = {postid};
+console.log(postId);
 
 
 function getAll() {
-    let
- result;
+    let result;
     $.ajax({
     methods: "get",
     url:'/offers/'+postId,
