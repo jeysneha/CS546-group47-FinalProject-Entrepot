@@ -31,13 +31,13 @@ router.route("/offersOf/:postId").get(async (req, res) => {
     postItem = await postData.getPostById(req.params.postId);
   }catch(e){
     return res.render("offers/offerList", {
-      title: 'Entrepôt - Offer List',
+      title: 'Entrepôt - Offer Detail',
       postid: "'"+req.params.postId+"'"
     });
   }
   
   res.render("offers/offerList", {
-    title: 'Entrepôt - Offer List',
+    title: 'Entrepôt - Offer Detail',
     postid: "'"+req.params.postId+"'",
     postImgName: "'"+postItem.imgFile+"'"
   });

@@ -63,7 +63,7 @@ router
 
         res.status(200).render('reviews/reviewRegister', {
             title: 'Entrepôt - Create Review',
-            hasErrors: false,
+            hasError: false,
             error: null,
             posterId: posterId,
             partial: 'reviewRegister-scripts',
@@ -88,7 +88,7 @@ router
             //render the profile page
             return res.status(400).render('reviews/reviewRegister', {
                 title: 'Entrepôt - Create Review',
-                hasErrors: true,
+                hasError: true,
                 error: e
             })
         }
@@ -99,7 +99,7 @@ router
             if (!insertInfo) {
                 return res.status(500).render('reviews/reviewRegister', {
                     title: 'Entrepôt - Create Review',
-                    hasErrors: true,
+                    hasError: true,
                     error: 'Internal Server Error'
                 });
             }
@@ -107,7 +107,7 @@ router
             if (!insertInfo.insertedReview) {
                 return res.status(403).render('reviews/reviewRegister', {
                     title: 'Entrepôt - Create Review',
-                    hasErrors: true,
+                    hasError: true,
                     error: insertInfo.Error
                 });
             }
