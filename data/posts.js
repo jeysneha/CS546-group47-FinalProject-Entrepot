@@ -78,7 +78,7 @@ const createPost = async (
     }
     
     if (!post) {
-        `Cannot find the post with id: ${id.toString()} !`
+        throw `Cannot find the post with id: ${id.toString()} !`
     }
     
     return post;

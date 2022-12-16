@@ -139,7 +139,7 @@ router
             obj.postId = del._id
             obj.deleted = true
             //let ans=`{"movieId": ${del._id}, "deleted": true}`
-            await postData.removePost(req.params.postId);
+            await postsData.removePost(req.params.postId);
             return res.status(200).json({result: obj});
         } catch (e) {
             return res.status(500).send('Internal Server Error');

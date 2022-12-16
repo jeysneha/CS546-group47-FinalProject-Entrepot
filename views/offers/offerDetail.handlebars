@@ -60,7 +60,7 @@
         offerId  =  offerData._id;
 
         editButton = document.getElementById("editButton");
-        allButton = document.getElementById("allMySentButton");
+        
         //console.log("================", offerData.role)
         if(offerData.role == "buyer") {
           editButton.innerHTML = "Edit";
@@ -76,8 +76,7 @@
         }
         else if (offerData.role == "seller") {
           editButton.hidden = true;
-          allButton.innerHTML = "Back To All Offers Received";
-          allButton.href = "offer/";
+          
         } else {
           document.getElementById("detailSection").removeChild(document.getElementById("allMySentButton"));
           document.getElementById("detailSection").removeChild(document.getElementById("editButton"));

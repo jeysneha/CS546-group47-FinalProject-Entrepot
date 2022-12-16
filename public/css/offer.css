@@ -629,5 +629,12 @@ h1 {
     
 }
 
-
+.explanation {
+    text-align: left;
+    margin-left: 5%;
+    color:#1c74bd;
+    /* font-weight: bold; */
+    font-style: italic;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
 
