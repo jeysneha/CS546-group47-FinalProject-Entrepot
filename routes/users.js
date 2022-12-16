@@ -109,7 +109,6 @@ router
         try {
             posterId = validation.checkId(posterId);
         }catch (e) {
-            
             return res.status(400).json(e)
         }
         

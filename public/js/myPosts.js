@@ -5,7 +5,9 @@ let ongoingButtonIds = [];
 let finishedButtonIds = [];
 
 let ongoingBoxIds = [];
+let freezedBoxIds = [];
 let finishedBoxIds = [];
+let boughtBoxIds = [];
 
 let ongoingPosts;
 let freezedPosts;
@@ -22,13 +24,15 @@ function init() {
     finishedButtonIds = [];
 
     ongoingBoxIds = [];
+    freezedBoxIds = [];
     finishedBoxIds = [];
+    boughtBoxIds = [];
 
     otherOffersAcceptButtonId = [];
     otherOffersBoxId = [];
     // get all the offer of a ceratin post
     data = getAll();
-    console.log(data);
+    //console.log(data);
     
     ongoingPosts = data.zeroStatusPost;
     freezedPosts = data.oneStatusPost;
@@ -79,6 +83,7 @@ function bindList(elementId){
     }else if(elementId == "bought"){
         subData = boughtPosts;
     }
+    
 
     for (let i = 0; i < subData.length; i++) { //对stus进行循环遍历，并建立tr标签
         id = subData[i]._id;
@@ -134,20 +139,22 @@ function bindList(elementId){
         figure.appendChild(div3);
         
         // offer management button
-        mgmButton = document.createElement("a");
-        mgmButtonId = "mgmButton" + i;
-        mgmButton.setAttribute("id",mgmButtonId);
-        mgmButton.className = "btn-small-accept";
-        mgmButton.innerHTML = "Offer Management";
-        mgmButton.href = "/offers/offersOf/" + id;
-        myIdMgm = document.createAttribute("myid-mgm");
-        myIdMgm.nodeValue = id;
-        mgmButton.attributes.setNamedItem(myIdMgm);
-        div3.appendChild(mgmButton);
+        
         
         
 
         if(elementId=="ongoing"){
+
+            mgmButton = document.createElement("a");
+            mgmButtonId = "mgmButton" + i;
+            mgmButton.setAttribute("id",mgmButtonId);
+            mgmButton.className = "btn-small-accept";
+            mgmButton.innerHTML = "Offer Management";
+            mgmButton.href = "/offers/offersOf/" + id;
+            myIdMgm = document.createAttribute("myid-mgm");
+            myIdMgm.nodeValue = id;
+            mgmButton.attributes.setNamedItem(myIdMgm);
+            div3.appendChild(mgmButton);
 
             boxId = "boxId" + i;
             ongoingBoxIds.push(boxId);
@@ -169,94 +176,103 @@ function bindList(elementId){
             deletebutton = document.createElement("button");
             deletebutton.className = "btn-small-accept";
             deletebutton.innerHTML = "Delete";
+            myId = document.createAttribute("myid");
+            myId.nodeValue = id;
+            deletebutton.attributes.setNamedItem(myId);
 
-            if(postStatus == 1 || postStatus == 2){
-                editbutton.className = "btn-small-banned";
-                editbutton.setAttribute("disabled", "disabled");
-                editbutton.innerHTML = "You cannot edit now";
-                deletebutton.className = "btn-small-banned";
-                deletebutton.setAttribute("disabled", "disabled");
-                deletebutton.innerHTML = "You cannot delete now";
-            }
-            // deletebutton.onclick = function(){
-            //     $.ajax({
-            //         type: "delete",
-            //         url: "/offers/offer/"+this.getAttribute("myid"),
-            //         cache: false,
-            //         async: false,
-            //         success: function (data) {
-            //             for(i=0;i<ongoingBoxIds.length;i++){
-            //                 document.getElementById("ongoing").removeChild(document.getElementById(ongoingBoxIds[i]));
-            //             }
-            //             for(i=0;i<finishedBoxIds.length;i++){
-            //                 document.getElementById("finished").removeChild(document.getElementById(finishedBoxIds[i]));
-            //             }
-            //             init();
-            //         },
-            //         error: function (data) {
+            // if(postStatus == 1 || postStatus == 2){
+            //     editbutton.className = "btn-small-banned";
+            //     editbutton.setAttribute("disabled", "disabled");
+            //     editbutton.innerHTML = "You cannot edit now";
+            //     deletebutton.className = "btn-small-banned";
+            //     deletebutton.setAttribute("disabled", "disabled");
+            //     deletebutton.innerHTML = "You cannot delete now";
+            // }
+            deletebutton.onclick = function(){
+                const ans = window.confirm("Are your sure to delete the offer?");
+                if(ans){
+                    $.ajax({
+                    type: "delete",
+                    url: "/posts/"+this.getAttribute("myid"),
+                    cache: false,
+                    async: false,
+                    success: function (data) {
+                        for(i=0;i<ongoingBoxIds.length;i++){
+                            document.getElementById("ongoing").removeChild(document.getElementById(ongoingBoxIds[i]));
+                        }
+                        for(i=0;i<freezedBoxIds.length;i++){
+                            document.getElementById("freezed").removeChild(document.getElementById(freezedBoxIds[i]));
+                        }
+                        for(i=0;i<finishedBoxIds.length;i++){
+                            document.getElementById("finished").removeChild(document.getElementById(finishedBoxIds[i]));
+                        }
+                        for(i=0;i<boughtBoxIds.length;i++){
+                            document.getElementById("bought").removeChild(document.getElementById(boughtBoxIds[i]));
+                        }
+                        init();
+                    },
+                    error: function (data) {
                         
-            //             errorBox = document.getElementById("errorBox");
+                        errorBox = document.getElementById("errorBox");
 
-            //             errorBox.removeAttribute("hidden");
-            //             errorBox.setAttribute("display", true);
-            //             errorBox.innerHTML = data.responseJSON.result;
-            //             span = document.createElement("span");
-            //             span.innerHTML = "×";
-            //             span.className = "close";
-            //             span.onclick = "this.parentElement.style.display='none';";
-            //             errorBox.appendChild(span);
-            //         }
-            //     })
-            // };
-            
+                        errorBox.removeAttribute("hidden");
+                        errorBox.setAttribute("display", true);
+                        errorBox.innerHTML = data.responseJSON.result;
+                        span = document.createElement("span");
+                        span.innerHTML = "×";
+                        span.className = "close";
+                        span.onclick = "this.parentElement.style.display='none';";
+                        errorBox.appendChild(span);
+                    }
+                });
+                }else{
+                    return;
+                }
+            }
             
             myIdDelete = document.createAttribute("myid-delete");
             myIdDelete.nodeValue = id;
             deletebutton.attributes.setNamedItem(myIdDelete);
 
-            // button.onclick = function(){
-                
-            //     $.ajax({
-            //         type: "put",
-            //         url: "/offers/status/confirmByBuyer/"+ this.getAttribute("myid"),
-            //         cache: false,
-            //         async: false,
-            //         success: function (data) {
-                        
-            //             if(data.code == 200){
-            //                 for(i=0;i<ongoingBoxIds.length;i++){
-            //                 document.getElementById("ongoing").removeChild(document.getElementById(ongoingBoxIds[i]));
-            //                 }
-            //                 for(i=0;i<finishedBoxIds.length;i++){
-            //                     document.getElementById("finished").removeChild(document.getElementById(finishedBoxIds[i]));
-            //                 }
-            //                 button.className = "btn-small-banned";
-            //                 button.setAttribute("disabled", "disabled");
-            //                 button.innerHTML = "You have confirmed";
-            //                 init();
-            //             }
-            //         },
-            //         error: function (data) {
-                        
-            //             errorBox = document.getElementById("errorBox");
-
-            //             errorBox.removeAttribute("hidden");
-            //             errorBox.setAttribute("display", true);
-            //             errorBox.innerHTML = data.responseJSON.result;
-            //             span = document.createElement("span");
-            //             span.innerHTML = "×";
-            //             span.className = "close";
-            //             span.onclick = "this.parentElement.style.display='none';";
-            //             errorBox.appendChild(span);
-                        
-            //         }
-            //     })
-            // };
+            
             
             div3.appendChild(deletebutton);
-        }else if (elementId=="finished"){
+        
+        }else if (elementId=="freezed"){
+
+            mgmButton = document.createElement("a");
+            mgmButtonId = "mgmButton" + i;
+            mgmButton.setAttribute("id",mgmButtonId);
+            mgmButton.className = "btn-small-accept";
+            mgmButton.innerHTML = "Offer Management";
+            mgmButton.href = "/offers/offersOf/" + id;
+            myIdMgm = document.createAttribute("myid-mgm");
+            myIdMgm.nodeValue = id;
+            mgmButton.attributes.setNamedItem(myIdMgm);
+            div3.appendChild(mgmButton);
+
+            boxId = "boxId" + i;
+            freezedBoxIds.push(boxId);
+            div1.setAttribute("id",boxId);
+        }
+        else if (elementId=="finished"){
+            mgmButton = document.createElement("a");
+            mgmButtonId = "mgmButton" + i;
+            mgmButton.setAttribute("id",mgmButtonId);
+            mgmButton.className = "btn-small-accept";
+            mgmButton.innerHTML = "Offer Management";
+            mgmButton.href = "/offers/offersOf/" + id;
+            myIdMgm = document.createAttribute("myid-mgm");
+            myIdMgm.nodeValue = id;
+            mgmButton.attributes.setNamedItem(myIdMgm);
+            div3.appendChild(mgmButton);
+
             boxId = "boxId" + i;
             finishedBoxIds.push(boxId);
+            div1.setAttribute("id",boxId);
+        }else if (elementId=="bought"){
+            boxId = "boxId" + i;
+            boughtBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
         }
     
@@ -274,7 +290,7 @@ function bindList(elementId){
 
         h4 = document.createElement("h4");
         h4.className = "productName";
-        h4.innerHTML = subData[i].offerItem;
+        h4.innerHTML = subData[i].title;
         div4.appendChild(h4);
 
         // wearDegree = document.createElement("p");

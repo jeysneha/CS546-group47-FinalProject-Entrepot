@@ -3,6 +3,8 @@ const offers = mongoCollections.offers;
 const {ObjectId} = require('mongodb');
 const path = require('path');
 const fs = require('fs');
+const postData = require('./posts');
+
 const users = mongoCollections.users;
 const helpers = require("../offerHelpers")
 
@@ -32,13 +34,13 @@ module.exports = {
     filename = id+"."+extend
     // let des_file = path.join(__dirname,'../uploads')+"/"+file.originalFilename;
     let des_file = path.join(__dirname,'../public/offerUploads')+"/"+ filename
-    console.log(des_file) //上传路径：des_file
-    console.log(file.path) //临时文件路径：file.path
+    // console.log(des_file) //上传路径：des_file
+    // console.log(file.path) //临时文件路径：file.path
 
 
     //将文件存入本地服务器文件中
     fs.readFile(file.path,function (err,data){
-      console.log(data);
+      //console.log(data);
       fs.writeFile(des_file,data,function(err){
         if(err){
           throw "Error: Failed to store the image";
@@ -338,6 +340,13 @@ module.exports = {
         }
       }
 
+      try{
+        
+        await postData.updateTradeStatusToOne(originalOffer.postId);
+      }catch(e){
+        throw e;
+      }
+      
       return await this.getOfferById(offerId)
 
     } else{
@@ -357,7 +366,7 @@ module.exports = {
         }
 
         if(residualOffers.length != 0){
-          console.log("residual length: ", residualOffers.length);
+          //console.log("residual length: ", residualOffers.length);
           for(i=0;i<residualOffers.length;i++){
             
             residual = residualOffers[i];
@@ -367,29 +376,33 @@ module.exports = {
             residual = {
               status: 0
             }
-            console.log(i, residual, residualId);
-            console.log("================================")
+            //console.log(i, residual, residualId);
+            //console.log("================================")
             try{
               updatedInfo = await offersCollection.updateOne(
                 {_id: ObjectId(residualId)},
                 {$set: residual}
               );
             }catch(e){
-              console.log(e);
+              //console.log(e);
               throw e;
             }
             
-            console.log(i,"√1")
+            //console.log(i,"√1")
             if (updatedInfo.modifiedCount === 0) {
               throw 'Error: could not change offer\'s acceptStatus successfully444';
             }
-            console.log(i,"√2")
+            //console.log(i,"√2")
 
 
           }
         }
 
-
+        try{
+          await postData.updateTradeStatusToZero(originalOffer.postId);
+        }catch(e){
+          throw e;
+        }
 
         return await this.getOfferById(offerId);
 
@@ -455,6 +468,12 @@ module.exports = {
           throw e;
         }
 
+        try{
+          await postData.updateTradeStatusToTwo(originalOffer.postId);
+        }catch(e){
+          throw e;
+        }
+
         return await this.getOfferById(offerId)
       } else{
         throw 'Error: You are not allowed to change the confirm status now';
@@ -515,6 +534,12 @@ module.exports = {
 
         try{
           await this.archiveOtherOffers(offerId, postId);
+        }catch(e){
+          throw e;
+        }
+
+        try{
+          await postData.updateTradeStatusToTwo(originalOffer.postId);
         }catch(e){
           throw e;
         }
