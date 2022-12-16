@@ -11,25 +11,27 @@
         </div>
 
         <form action="/login" method="post" id="login-form" class="login-form">
-            <h3 class="login-title">Welcome to Entrepôt</h3>
+            <h1 class="login-title">Welcome to Entrepôt</h1>
 
-            <label for="login-usernameInput"></label>
+            <label for="login-usernameInput" >username</label>
             <input
             type="text"
             id="login-usernameInput"
             name="usernameInput"
-            placeholder="username"/>
+            placeholder="username"
+            required/>
 
-            <label for="login-passwordInput"></label>
+            <label for="login-passwordInput" >password</label>
             <input
             type="password"
             id="login-passwordInput"
             name="passwordInput"
-            placeholder="password"/>
+            placeholder="password"
+            required/>
 
             <button type="submit" id="login-button">Submit</button>
             <br>
-            <a href="/register" target="_blank" class="signup-link">Click here to register!</a>
+            <a href="/register" target="_blank" class="signup-link" aria-label="click to sign up">Click here to register!</a>
 
         </form>
     </div>

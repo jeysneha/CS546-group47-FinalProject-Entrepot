@@ -132,9 +132,9 @@ nav .navbar-top {
 }
 
 .account-btn {
-  background: none;
+  color: #0069dc;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
@@ -394,6 +394,11 @@ ul .nav-links {
   text-align: center;
   padding: 5px;
   padding-left: 25px;
+}
+
+ul .nav-links a {
+  font-size: 24px;
+  color: #333333;
 }
 
 .nav-links>a:visited,
@@ -666,6 +671,7 @@ footer .footer-second {
 }
 
 .footer-second a {
+  color: #0068da;
   display: block;
   margin: 5px auto;
   width: 50%;
@@ -673,7 +679,7 @@ footer .footer-second {
   font-size: 0.9rem;
 }
 
-.footer-second h3 {
+.footer-second h2 {
   margin-bottom: 40px;
   font-size: 1rem;
 }

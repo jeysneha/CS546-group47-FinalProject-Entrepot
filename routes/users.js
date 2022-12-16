@@ -6,6 +6,97 @@ const usersData = data.users;
 const xss = require('xss');
 const {getUserById, getUserByName} = require("../data/users");
 
+
+
+//=========================================== update user info by user self ======================================
+router
+    .route('/update')
+    .get(async (req, res) => {
+        console.log('hit user update get method')
+        let user = req.session.user;
+        let username = user.username;
+        let owner;
+        let email;
+        try {
+            owner = await getUserByName(username);
+            email = owner.email;
+            if (!owner) {
+                return res.status(400).render('user/userUpdate', {
+                    title: 'Entrepôt - Update User Info',
+                    hasErrors: true,
+                    error: `Cannot find the user with name ${username}`,
+                    partial: 'userUpdate-scripts',
+                })
+            }
+        } catch (e) {
+            return res.status(400).render('user/userUpdate', {
+                title: 'Entrepôt - Update User Info',
+                hasErrors: true,
+                error: e,
+                partial: 'userUpdate-scripts',
+            })
+        }
+
+        res.status(200).render('user/userUpdate', {
+            title: 'Entrepôt - Update User Info',
+            hasErrors: false,
+            error: null,
+            username: username,
+            email: email,
+            partial: 'userUpdate-scripts',
+        });
+    })
+    .put(async (req, res)=> {
+        console.log('hit user update put method')
+        let username = xss(req.body.usernameInput);
+        let email = xss(req.body.emailInput);
+        let originPassword = xss(req.body.originPasswordInput);
+        let newPassword = xss(req.body.newPasswordInput);
+
+        try{
+            username = validation.checkUsername(username);
+            email = validation.checkEmail(email);
+            originPassword = validation.checkPassword(originPassword);
+            newPassword = validation.checkPassword(newPassword);
+        }catch (e) {
+            return res.status(400).render('user/userUpdate', {
+                title: 'Entrepôt - Update User Info',
+                hasErrors: true,
+                error: e,
+            });
+        }
+
+        //get user_id
+        const user = req.session.user;
+        const userId = user.userId;
+
+        //update user
+        try{
+            const updateInfo = await usersData.updateUser(userId, username, email, originPassword, newPassword);
+
+            if (!updateInfo) {
+                return res.status(500).render('user/userUpdate', {
+                    title: 'Entrepôt - Update User Info',
+                    hasErrors: true,
+                    error: 'Internal Server Error',
+                });
+            }
+
+            user.username = username;
+
+            res.status(200).redirect('/user/profile');
+        }catch (e) {
+            res.status(403).render('user/userUpdate', {
+                title: 'Entrepôt - Update User Info',
+                hasErrors: true,
+                error: e,
+            });
+        }
+    })
+
+
+
+
 //=========================================== get all posts by user self ======================================
 router
     .route('/deal')
@@ -52,7 +143,7 @@ router
     })
 
 
-//=========================================== get all posts by other self ======================================
+//=========================================== get other user's all posts ======================================
 router
     .route('/deal/:posterId')
     .get(async(req, res) => {
@@ -100,6 +191,7 @@ router
 router
     .route('/profile')
     .get(async (req, res) => {
+        console.log('hit the user profile')
     const user = req.session.user;
     let username = user.username;
 
@@ -188,93 +280,6 @@ router
             res.status(500).json({Error: e});
         }
     });
-
-
-
-//=========================================== update user info by user self ======================================
-router
-    .route('/update')
-    .get(async (req, res) => {
-        let user = req.session.user;
-        let username = user.username;
-        let owner;
-        let email;
-        try {
-            owner = await getUserByName(username);
-            email = owner.email;
-            if (!owner) {
-                return res.status(400).render('user/userUpdate', {
-                    title: 'Entrepôt - Update User Info',
-                    hasErrors: true,
-                    error: `Cannot find the user with name ${username}`,
-                    partial: 'userUpdate-scripts',
-                })
-            }
-        } catch (e) {
-            return res.status(400).render('user/userUpdate', {
-                title: 'Entrepôt - Update User Info',
-                hasErrors: true,
-                error: e,
-                partial: 'userUpdate-scripts',
-            })
-        }
-
-        res.status(200).render('user/userUpdate', {
-            title: 'Entrepôt - Update User Info',
-            hasErrors: false,
-            error: null,
-            username: username,
-            email: email,
-            partial: 'userUpdate-scripts',
-        });
-    })
-    .put(async (req, res)=> {
-        let username = xss(req.body.usernameInput);
-        let email = xss(req.body.emailInput);
-        let originPassword = xss(req.body.originPasswordInput);
-        let newPassword = xss(req.body.newPasswordInput);
-
-        try{
-            username = validation.checkUsername(username);
-            email = validation.checkEmail(email);
-            originPassword = validation.checkPassword(originPassword);
-            newPassword = validation.checkPassword(newPassword);
-        }catch (e) {
-            return res.status(400).render('user/userUpdate', {
-                title: 'Entrepôt - Update User Info',
-                hasErrors: true,
-                error: e,
-            });
-        }
-
-        //get user_id
-        const user = req.session.user;
-        const userId = user.userId;
-
-        //update user
-        try{
-            const updateInfo = await usersData.updateUser(userId, username, email, originPassword, newPassword);
-
-            if (!updateInfo) {
-                return res.status(500).render('user/userUpdate', {
-                    title: 'Entrepôt - Update User Info',
-                    hasErrors: true,
-                    error: 'Internal Server Error',
-                });
-            }
-
-            user.username = username;
-
-            res.status(200).redirect('/user/profile');
-        }catch (e) {
-            res.status(403).render('user/userUpdate', {
-                title: 'Entrepôt - Update User Info',
-                hasErrors: true,
-                error: e,
-            });
-        }
-})
-
 
 
 module.exports = router;
