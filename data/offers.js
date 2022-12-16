@@ -38,6 +38,7 @@ module.exports = {
 
     //将文件存入本地服务器文件中
     fs.readFile(file.path,function (err,data){
+      console.log(data);
       fs.writeFile(des_file,data,function(err){
         if(err){
           throw "Error: Failed to store the image";

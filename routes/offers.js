@@ -1,15 +1,13 @@
-//require express, express router and bcrypt as shown in lecture code
 const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const offerData = data.offers;
+const postData = data.posts;
+const userData = data.users;
 // const path = require('path');
 // const session = require('express-session');
 // const { rmSync } = require('fs');
 // let formidable = require('formidable')
-
-
-
 const path = require("path")
 const multiparty = require('connect-multiparty');
 const multer = require("multer")
@@ -32,6 +30,26 @@ router.route("/myOffers").get(async (req, res) => {
     title: 'Entrepôt - My Offers',
   });
 });
+
+router.route("/myPosts").get(async (req, res) => {
+  //
+  // res.sendFile(path.resolve('static/myOffers.html'));
+  res.render("offers/myPosts", {
+    title: 'Entrepôt - My Posts',
+  });
+});
+
+router.route("/postRegister").get(async (req, res) => {
+  console.log("2312312312321");
+  res.render('products/registration-v2', {
+      title: 'Entrepôt - Create post',
+      hasError: false,
+      error: null
+  });
+})
+
+
+
 
 router.route("/createOffer").get(async (req, res) => {
   //
@@ -296,6 +314,52 @@ router.get("/offers/page/edit/:offerId" , async (req, res) => {
     title: 'Entrepôt - Edit Offer',
   });
 })
+
+router.route("/post/:postId").get(async (req, res)=>{
+  // Route for feteching a ceratin offer
+  let msg;
+  if(req.url.split("?").length == 2){
+    
+    msg = "You have successfully created an offer!";
+  }
+  postId = req.params.postId;
+  userId = req.session.user.userId
+
+  try{
+    postItem = await postData.getPostById(postId);
+  }catch(e){
+    // 👇应该render到error page
+    return res.status(404).json({code:404, result:e});
+  }
+
+  try{
+    user = await userData.getUserById(post.posterId);
+    postItem.contact = user.email;
+  }catch(e) {
+    console.log(e);
+  }
+
+
+  if(postItem.posterId == req.session.user.userId.toString()) {
+    postItem.role = "seller";
+  } else {
+    postItem.role = "viewer";
+  }
+
+  if (msg != null) {
+    postItem.msg = msg;
+  }
+  
+  res.render("offers/postDetail", {
+    title: 'Entrepôt - Post Detail',
+    code:200,
+    result:JSON.stringify(postItem)
+  })
+  // res.status(200).json({code:200, result:offer});
+})
+
+
+
 
 
 module.exports = router;

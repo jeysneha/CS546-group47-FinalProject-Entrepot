@@ -23,7 +23,7 @@ let exchg = "../public/offerUploads/exchg.png";
 let data;
 let otherOffersAcceptButtonId = [];
 let acceptedOfferId;
-let otherOffersBoxId = [];
+let otherOffersBoxId = []; 
 
 init();
 

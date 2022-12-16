@@ -4,7 +4,7 @@ const validation = require('../helpers');
 const posts = mongoCollections.posts;
 const path = require('path');
 const fs = require('fs');
-const usersData = require("./users");
+
 
 
 //================================================= create a new post ===============================================
@@ -35,7 +35,7 @@ const createPost = async (
     const id = ObjectId();
     const filename = id + "." + extend
 
-    const img_dir = path.join(__dirname, '../public/postimgesUploads') + "/" + filename
+    const img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
     console.log(img_dir)
     console.log(imgFile.path)
 
@@ -61,17 +61,26 @@ const createPost = async (
         datetime: datetime
 
     }
+    console.log(1);
     const insertInfo = await postCollection.insertOne(newPost);
+    console.log(2);
     if (!insertInfo.acknowledged || !insertInfo.insertedId) {
         throw 'Could not add your Post';
-
     }
+    console.log(3);
 
     //if no post, throw first
-    const post = await getPostById(id.toString());
+    try{
+        post = await getPostById(id.toString());
+        console.log(4);
+    }catch(e){
+        throw e;
+    }
+    console.log(5);
     if (!post) {
         `Cannot find the post with id: ${id.toString()} !`
     }
+    console.log(6);
     return post;
 };
 
