@@ -12,7 +12,6 @@ const {getUserById, getUserByName} = require("../data/users");
 router
     .route('/update')
     .get(async (req, res) => {
-        console.log('hit user update get method')
         let user = req.session.user;
         let username = user.username;
         let owner;
@@ -190,7 +189,6 @@ router
 router
     .route('/profile')
     .get(async (req, res) => {
-        console.log('hit the user profile')
     const user = req.session.user;
     let username = user.username;
 
