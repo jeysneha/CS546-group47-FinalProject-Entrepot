@@ -115,7 +115,11 @@ router
             res.status(200).redirect(`/user/${posterId}`);
 
         }catch (e) {
-            res.status(500).json({Error: e});
+            res.status(500).render('reviews/reviewRegister', {
+                title: 'Entrepôt - Create Review',
+                hasError: true,
+                error: e
+            });
         }
 
 
