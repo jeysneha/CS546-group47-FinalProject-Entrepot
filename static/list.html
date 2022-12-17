@@ -25,7 +25,7 @@
       <div style="margin-top: 0%;">
         <!--Logo-->
         <a href="index.html">
-          <img class="logo" src="../public/images/logo.JPG" />
+          <img class="logo" src="../public/images/logo.JPG" alt="Logo" />
         </a>
       </div>
       <div class="navbar" id="navbar">
@@ -53,27 +53,26 @@
       <div>
         <!--My account part-->
         <div style="width: 200px; margin:0px">
-          <a href="/user/profile">
+          <a href="/user/profile"> </a>
             <button class="account-btn">
               <i class="fas fa-user-alt"></i>
             </button>
             <span class="account-text">My account</span>
-          </a>
+         
           <!--When we click the btnShowAccountInfo this section will be displayed-->
         </div>
         <div style="width: 200px; margin-left: -80px">
-          <a href="#">
+          <a href="#"> </a>
             <button class="account-btn">
             </button>
             <span class="account-text"> log out </span>
-          </a>
+         
           <!--When we click the btnShowAccountInfo this section will be displayed-->
         </div>
       </div>
     </div>
   </nav>
 
-  <body>
     <main>
       <section class="main-section">
         <div class="product-container">
@@ -84,7 +83,7 @@
                 <figure class="product-image">
                   {{!-- <img src="images/headphone.jpg" alt="headphone" /> --}}
                   {{#each images}}
-                  <img src="{{this}}" alt="Image">
+                  <!-- <img src="{{this}}"  alt="Image"> --> => Frontend ppl check this
                   {{/each}}
 
                   <div class="product-over">
@@ -102,7 +101,7 @@
                   <p>{{this}}</p>
                   {{/each}}
                   {{!-- bought in 2020, barely used --}}
-                  </p>
+                  
                 </div>
               </div>
             </div>
