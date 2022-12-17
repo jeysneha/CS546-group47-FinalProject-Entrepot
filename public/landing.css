@@ -31,7 +31,7 @@
     height: 280px;
 }
 
-.login-error, .signup-error, .userUpdate-error, #reviewRegister-error{
+.login-error, .signup-error, .userUpdate-error, #reviewRegister-error, .contact-error{
     width: 400px;
     text-align: center;
     font-size: 18px;
