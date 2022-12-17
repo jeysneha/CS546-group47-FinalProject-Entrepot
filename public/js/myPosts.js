@@ -189,7 +189,7 @@ function bindList(elementId){
             //     deletebutton.innerHTML = "You cannot delete now";
             // }
             deletebutton.onclick = function(){
-                const ans = window.confirm("Are your sure to delete the offer?");
+                const ans = window.confirm("Are your sure to delete the post?");
                 if(ans){
                     $.ajax({
                     type: "delete",
@@ -288,7 +288,7 @@ function bindList(elementId){
         div4.className = "product-summary";
         div2.appendChild(div4);
 
-        h4 = document.createElement("h4");
+        h4 = document.createElement("h1");
         h4.className = "productName";
         h4.innerHTML = subData[i].title;
         div4.appendChild(h4);

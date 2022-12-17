@@ -88,7 +88,7 @@
     font-weight: bold;
     width: 10%;
     padding: 10px;
-    background-color: rgb(138, 138, 138);
+    background-color: #767676;
     box-shadow: 2px 2px 2px #c7c7c7;
     color: rgb(255, 255, 255);
     margin-bottom: 10px;
@@ -101,7 +101,7 @@
     font-weight: bold;
     width: 60%;
     padding: 10px;
-    background-color: rgb(138, 138, 138);
+    background-color: #767676;
     box-shadow: 2px 2px 2px #c7c7c7;
     color: rgb(255, 255, 255);
     margin-bottom: 10px;
@@ -339,7 +339,7 @@ background-color: #09487a;
 .uploadImgButton {
     display: inline-block;
     border-radius: 10px;
-    background-color: #e68b23;
+    background-color: #ad6500;
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -480,7 +480,7 @@ h1 {
 
 .edit-banned {
     
-    background-color: rgb(138, 138, 138);
+    background-color: #767676;
     cursor: not-allowed;
     display: inline-block;
     border-radius: 10px;
