@@ -71,6 +71,7 @@ const createPost = async (
 
     //if no post, throw first
     try{
+        
         post = await getPostById(id.toString());
         
     }catch(e){
