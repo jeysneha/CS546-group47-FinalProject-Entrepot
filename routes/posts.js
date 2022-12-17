@@ -19,7 +19,9 @@ router
         //code here for GET
         try {
             const activePosts = await postsData.getActivePosts();
-            return res.status(200).render('products/list2', {productArray: activePosts})
+            return res.status(200).render('products/list2', {
+                title: 'Entrepôt - Products List',
+                productArray: activePosts})
         } catch (e) {
             res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
 
