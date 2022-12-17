@@ -75,11 +75,41 @@ async function main() {
         'home G garden',
         user2Obj._id,
     )
-
-
-    
-
-
+    const post3 = await posts.createPost(
+        'Apple W1 Headphone',
+        'this is an Headphone',
+        "http://localhost:3000/images/AppleW1_Headphone.png",
+        'home G garden',
+        user3Obj._id,
+    )
+    const post4 = await posts.createPost(
+        'PS4',
+        'this is a Play station',
+        "http://localhost:3000/images/PS4.jpg",
+        'home G garden',
+        user4Obj._id,
+    )
+    const post5 = await posts.createPost(
+        'MetaQuest2-VR-Headset',
+        'this is MetaQuest2-VR-Headset',
+        "http://localhost:3000/images/MetaQuest2-VR-Headset.png",
+        'home G garden',
+        user5Obj._id,
+    )
+    const post6 = await posts.createPost(
+        'LoogPro_Acoustic-Guitar',
+        'this is a LoogPro_Acoustic-Guitar',
+        "http://localhost:3000/images/LoogPro_Acoustic-Guitar.jpg",
+        'home G garden',
+        user5Obj._id,
+    )
+    const post7 = await posts.createPost(
+        'apple-ipad-air-1',
+        'this is an Apple-ipad-air-1',
+        "http://localhost:3000/images/apple-ipad-air-1.jpg",
+        'homex garden',
+        user6Obj._id,
+    )
 
 }
 
