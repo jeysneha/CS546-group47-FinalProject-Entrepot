@@ -7,9 +7,9 @@
 
   <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
       <section class="panel-detail-left" id="detailSection">
-            <h1> Update offer</h1>
+            <h1>Update Post</h1>
       <label class = "inputTitle">
-              Your Offer Id
+              Your Post Id
       </label>
       <p id="offerId" ></p>
 
@@ -32,16 +32,24 @@
           <br>
           <br>
   
-          <label for="itemDesc" id="formLabel" class = "inputTitle">
-            Degree of wear	
+          <label for="postRegister-category" id="formLabel" class = "inputTitle">
+            Category	
           </label><br>
-          <select class="createInputWear" id = "wear">
-            <option value="10">Like New</option>
-            <option value="8">Good Condition</option>
-            <option value="6">Fair Condition</option>
-            <option value="4">Poor Condition</option>
-            <option value="2">Need Repair</option>
-            <option value="0">Sold As Component</option>
+           <select class="createInputWear" id="postRegister-category" name="postRegCategoryInput">
+            <option value="0">Choose Your Category</option>
+            <option value="1">Apparel or Accessories</option>
+            <option value="2">Jewelry or Watches</option>
+            <option value="3">Motors, style or Fashion</option>
+            <option value="4">home or garden</option>
+            <option value="5">sporting Goods</option>
+            <option value="6">Health or Wellness</option>
+            <option value="7">Medical Health</option>
+            <option value="8">Children or infants</option>
+            <option value="9">Pets or Pets supplies</option>
+            <option value="10">Consumer Electronic Goods</option>
+            <option value="11">Home improvement</option>
+            <option value="12">Collectibles or Art</option>
+            <option value="13">other Categories / to be categorized</option>
           </select>
             </input>
           <br>
@@ -71,7 +79,7 @@
           <div id="imgError" class="errorLine" hidden>I'm an error</div>
           <!-- <p>Preview</p> -->
           <br>
-          <img id="image-preview" class="createOfferImg" alt="origin offer item">
+          <img id="image-preview" class="createOfferImg">
           <p id="imgSizeInfo" class="imgSize"></p>
           <br>
           <label onclick = "document.location.href = '/offers/myOffers'" class="uploadImgButton">Back To MyOffers</label>
@@ -99,11 +107,11 @@
     offerData = {{{result}}};
     // console.log(offerData);
     let preview = document.getElementById('image-preview');
-    document.getElementById("offerItem").value = offerData.offerItem;
-    document.getElementById("itemDesc").value = offerData.itemDesc;
-    document.getElementById("wear").value = offerData.wear;
+    document.getElementById("offerItem").value = offerData.title;
+    document.getElementById("itemDesc").value = offerData.body;
+    document.getElementById("postRegister-category").value = offerData.category;
     document.getElementById("offerId").innerHTML = offerData._id;
-    preview.src = "/offers/images/" + offerData.imgName;
+    preview.src = "/posts/images/" + offerData.imgFile;
     //document.getElementById("file").files[0] = "/offers/images/" + offerData.imgName;
 
 
@@ -115,9 +123,9 @@
     }
     
     srcToFile(
-        "/offers/images/" + offerData.imgName,
+        "/posts/images/" + offerData.imgFile,
         'z',
-        'image/'+ offerData.imgName.split(".")[1]
+        'image/'+ offerData.imgFile.split(".")[1]
     )
     .then(function(file) {
         previousImg = file;
@@ -232,16 +240,13 @@
     
     
     params.append("upload_image",paramFile)
-    //params.append("senderId", offerData.senderId);
-    params.append("postId", offerData.postId);
-    params.append("sellerId", "seller");
-    params.append("offerItem", document.getElementById("offerItem").value);
-    params.append("itemDesc", document.getElementById("itemDesc").value);
-    params.append("wear", document.getElementById("wear").value);
+    params.append("title", document.getElementById("offerItem").value);
+    params.append("body", document.getElementById("itemDesc").value);
+    params.append("category", document.getElementById("postRegister-category").value);
 
     
     $.ajax({
-    url: '/offers/offer/'+offerData._id,
+    url: '/posts/'+offerData._id,
     data: params,
     cache: false,
     // contentType: 'multipart/form-data',
@@ -249,15 +254,15 @@
     processData: false,
     type: 'PUT',
     success: function(data){
-      id = data.result._id;
-      document.location.href = "/offers/offer/"+id+"?updated=true";
+      id = data.prdobj._id;
+      document.location.href = "/offers/post/"+id+"?updated=true";
     },
     error: function(data){            
       errorBox = document.getElementById("errorBox");
 
       errorBox.removeAttribute("hidden");
       errorBox.setAttribute("display", true);
-      errorBox.innerHTML = data.responseJSON.result;
+      errorBox.innerHTML = data.responseJSON.error;
       span = document.createElement("span");
       span.innerHTML = "×";
       span.className = "close";

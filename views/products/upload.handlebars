@@ -1,59 +1,285 @@
-<main>
-    <div class="container" style="background-color:violet;">
-        <form id="product-signup-form" class="center padding" action="/post" method="POST">
-            <div class="form-group">
-                <h1>Post for exchange:</h1>
+  
+<div class="alertMessage" id="errorBox" hidden>
+  <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+</div>
+<div class="panel-back">
+    
 
-                <label for="name">Product Title:</label>
-                <input type="text" class="form-control" id="product-title" name="name" placeholder="Enter product Name">
-            </div>
-
-            <div class="form-group">
-                <label for="product-body">Product body:</label>
-                <input type="text" class="form-control" id="product-body" name="productBody"
-                    placeholder="Enternbody of product">
-            </div>
-            <div class="form-group">
-                <label for="category">Category:</label>
-                <select id="product-Cate">
-                    <option value="elec">Choose Your Category</option>
-                    <option value="Apparel & Accessories"></option>
-                    <option value="Jewelry & Watches"></option>
-                    <option value="Motors, style & Fashion"></option>
-                    <option value="home & garden"></option>
-                    <option value="sporting Goods"></option>
-                    <option value=" Health & Wellness"></option>
-                    <option value="Medical Health"></option>
-                    <option value="Children & infants"></option>
-                    <option value="Pets & Pets supplies"></option>
-                    <option value="Consumer Electronic Goods"></option>
-                    <option value="Home improvement"></option>
-                    <option value="Collectibles & Art"></option>
-                    <option value="other Categories / to be categorized"></option>
-                </select>
-
-                <form action="/upload/profilepic" enctype="multipart/form-data" method="POST">
-                    <br>
-                    <label for="picture" class="labels">Upload product image:</label>
-                    <input type="file" id="product-image" accept="image/*" class="btn  bottom-padding" required />
-                    <input type="submit" class="btn-private btn btn-primary" value="Upload Photo" />
-                </form>
-
-        </form>
-        <br>
-        <br>
-
-        <button type="submit" id="btn-id" class="btn btn-primary" style="text-align:center; margin-left: 250px;">
-            Submit</button>
-        <h1><a class="BacktoListing" href="/">Go Back To ProductListing</a></h1>
-        </form>
-
-        {{#if errorcode}}
-
-        <p class="error">{{message}}</p>
-        {{/if}}
+  <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
+      <section class="panel-detail-left" id="detailSection">
+            <h1>Update Post</h1>
+      <label class = "inputTitle">
+              Your Post Id
+      </label>
+      <p id="offerId" ></p>
 
 
-    </div>
+      <label for="postId" id="formLabel" class = "inputTitle">
+              Desired Item Name	
+      </label>
+      
+      <form enctype="multipart/form-data" id="file_upload">
+      <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
 
-</main>
+          <p id="postName" name="postId">Old sneakers</p>
+          <p id="senderId" name="senderId" hidden>buyer</p>
+          <br>
+          <label for="offerItem" id="formLabel" class = "inputTitle">
+              Offer Item Name	
+          </label><br>
+          <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="No more than 30 characters.">
+          <div id="offerItemError" class="errorLine" hidden>I'm an error</div>
+          <br>
+          <br>
+  
+          <label for="postRegister-category" id="formLabel" class = "inputTitle">
+            Category	
+          </label><br>
+           <select class="createInputWear" id="postRegister-category" name="postRegCategoryInput">
+            <option value="0">Choose Your Category</option>
+            <option value="1">Apparel or Accessories</option>
+            <option value="2">Jewelry or Watches</option>
+            <option value="3">Motors, style or Fashion</option>
+            <option value="4">home or garden</option>
+            <option value="5">sporting Goods</option>
+            <option value="6">Health or Wellness</option>
+            <option value="7">Medical Health</option>
+            <option value="8">Children or infants</option>
+            <option value="9">Pets or Pets supplies</option>
+            <option value="10">Consumer Electronic Goods</option>
+            <option value="11">Home improvement</option>
+            <option value="12">Collectibles or Art</option>
+            <option value="13">other Categories / to be categorized</option>
+          </select>
+            </input>
+          <br>
+          <br>
+
+          <label for="itemDesc" id="formLabel" class = "inputTitle">
+              Offer Item Description	
+          </label><br>
+          <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc" placeholder="No more than 200 characters."></textarea>
+          <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
+          <br>
+          
+      </form>
+            
+
+            </p>
+        </section>
+
+
+        <section class="panel-detail-right">
+          
+          <h1>Upload An Image</h1>
+          
+          
+          <label for="file" class="uploadImgButton">Upload Image</label><br>
+          <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
+          <div id="imgError" class="errorLine" hidden>I'm an error</div>
+          <!-- <p>Preview</p> -->
+          <br>
+          <img id="image-preview" class="createOfferImg">
+          <p id="imgSizeInfo" class="imgSize"></p>
+          <br>
+          <label onclick = "document.location.href = '/offers/myOffers'" class="uploadImgButton">Back To MyOffers</label>
+          <input type="button" value="SUBMIT" id="submit" class="createOfferButton"/>
+
+      </section>
+  </div>
+    
+</div>
+    
+    
+
+    <div id="div5" hidden>111</div>
+  </main>
+  
+
+  
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+
+    let flag = false;
+    let previousImg;
+    postData = {{{result}}};
+    // console.log(offerData);
+    let preview = document.getElementById('image-preview');
+    document.getElementById("offerItem").value = postData.title;
+    document.getElementById("itemDesc").value = postData.body;
+    document.getElementById("postRegister-category").value = postData.category;
+    document.getElementById("offerId").innerHTML = postData._id;
+    preview.src = "/offers/images/" + offerData.imgName;
+    //document.getElementById("file").files[0] = "/offers/images/" + offerData.imgName;
+
+
+   function srcToFile(src, fileName, mimeType){
+    return (fetch(src)
+        .then(function(res){return res.arrayBuffer();})
+        .then(function(buf){return new File([buf], fileName, {type:mimeType});})
+    );
+    }
+    
+    srcToFile(
+        "/offers/images/" + offerData.imgName,
+        'z',
+        'image/'+ offerData.imgName.split(".")[1]
+    )
+    .then(function(file) {
+        previousImg = file;
+        console.log()
+    })
+    .then(function(result) {
+        console.log();
+    }); 
+           
+    
+
+
+    //console.log(previousImg);
+
+
+  let fileInput = document.getElementById('file');
+  let info = document.getElementById('imgSizeInfo');
+  let validImgFlag = false;
+
+  fileInput.addEventListener('change', function() {
+        info.className = "errorLine";
+        // 清除背景图片:
+        preview.style.backgroundImage = '';
+        //if (!fileInput.value) {
+            //info.innerHTML = 'You did not upload a image';
+            //return;
+        //}
+        let file = fileInput.files[0];
+        let size = file.size;
+        if (size >= 1 * 1024 * 1024) {
+            //alert('文件大小超出限制');
+            info.innerHTML = 'The images\'s size exceeds maximum. Please upload a new image smaller than 1MB';
+            preview.src = null;
+            preview.setAttribute("hidden", true);
+            return false;
+        }
+        // 获取File信息:
+        // info.innerHTML = `文件名称:  + ${file.name}<br>文件大小: ${file.size} <br>上传时间: ${file.lastModifiedDate}`;
+        info.innerHTML = `Image Size: ${(file.size/1024).toFixed(2)+" KB"}`;
+        if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
+            alert('Not a valid image format!');
+            
+            return;
+        }
+        // 读取文件:
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let data = e.target.result;
+            preview.removeAttribute("hidden");
+            preview.setAttribute("display",true);
+            preview.src = data
+        };
+        // 以DataURL的形式读取文件:
+        reader.readAsDataURL(file);
+
+        flag= true;
+        validImgFlag = true;
+        info.className = "errorLine-size";
+        imgError = document.getElementById("imgError");
+        imgError.setAttribute("hidden",true);
+        
+
+    });
+
+  // let params = {};
+
+  let submit = document.getElementById("submit");
+
+  
+
+  
+  submit.onclick = function() {
+    let params = new FormData();
+    let errorFound = false;
+    if (document.getElementById("offerItem").value == null || document.getElementById("offerItem").value.toString().trim().length==0){
+      offerItemError = document.getElementById("offerItemError");
+      offerItemError.removeAttribute("hidden");
+      offerItemError.setAttribute("display", true);
+      offerItemError.innerHTML = "You must provide a not-null name";
+      errorFound = true;
+    }
+    if (document.getElementById("itemDesc").value == null || document.getElementById("itemDesc").value.toString().trim().length==0){
+      itemDescError = document.getElementById("itemDescError");
+      itemDescError.removeAttribute("hidden");
+      itemDescError.setAttribute("display", true);
+      itemDescError.innerHTML = "You must provide a not-null description";
+      errorFound = true;
+      
+    }
+    if (flag == true) {
+        paramFile = document.getElementById("file").files[0];
+    }else{
+        paramFile = previousImg;
+        validImgFlag = true;
+    }
+    
+    
+    if (document.getElementById("file").files[0] == null || document.getElementById("file").files[0] == undefined || validImgFlag != true) {
+      if(paramFile == null){
+        imgError = document.getElementById("imgError");
+        imgError.removeAttribute("hidden");
+        imgError.setAttribute("display", true);
+        imgError.innerHTML = "You must provide a image of your item";
+        errorFound = true;
+      }
+    }
+    if(errorFound == true || validImgFlag != true){
+      return;
+    }
+
+    
+    
+    
+    params.append("upload_image",paramFile)
+    //params.append("senderId", offerData.senderId);
+    params.append("postId", offerData.postId);
+    params.append("sellerId", "seller");
+    params.append("offerItem", document.getElementById("offerItem").value);
+    params.append("itemDesc", document.getElementById("itemDesc").value);
+    params.append("wear", document.getElementById("wear").value);
+
+    
+    $.ajax({
+    url: '/offers/offer/'+offerData._id,
+    data: params,
+    cache: false,
+    // contentType: 'multipart/form-data',
+    contentType: false, // NEEDED, DON'T OMIT THIS (requires jQuery 1.6+)
+    processData: false,
+    type: 'PUT',
+    success: function(data){
+      id = data.result._id;
+      document.location.href = "/offers/offer/"+id+"?updated=true";
+    },
+    error: function(data){            
+      errorBox = document.getElementById("errorBox");
+
+      errorBox.removeAttribute("hidden");
+      errorBox.setAttribute("display", true);
+      errorBox.innerHTML = data.responseJSON.result;
+      span = document.createElement("span");
+      span.innerHTML = "×";
+      span.className = "close";
+      //span.onclick = "this.parentElement.style.display='none';";
+      span.onclick = function closeWarningBox() {
+                      document.getElementById("errorBox").removeAttribute("display");
+                      document.getElementById("errorBox").setAttribute("hidden",true);
+                    };
+      errorBox.appendChild(span);
+                    
+    }
+});
+};
+
+  
+  
+  </script>
