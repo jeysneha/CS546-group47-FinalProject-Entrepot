@@ -188,6 +188,60 @@ router
 
 //=========================================== get profile by user self ======================================
 router
+    .route('/profile')
+    .get(async (req, res) => {
+    const user = req.session.user;
+    let username = user.username;
+
+    //validation check
+    try{
+        username = validation.checkUsername(username);
+        
+    }catch (e) {
+        return res.status(403).render('error', {
+            title: 'Entrepôt - Error!',
+            hasError: true,
+            error: e
+        })
+    }
+
+    try{
+        const userProfile = await usersData.getUserByName(username);
+
+        if (!userProfile) {
+            return res.status(404).render('error', {
+                title: 'Entrepôt - Error!',
+                hasError: true,
+                error: `No user with name: ${username} was found!`
+            })
+        }
+
+        //check whether each review writer exists
+        
+        res.status(200).render('user/userProfile', {
+            title: 'Entrepôt - Profile',
+            hasError: false,
+            error: null,
+            username: username,
+            email: userProfile.email,
+            overallRating: userProfile.overallRating,
+            reviews: userProfile.reviews,
+            isSelf: true,
+        })
+        
+           
+        
+    }catch (e) {
+        return res.status(500).render('error', {
+            title: 'Entrepôt - Error!',
+            hasError: true,
+            error: e,
+        });
+    }
+});
+
+
+router
     .route('/profile/:username')
     .get(async (req, res) => {
     const user = req.session.user;
@@ -254,7 +308,7 @@ router
             error: e,
         });
     }
-})
+});
 
 
 //=========================================== get other user's profile ======================================
