@@ -166,7 +166,7 @@ function bindList(elementId){
         div4.className = "product-summary";
         div2.appendChild(div4);
 
-        h4 = document.createElement("h4");
+        h4 = document.createElement("h1");
         h4.className = "productName";
         h4.innerHTML = data[i].title;
         div4.appendChild(h4);
