@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const validation = require('../helpers');
+const xss = require('xss');
 
 const contactData = data.contact;
 
@@ -18,9 +19,9 @@ router
         const user = req.session.user;
         let userId = user.userId;
 
-        let email = req.body.contactEmailInput;
-        let subject = req.body.contactSubjectInput;
-        let message = req.body.contactMessageInput;
+        let email = xss(req.body.contactEmailInput);
+        let subject = xss(req.body.contactSubjectInput);
+        let message = xss(req.body.contactMessageInput);
 
         try {
             userId = validation.checkId(userId);
