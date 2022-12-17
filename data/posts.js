@@ -71,8 +71,11 @@ const createPost = async (
 
     //if no post, throw first
     try{
-        
+
+       
         post = await getPostById(id.toString());
+
+        
         
     }catch(e){
         throw e;
@@ -188,7 +191,7 @@ const updatePost = async (
     //update image with the same filename
     const filename = thePost.imgFile;
 
-    let img_dir = path.join(__dirname,'../public/postimgesUploads')+"/"+ filename
+    let img_dir = path.join(__dirname,'../public/postUploads')+"/"+ filename
 
     const isExistImg = fs.existsSync(img_dir)
     if (isExistImg) {
