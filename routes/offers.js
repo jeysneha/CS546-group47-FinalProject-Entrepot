@@ -56,6 +56,14 @@ router.route("/myPosts").get(async (req, res) => {
   });
 });
 
+router.route("/othersPosts/:username").get(async (req, res) => {
+  
+  res.render("offers/othersPosts", {
+    title: 'Entrepôt - User\'s Posts',
+    username: "'" + req.params.username + "'"
+  });
+});
+
 router.route("/postRegister").get(async (req, res) => {
   
   res.render('products/registration-v2', {
@@ -162,8 +170,12 @@ router.route("/offer/:offerId").get(async (req, res)=>{
   // Route for feteching a ceratin offer
   let msg;
   if(req.url.split("?").length == 2){
+    if(req.url.split("?")[1] == "created=true"){
+      msg = "You have successfully created an offer!";
+    }else if (req.url.split("?")[1] == "updated=true"){
+      msg = "You have successfully updated an offer!";
+    }
     
-    msg = "You have successfully created an offer!";
   }
   offerId = req.params.offerId;
   userId = req.session.user.userId
@@ -399,8 +411,9 @@ router.route("/post/:postId").get(async (req, res)=>{
   try{
     user = await userData.getUserById(postItem.posterId);
     postItem.contact = user.email;
+    postItem.username = user.username;
   }catch(e) {
-    console.log(e);
+    return res.status(404).json({code:404, result:e});
   }
 
 

@@ -147,92 +147,95 @@ const updatePost = async (
     postId,
     title,
     body,
-    imgFile,
+    file,
     category,
-    posterId,
+    posterId
 ) => {
-    if (!postId || !title || !body || !imgFile  || !posterId || !datetime ||!category) {
+    console.log(2);
+    if (!postId || !title || !body || !file  ||!category) {
         throw 'All fields need to have valid values'
     }
+    console.log(3);
     postId = validation.existypestring(postId);
     postId = validation.checkId_j(postId);
     title = validation.existypestring(title);
     title = validation.checkPostTitle(title);
     body = validation.existypestring(body);
-    imgFile = validation.existypestring(imgFile);
+    
     category = validation.existypestring(category);
-    posterId = validation.existypestring(posterId);
-    posterId = validation.checkId_j(posterId);
+    console.log(5);
 
     //create date time
     let datetime = validation.createDateTime();
-
+    console.log(6);
     //check postId exist
     const thePost = await getPostById(postId);
+    console.log(6);
     if (!thePost) {
         throw `Cannot find the post with id: ${postId} !`
     }
-
-    //check posterId exist
-    const thePoster = await usersData.getUserById(posterId);
-    if (!thePoster){
-        throw `Cannot find user with id: ${posterId} !`;
+    console.log(7);
+    //check if submitted same content
+    if(title == thePost.title && body == thePost.body && category == thePost.category) {
+        throw 'Error: The content are the same as original content.';
     }
-
+    console.log(8);
     //check if the user has right to change post
     if (thePost.posterId !== posterId) {
         throw 'You have no authority to update this post!'
     }
-
+    console.log(9);
     //if tradeStatus is not 0, do not allow user to update
     if (thePost.tradeStatus !== 0) {
         throw 'You cannot update the post anymore since it is under trade or traded!'
     }
-
+    console.log(10);
     //update image with the same filename
     const filename = thePost.imgFile;
-
+    console.log(11);
     let img_dir = path.join(__dirname,'../public/postUploads')+"/"+ filename
-
+    console.log(12);
     const isExistImg = fs.existsSync(img_dir)
     if (isExistImg) {
         //delete the origin image file
         fs.unlinkSync(img_dir)
     }
 
-
-    fs.readFile(imgFile.path,function (err,data){
+    console.log(13);
+    fs.readFile(file.path,function (err,data){
         fs.writeFile(img_dir,data,function(err){
             if(err){
                 throw "Error: Failed to store the image";
             }
         })
     })
-
+    console.log(14);
     const postCollection = await posts();
     const updatedPost = {
         title: title,
         body: body,
-        imgFile: filename,
         category: category,
-        tradeStatus: thePost.tradeStatus,
-        posterId: posterId,
-        buyerId: thePost.buyerId,
         datetime: datetime
     }
+    console.log(15);
+    
     const updatedInfo = await postCollection.updateOne(
         {_id: ObjectId(postId)},
         {$set: updatedPost}
     );
+    
+    
+    console.log(16);
     if (updatedInfo.modifiedCount === 0) {
         throw `The input information resulted in no change to the post!`;
     }
-
+    console.log(17);
     //if no post, throw first
     const post = await getPostById(postId);
     if (!post) {
-        `Cannot find the post with id: ${postId} !`
+        throw `Cannot find the post with id: ${postId} !`
     }
+    console.log(18);
     return post;
 
 }

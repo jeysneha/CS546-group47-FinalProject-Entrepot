@@ -144,12 +144,13 @@ router
 
 //=========================================== get other user's all posts ======================================
 router
-    .route('/deal/:posterId')
+    .route('/deal/:username')
     .get(async(req, res) => {
-        let posterId = req.params.posterId;
+        let username = req.params.username;
         //valid check
         try {
-            posterId = validation.checkId(posterId);
+            // posterId = validation.checkId(posterId);
+            username = validation.checkUsername(username);
         }catch (e) {
 
             return res.status(400).json(e)
@@ -157,15 +158,15 @@ router
 
         try {
 
-            const poster = await getUserById(posterId);
+            const poster = await getUserByName(username);
 
             //check whether user exist
             if (!poster) {
-                return res.status(404).json(`Cannot find user with id: ${posterId} !`)
+                return res.status(404).json(`Cannot find user with id: ${username} !`)
             }
 
             //get all classified posts
-            const returnInfo = await usersData.userGetAllPosts(posterId);
+            const returnInfo = await usersData.userGetAllPosts(poster._id.toString());
 
             if (!returnInfo.userGetAllPosts){
                 return res.status(404).json(returnInfo.error);
@@ -188,15 +189,20 @@ router
 
 //=========================================== get profile by user self ======================================
 router
-    .route('/profile')
+    .route('/profile/:username')
     .get(async (req, res) => {
         console.log('hit the user profile')
     const user = req.session.user;
     let username = user.username;
+    console.log(1)
+    let targetUsername = req.params.username
+    console.log(2, targetUsername)
+     
 
     //validation check
     try{
-        username = validation.checkUsername(username);
+        username = validation.checkUsername(targetUsername);
+        
     }catch (e) {
         return res.status(403).render('error', {
             title: 'Entrepôt - Error!',
@@ -204,30 +210,45 @@ router
             error: e
         })
     }
-
+    console.log(3)
     try{
-        const userProfile = await usersData.getUserByName(username);
-
+        const userProfile = await usersData.getUserByName(targetUsername);
+        console.log(4)
         if (!userProfile) {
             return res.status(404).render('error', {
                 title: 'Entrepôt - Error!',
                 hasError: true,
-                error: `No user with name: ${username} was found!`
+                error: `No user with name: ${targetUsername} was found!`
             })
         }
-
+        console.log(5)
         //check whether each review writer exists
-
-        res.status(200).render('user/userProfile', {
-            title: 'Entrepôt - Profile',
-            hasError: false,
-            error: null,
-            username: username,
-            email: userProfile.email,
-            overallRating: userProfile.overallRating,
-            reviews: userProfile.reviews,
-            isSelf: true,
-        })
+        if(userProfile._id.toString() === user.userId){
+            console.log(6)
+            res.status(200).render('user/userProfile', {
+                title: 'Entrepôt - Profile',
+                hasError: false,
+                error: null,
+                username: targetUsername,
+                email: userProfile.email,
+                overallRating: userProfile.overallRating,
+                reviews: userProfile.reviews,
+                isSelf: true,
+            })
+        }else{
+            res.status(200).render('user/userProfile', {
+                title: 'Entrepôt - Profile',
+                hasError: false,
+                error: null,
+                //posterId: posterId,
+                username: targetUsername,
+                email: userProfile.email,
+                overallRating: userProfile.overallRating,
+                reviews: userProfile.reviews,
+                isSelf: false,
+            });
+        }
+        
     }catch (e) {
         res.status(500).json({Error: e})
     }

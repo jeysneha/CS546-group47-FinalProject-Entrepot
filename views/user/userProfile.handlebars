@@ -24,7 +24,7 @@
                <button class="createbtn" id="Update-info" onclick="location.href= 'http://localhost:3000/user/update' ;"><i class="fa fa-user-alt"></i> Update UserInfo</button>
            {{else}}
 <!--               deal history for other users-->
-               <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
+               <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/othersPosts/{{username}}');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
                <button class="createbtn" id="Add-review" onclick="window.open('http://localhost:3000/review/addReview/{{posterId}}');"><i class="fa fa-plus"></i> Add Review</button>
            {{/if}}
 

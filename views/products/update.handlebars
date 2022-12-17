@@ -104,14 +104,14 @@
 
     let flag = false;
     let previousImg;
-    postData = {{{result}}};
+    offerData = {{{result}}};
     // console.log(offerData);
     let preview = document.getElementById('image-preview');
-    document.getElementById("offerItem").value = postData.title;
-    document.getElementById("itemDesc").value = postData.body;
-    document.getElementById("postRegister-category").value = postData.category;
-    document.getElementById("offerId").innerHTML = postData._id;
-    preview.src = "/offers/images/" + offerData.imgName;
+    document.getElementById("offerItem").value = offerData.title;
+    document.getElementById("itemDesc").value = offerData.body;
+    document.getElementById("postRegister-category").value = offerData.category;
+    document.getElementById("offerId").innerHTML = offerData._id;
+    preview.src = "/posts/images/" + offerData.imgFile;
     //document.getElementById("file").files[0] = "/offers/images/" + offerData.imgName;
 
 
@@ -123,9 +123,9 @@
     }
     
     srcToFile(
-        "/offers/images/" + offerData.imgName,
+        "/posts/images/" + offerData.imgFile,
         'z',
-        'image/'+ offerData.imgName.split(".")[1]
+        'image/'+ offerData.imgFile.split(".")[1]
     )
     .then(function(file) {
         previousImg = file;
@@ -240,16 +240,13 @@
     
     
     params.append("upload_image",paramFile)
-    //params.append("senderId", offerData.senderId);
-    params.append("postId", offerData.postId);
-    params.append("sellerId", "seller");
-    params.append("offerItem", document.getElementById("offerItem").value);
-    params.append("itemDesc", document.getElementById("itemDesc").value);
-    params.append("wear", document.getElementById("wear").value);
+    params.append("title", document.getElementById("offerItem").value);
+    params.append("body", document.getElementById("itemDesc").value);
+    params.append("category", document.getElementById("postRegister-category").value);
 
     
     $.ajax({
-    url: '/offers/offer/'+offerData._id,
+    url: '/posts/'+offerData._id,
     data: params,
     cache: false,
     // contentType: 'multipart/form-data',
@@ -257,15 +254,15 @@
     processData: false,
     type: 'PUT',
     success: function(data){
-      id = data.result._id;
-      document.location.href = "/offers/offer/"+id+"?updated=true";
+      id = data.prdobj._id;
+      document.location.href = "/offers/post/"+id+"?updated=true";
     },
     error: function(data){            
       errorBox = document.getElementById("errorBox");
 
       errorBox.removeAttribute("hidden");
       errorBox.setAttribute("display", true);
-      errorBox.innerHTML = data.responseJSON.result;
+      errorBox.innerHTML = data.responseJSON.error;
       span = document.createElement("span");
       span.innerHTML = "×";
       span.className = "close";

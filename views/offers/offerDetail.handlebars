@@ -93,7 +93,11 @@
           span = document.createElement("span");
           span.innerHTML = "×";
           span.className = "close";
-          span.onclick = "this.parentElement.style.display='none';";
+          //span.onclick = "this.parentElement.style.display='none';";
+          span.onclick = function closeWarningBox() {
+                          document.getElementById("errorBox").removeAttribute("display");
+                          document.getElementById("errorBox").setAttribute("hidden",true);
+                        };
           msgBox.appendChild(span);
         }
         

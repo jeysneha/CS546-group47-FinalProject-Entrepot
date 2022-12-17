@@ -26,6 +26,19 @@ router
         }
     });
 
+router
+.route('/edit/:postId')
+.get(async (req, res) => {
+    //code here for GET
+    try {
+        const postItem = await postsData.getPostById(req.params.postId);
+        return res.status(200).render('products/update', {result: JSON.stringify(postItem)})
+    } catch (e) {
+        res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
+
+    }
+});
+
 
 //update post
 router.get('/updated/:postId', async(req, res) => {
@@ -82,42 +95,6 @@ router
             return res.status(404).render('error', {ti: "Error Page", error: 'Post Not found'});
         }
     })
-    .put(async (req, res) => {
-        //code here for PUT
-        let userInfo = req.body;
-        let fileso = req.files;
-        if (!userInfo.title || !userInfo.body || !fileso.imgfiles || !userInfo.category || !userInfo.tradeStatus || !userInfo.posterId) {
-            return res.status(400).render('error', {ti: "Error Page", error: 'the request body is not valid'});
-        }
-        /*try {
-          req.params.movieId = checkId(req.params.movieId);
-        } catch (e) {
-          return res.status(400).json({error: e});
-        }*/
-
-        try {
-            await postsData.getPostById(req.params.postId);
-
-
-        } catch (e) {
-            return res.status(404).render('error', {ti: "Error Page", error: 'Post not found'});
-        }
-        try {
-
-            const upost = await postsData.updatePost(
-                req.params.postId,
-                userInfo.title,
-                userInfo.body,
-                fileso.imgfiles,
-                userInfo.category,
-                userInfo.tradeStatus,
-                userInfo.posterId)
-            return res.status(200).render('details', {prdobj: upost});
-        } catch (e) {
-            return res.status(404).render('error', {ti: "Error Page", error: 'unable to update Post'});
-        }
-
-    })
     .delete(async (req, res) => {
         //code here for DELETE
         /* try {
@@ -147,6 +124,49 @@ router
 
     });
 
+
+router.put('/:postId',multipartMiddleware,async (req, res) => {
+        //code here for PUT
+        let userInfo = req.body;
+        let fileso = req.files;
+        let posterId = req.session.user.userId;
+        console.log("--------------------")
+        console.log(userInfo.title, userInfo.body, fileso.upload_image, userInfo.category)
+        if (!userInfo.title || !userInfo.body || !fileso.upload_image || !userInfo.category) {
+            return res.status(400).json({ti: "Error Page", error: 'The provided information is not complete'});
+        }
+        /*try {
+          req.params.movieId = checkId(req.params.movieId);
+        } catch (e) {
+          return res.status(400).json({error: e});
+        }*/
+
+        try {
+            await postsData.getPostById(req.params.postId);
+
+
+        } catch (e) {
+            return res.status(404).json({ti: "Error Page", error: 'Post not found'});
+        }
+        try {
+
+            const upost = await postsData.updatePost(
+                req.params.postId,
+                userInfo.title,
+                userInfo.body,
+                fileso.upload_image,
+                userInfo.category,
+                posterId
+                )
+            
+            return res.status(200).json({prdobj: upost});
+        } catch (e) {
+            return res.status(404).json({ti: "Error Page", error: JSON.stringify(e)});
+        }
+
+    });
+
+
 router.route('/postRegister').get(async (req, res) => {
     
     res.render('/products/registration', {
@@ -154,7 +174,7 @@ router.route('/postRegister').get(async (req, res) => {
         hasError: false,
         error: null
     });
-})
+});
 
 
 
