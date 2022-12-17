@@ -10,7 +10,6 @@ const multiparty = require('connect-multiparty');
 // const multer = require("multer")
 const multipartMiddleware = multiparty();
 const xss = require('xss');
-const {getPostById} = require("../data/posts");
 
 //get all active posts for products listing page
 router
@@ -19,7 +18,9 @@ router
         //code here for GET
         try {
             const activePosts = await postsData.getActivePosts();
-            return res.status(200).render('products/list2', {productArray: activePosts})
+            return res.status(200).render('products/list2', {
+                title: 'Entrepôt - Products List',
+                productArray: activePosts})
         } catch (e) {
             res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
 
@@ -40,6 +41,8 @@ router
 });
 
 
+
+
 //update post
 router.get('/updated/:postId', async(req, res) => {
     let postId = req.params.postId;
@@ -56,11 +59,11 @@ router.get('/updated/:postId', async(req, res) => {
 
     //get pos info
     try{
-        post = await getPostById(postId);
+        post = await postsData.getPostById(postId);
 
         if (!post) {
-            return res.status(400).json({
-                code: 400,
+            return res.status(404).json({
+                code: 404,
                 result: `Cannot find post with id ${postId} !`,
             })
         }
@@ -90,9 +93,12 @@ router
         }
         try {
             const single_post = await postsData.getPostById(req.params.postId);
+            if (!single_post) {
+                return res.status(404).render('error', {ti: "Error Page", error: 'Post Not found'});
+            }
             return res.status(200).render('details', {prdobj: single_post});
         } catch (e) {
-            return res.status(404).render('error', {ti: "Error Page", error: 'Post Not found'});
+            return res.status(500).render('error', {ti: "Error Page", error: e});
         }
     })
     .delete(async (req, res) => {
@@ -102,15 +108,20 @@ router
          } catch (e) {
            return res.status(400).json({error: e});
          }*/
-        try {
-            await postsData.getPostById(req.params.postId);
 
-        } catch (e) {
-            return res.status(404).render('error', {ti: "Error Page", error: 'Post not found'});
-        }
-
+        // try {
+        //     let thePost = await postsData.getPostById(req.params.postId);
+        //     if (!thePost) {
+        //         return res.status(404).render('error', {ti: "Error Page", error: 'Post not found'});
+        //     }
+        // } catch (e) {
+        //     return res.status(500).render('error', {ti: "Error Page", error: e});
+        // }
         try {
-            const del = await postsData.getPostById(req.params.postId);
+            let del = await postsData.getPostById(req.params.postId);
+            if (!del) {
+                return res.status(404).render('error', {ti: "Error Page", error: 'Post not found'});
+            }
             del._id = del._id.toString()
             const obj = {};
             obj.postId = del._id

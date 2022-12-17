@@ -32,12 +32,12 @@
       </div>
       <div>
         <div class="account">
-          <a href="homepage.html">
+          <a href="homepage.html"> </a>
             <button class="account-btn">
               <i class="fas fa-user-alt"></i>
             </button>
             <span class="account-text">My account</span>
-          </a>
+         
           <!--When we click the btnShowAccountInfo this section will be displayed-->
         </div>
       </div>
@@ -90,24 +90,24 @@
         
             <section class="panel">
                 <h1> Create a new offer</h1>
-                <label for="postId" id="formLabel" class = "inputTitle">
+                <label   class = "inputTitle">
                         Desired PostId	
                 </label>
                 
                 <form enctype="multipart/form-data" id="file_upload">
                 <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
         
-                    <p id="postId" name="postId">67891012aed</p>
-                    <p id="senderId" name="senderId" hidden>buyer</p>
+                    <p id="postId" >67891012aed</p>
+                    <p id="senderId" hidden>buyer</p>
                     <br>
-                    <label for="offerItem" id="formLabel" class = "inputTitle">
+                    <label for="offerItem"  class = "inputTitle">
                         Offer Item Name	
                     </label><br>
                     <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="Offer Item Name">
                     <br>
                     <br>
             
-                    <label for="itemDesc" id="formLabel" class = "inputTitle">
+                    <label for="itemDesc"  class = "inputTitle">
                       Degree of wear	
                     </label><br>
                     <select class="createInputWear" id = "wear">
@@ -118,14 +118,14 @@
                       <option value="2">Need repair</option>
                       <option value="0">Sold as component</option>
                     </select>
-                      </input>
+                     
                     <br>
                     <br>
 
-                    <label for="itemDesc" id="formLabel" class = "inputTitle">
+                    <label for="itemDesc"  class = "inputTitle">
                         Offer Item Description	
                     </label><br>
-                    <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc"></textarea>
+                    <textarea  name="itemDesc" id="itemDesc"  maxlength="200" class="createInputDesc"></textarea>
                     <br>
                     <br>
         
@@ -135,12 +135,12 @@
                     <label for="file" class="uploadImgButton">Upload Image</label>
                     <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
                     <!-- <p>Preview</p> -->
-                    <img id="image-preview" class="createOfferImg">
+                    <!--<img id="image-preview" class="createOfferImg">-->
                     <p id="info"></p>
                     <br>
                     
                     <input type="button" value="SUBMIT" id="submit" class="createOfferButton"/>
-                    </p>
+                    <!--</p>-->
                     
                 </form>
         

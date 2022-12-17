@@ -70,22 +70,17 @@ const createPost = async (
     
 
     //if no post, throw first
-    let post;
     try{
-
-       
         post = await getPostById(id.toString());
 
-        
-        
     }catch(e){
         throw e;
     }
-    
+
     if (!post) {
         throw `Cannot find the post with id: ${id.toString()} !`
     }
-    
+
     return post;
 };
 

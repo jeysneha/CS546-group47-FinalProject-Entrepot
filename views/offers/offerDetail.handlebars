@@ -21,11 +21,11 @@
           
           <p class="inputTitle">Offer Item Image</p>
           <!-- <p>Preview</p> -->
-          <img id="image-offer" class="offerDetailImg">
+          <img id="image-offer" class="offerDetailImg" alt="offer item">
           <br>
           <br>
           <p class="inputTitle">Post Item Image</p>
-          <img id="image-post" class="offerDetailImg">
+          <img id="image-post" class="offerDetailImg" alt="post item">
         
           </p>
           <a id="editButton">Edit</a>
@@ -131,11 +131,11 @@
             break;
             case -1:
             offerData.status = "Freezed";
-            statusColor = "#00b2e9"; 
+            statusColor = "#00b2e9";
             break;
             case 0:
             offerData.status = "Awaiting";
-            statusColor = "#e68b23";
+            statusColor = "#ad6500";
             break;
             case 1:
             offerData.status = "Accepted";
@@ -210,7 +210,7 @@
       detailSection.appendChild(statusContent);
       detailSection.appendChild(document.createElement("br"));
 
-      offerHeadline = document.createElement("h3");
+      offerHeadline = document.createElement("h2");
       offerHeadline.innerHTML = "OFFER";
       offerHeadline.className = "inputTitle";
       detailSection.appendChild(offerHeadline);
@@ -222,7 +222,7 @@
 
       detailSection.appendChild(document.createElement("br"));
 
-      postHeadline = document.createElement("h3");
+      postHeadline = document.createElement("h2");
       postHeadline.innerHTML = "POST";
       postHeadline.className = "inputTitle";
       detailSection.appendChild(postHeadline);

@@ -14,7 +14,7 @@
         </section>
         <section class="panel-detail-right" id="right-section">
           <p class="inputTitle">Post Item Image</p>
-          <img id="image-post" class="offerDetailImg">
+          <img id="image-post" class="offerDetailImg" alt="Post item">
           </p>
           <a id="editButton">Edit</a>
           <label class="btn-viewMyOffers" id="posterProfileButton">Poster Profile</label>
@@ -114,7 +114,7 @@
         switch (postData.tradeStatus) {
             case 0:
             postData.tradeStatus = "Awaiting Offers";
-            statusColor = "#e68b23";
+            statusColor = "#ad6500";
             break;
             case 1:
             postData.tradeStatus = "Negotiating";

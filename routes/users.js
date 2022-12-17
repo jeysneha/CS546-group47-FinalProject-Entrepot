@@ -12,7 +12,6 @@ const {getUserById, getUserByName} = require("../data/users");
 router
     .route('/update')
     .get(async (req, res) => {
-        console.log('hit user update get method')
         let user = req.session.user;
         let username = user.username;
         let owner;
@@ -86,7 +85,7 @@ router
 
             res.status(200).redirect('/user/profile');
         }catch (e) {
-            res.status(403).render('user/userUpdate', {
+            return res.status(500).render('user/userUpdate', {
                 title: 'Entrepôt - Update User Info',
                 hasErrors: true,
                 error: e,
@@ -137,7 +136,7 @@ router
             
 
         }catch (e) {
-            res.status(500).json(e);
+            return res.status(500).json(e);
         }
     })
 
@@ -181,7 +180,7 @@ router
 
 
         }catch (e) {
-            res.status(500).json(e);
+            return res.status(500).json(e);
         }
 
     })
@@ -191,7 +190,6 @@ router
 router
     .route('/profile/:username')
     .get(async (req, res) => {
-        console.log('hit the user profile')
     const user = req.session.user;
     let username = user.username;
     console.log(1)
@@ -250,7 +248,11 @@ router
         }
         
     }catch (e) {
-        res.status(500).json({Error: e})
+        return res.status(500).render('error', {
+            title: 'Entrepôt - Error!',
+            hasError: true,
+            error: e,
+        });
     }
 })
 
@@ -268,7 +270,7 @@ router
             posterId = validation.checkId(posterId);
         }catch (e) {
             //here should render the product detail fpage
-            return res.render('error', {
+            return res.status(400).render('error', {
                 title: 'Entrepôt - Error',
                 hasError: true,
                 error: e
@@ -279,7 +281,11 @@ router
             const posterProfile = await usersData.getUserById(posterId);
 
             if (!posterProfile) {
-                res.status(404).json({Error: `Can not find user with ID ${posterId}`})
+                return res.status(404).render('error', {
+                    title: 'Entrepôt - Error',
+                    hasError: true,
+                    error: `Can not find user with ID ${posterId}`,
+                });
             }
 
 
@@ -297,7 +303,11 @@ router
                 isSelf: false,
             });
         }catch (e) {
-            res.status(500).json({Error: e});
+            return res.status(500).render('error', {
+                title: 'Entrepôt - Error',
+                hasError: true,
+                error: e,
+            });
         }
     });
 

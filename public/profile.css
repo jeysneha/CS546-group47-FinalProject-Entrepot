@@ -131,7 +131,7 @@ body {
 .profile-side {
   width: 500px;
   background: #fff;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  /*box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);*/
   padding: 90px 30px 20px;
   font-family: "Bree Serif", serif;
   margin-left: 10px;
@@ -187,13 +187,16 @@ button.createbtn i {
 }
 
 .user-rating {
-  display: flex;
+  height: 50px;
+  width: 100%;
+  /*display: flex;*/
 }
 
 
 .user-rating h2 {
   font-size: 20px;
   font-weight: 200;
+  margin-left: 30%;
   margin-right: 5px;
   letter-spacing: 1px;
   color: #00008B;
@@ -203,6 +206,7 @@ button.createbtn i {
 
 .user-rating .no-of-user-rate {
   font-size: 20px;
+  margin-left: 30%;
   color: #00008B;
   height: 100%;
   width: 50%;
@@ -233,13 +237,23 @@ button.createbtn i {
 }
 
 .user-review {
-  margin-left: 20%;
-  display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-  height: 45px;
-  background: #fff;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  border-radius: 10px;
+  padding: 1px;
+  padding-left: 15px;
+  font-size: 45px;
+  height: 35px;
+  font-weight: bold;
+  margin-top: 0px;
+  /* margin-left: 5%; */
+  color: #1c74bd;
+  /*margin-left: 20%;*/
+  /*display: flex;*/
+  /*justify-content: space-around;*/
+  /*list-style-type: none;*/
+  /*height: 45px;*/
+  /*background: #fff;*/
+  /*box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);*/
 }
 
 /*.nav ul li {*/
@@ -394,6 +408,15 @@ button.createbtn i {
   width: 700px;
   margin-left: 5%;
   border-radius: 10px;
-  border-style: solid;
+  border-style: dashed;
   border-color: mediumpurple;
+}
+
+.each-review h3, h4, h5, h6, p {
+  margin-top: 2%;
+  margin-left: 5%;
+}
+
+.right-side {
+
 }

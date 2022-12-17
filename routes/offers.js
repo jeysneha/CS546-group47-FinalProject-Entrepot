@@ -10,7 +10,7 @@ const userData = data.users;
 // let formidable = require('formidable')
 const path = require("path")
 const multiparty = require('connect-multiparty');
-const multer = require("multer")
+// const multer = require("multer")
 const multipartMiddleware = multiparty();
 
 router.route("/").get(async (req, res) => {
@@ -26,6 +26,13 @@ router.route("/").get(async (req, res) => {
 router.route("/offersOf/:postId").get(async (req, res) => {
   try{
     postItem = await postData.getPostById(req.params.postId);
+
+    if(!postItem) {
+      return res.render("offers/offerList", {
+        title: 'Entrepôt - Offer Detail',
+        postid: "'"+req.params.postId+"'"
+      });
+    }
   }catch(e){
     return res.render("offers/offerList", {
       title: 'Entrepôt - Offer Detail',
@@ -189,6 +196,9 @@ router.route("/offer/:offerId").get(async (req, res)=>{
 
   try{
     postItem = await postData.getPostById(offer.postId);
+    if (!postItem) {
+      return res.status(404).json({code:404, result:e});
+    }
     offer.postImgName = postItem.imgFile;
   }catch(e){
     // 👇应该render到error page
@@ -234,6 +244,9 @@ router.post('/',multipartMiddleware,async (req, res) => {
   // 👇
   try{
     postItem = await postData.getPostById(postId)
+    if (!postItem) {
+      return res.status(404).json({code:404, result:e});
+    }
     sellerId = postItem.posterId;
   }catch(e){
     return res.status(404).json({code:404, result:e});
@@ -403,6 +416,9 @@ router.route("/post/:postId").get(async (req, res)=>{
 
   try{
     postItem = await postData.getPostById(postId);
+    if (!postItem) {
+      return res.status(404).json({code:404, result:e});
+    }
   }catch(e){
     // 👇应该render到error page
     return res.status(404).json({code:404, result:e});
