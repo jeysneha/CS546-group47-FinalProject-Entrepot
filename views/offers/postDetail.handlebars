@@ -1,160 +1,161 @@
 <main>
-    <div class="alertMessage" id="errorBox" hidden>
-      <span class="close" onclick="this.parentElement.style.display='none';">×</span>
-      
-    </div>
-    <div class="panel-back">
-      
-        <div style="text-align:center;padding: 3%;width: 50%;margin: auto;">
-          <section class="panel-detail-left" id="detailSection">
-            <h1>Post Detail</h1>
-            <div id="detailsContent" style="text-align: center;">
-            </div>
-            </p>
-        </section>
-        <section class="panel-detail-right">
-          <p class="inputTitle">Post Item Image</p>
-          <img id="image-post" class="offerDetailImg" alt="Post item">
-          </p>
-          <a id="editButton">Edit</a>
-          <a id="viewOffersButton">View Offers</a>
-          <label onclick = "document.location.href = '/offers/myPosts'" class="btn-viewMyOffers">Back To MyDeals</label>
-          {{!-- <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">Back To MyOffers</a> --}}
-      </section>
+  <div class="alertMessage" id="errorBox" hidden>
+    <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+
+  </div>
+  <div class="panel-back">
+
+    <div style="text-align:center;padding: 3%;width: 50%;margin: auto;">
+      <section class="panel-detail-left" id="detailSection">
+        <h1>Post Detail</h1>
+        <div id="detailsContent" style="text-align: center;">
         </div>
-      </div>
-          
 
-    
-  </main>
+      </section>
+      <section class="panel-detail-right">
+        <p class="inputTitle">Post Item Image</p>
+        <img id="image-post" class="offerDetailImg" alt="Post item">
 
-
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-		crossorigin="anonymous"></script>
-
-  <script type="text/javascript">
-
-
-    // let offerId = '63928aa6f9cd290b164e738c';
-    let postData;
-    let statusColor;
-    
-
-    init();
-
-
-    function init(){
-
-        postData = {{{result}}};
-        console.log(postData);
-        postId  =  postData._id;
-
-        editButton = document.getElementById("editButton");
-        //allButton = document.getElementById("allMySentButton");
-        viewOffersButton = document.getElementById("viewOffersButton");
-        if(postData.role == "seller") {
-          editButton.innerHTML = "Edit";
-          viewOffersButton.href = "/offers/offersOf/" +postId;
-          viewOffersButton.className = "uploadImgButton"
-          if(postData.tradeStatus == 1 || postData.tradeStatus == 2) {
-            editButton.className = "edit-banned";
-            editButton.setAttribute("disabled","disabled");
-            
-          }else{
-            editButton.className = "uploadImgButton" ;
-            // 👇修改为修改post页面
-            editButton.href = '/offers/edit/'+postId;
-          }
-        }
-        else if (postData.role == "viewer") {
-          document.getElementById("detailSection").removeChild(document.getElementById("allMySentButton"));
-          document.getElementById("detailSection").removeChild(document.getElementById("editButton"));
-        } 
+        <a id="editButton">Edit</a>
+        <a id="viewOffersButton">View Offers</a>
+        <label onclick="document.location.href = '/offers/myPosts'" class="btn-viewMyOffers">Back To MyDeals</label>
+        {{!-- <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">Back To MyOffers</a> --}}
+      </section>
+    </div>
+  </div>
 
 
 
-        if(postData.msg != null) {
-          msgBox = document.getElementById("errorBox");
-          msgBox.removeAttribute("hidden");
-          msgBox.setAttribute("display", true);
-          msgBox.innerHTML = postData.msg;
-          msgBox.className = "successMessage";
-          span = document.createElement("span");
-          span.innerHTML = "×";
-          span.className = "close";
-          span.onclick = "this.parentElement.style.display='none';";
-          msgBox.appendChild(span);
-        }
-        
-        getImage();
-
-        
-        switch (postData.tradeStatus) {
-            case 0:
-            postData.tradeStatus = "Awaiting Offers";
-            statusColor = "#ad6500";
-            break;
-            case 1:
-            postData.tradeStatus = "Negotiating";
-            statusColor = "#9cc700";
-            break;
-            case 2:
-            postData.tradeStatus = "Deal Completed";
-            statusColor = "#35bb01";
-            break;
-            
-        }
+</main>
 
 
-        fillData();
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
+
+<script type="text/javascript">
 
 
-        
+  // let offerId = '63928aa6f9cd290b164e738c';
+  let postData;
+  let statusColor;
+
+
+  init();
+
+
+  function init() {
+
+    postData = {{ { result } }
+  };
+  console.log(postData);
+  postId = postData._id;
+
+  editButton = document.getElementById("editButton");
+  //allButton = document.getElementById("allMySentButton");
+  viewOffersButton = document.getElementById("viewOffersButton");
+  if (postData.role == "seller") {
+    editButton.innerHTML = "Edit";
+    viewOffersButton.href = "/offers/offersOf/" + postId;
+    viewOffersButton.className = "uploadImgButton"
+    if (postData.tradeStatus == 1 || postData.tradeStatus == 2) {
+      editButton.className = "edit-banned";
+      editButton.setAttribute("disabled", "disabled");
+
+    } else {
+      editButton.className = "uploadImgButton";
+      // 👇修改为修改post页面
+      editButton.href = '/offers/edit/' + postId;
+    }
+  }
+  else if (postData.role == "viewer") {
+    document.getElementById("detailSection").removeChild(document.getElementById("allMySentButton"));
+    document.getElementById("detailSection").removeChild(document.getElementById("editButton"));
+  }
+
+
+
+  if (postData.msg != null) {
+    msgBox = document.getElementById("errorBox");
+    msgBox.removeAttribute("hidden");
+    msgBox.setAttribute("display", true);
+    msgBox.innerHTML = postData.msg;
+    msgBox.className = "successMessage";
+    span = document.createElement("span");
+    span.innerHTML = "×";
+    span.className = "close";
+    span.onclick = "this.parentElement.style.display='none';";
+    msgBox.appendChild(span);
+  }
+
+  getImage();
+
+
+  switch (postData.tradeStatus) {
+    case 0:
+      postData.tradeStatus = "Awaiting Offers";
+      statusColor = "#ad6500";
+      break;
+    case 1:
+      postData.tradeStatus = "Negotiating";
+      statusColor = "#9cc700";
+      break;
+    case 2:
+      postData.tradeStatus = "Deal Completed";
+      statusColor = "#35bb01";
+      break;
+
+  }
+
+
+  fillData();
+
+
+
     }
 
 
-    function getImage(){
-        // document.getElementById("img").src = "images/"+imgName;
-        document.getElementById("image-post").src = "/posts/images/" + postData.imgFile;
-    }
+  function getImage() {
+    // document.getElementById("img").src = "images/"+imgName;
+    document.getElementById("image-post").src = "/posts/images/" + postData.imgFile;
+  }
 
-    function fillData() {
-      detailSection = document.getElementById("detailsContent");
+  function fillData() {
+    detailSection = document.getElementById("detailsContent");
 
-      postIdTag = document.createElement("p");
-      postIdTag.innerHTML = "ID:  " + postData._id;
+    postIdTag = document.createElement("p");
+    postIdTag.innerHTML = "ID:  " + postData._id;
 
-      postNameTag = document.createElement("p");
-      postNameTag.innerHTML = "Item:  " + postData.title;
+    postNameTag = document.createElement("p");
+    postNameTag.innerHTML = "Item:  " + postData.title;
 
-      postDescTag = document.createElement("p");
-      postDescTag.innerHTML = "Description:  " + postData.body;
-      postDescTag.className = "LimitPWeight";
+    postDescTag = document.createElement("p");
+    postDescTag.innerHTML = "Description:  " + postData.body;
+    postDescTag.className = "LimitPWeight";
 
-      //offerWearTag = document.createElement("p");
-      //offerWearTag.innerHTML = "Degree of Wear:  " + offerData.wear;
+    //offerWearTag = document.createElement("p");
+    //offerWearTag.innerHTML = "Degree of Wear:  " + offerData.wear;
 
-      postContactTag = document.createElement("p");
-      postContactTag.innerHTML = "Contact:  " + postData.contact;
-
-
-      statusContent = document.createElement("p");
-      statusContent.innerHTML = "Status: " + postData.tradeStatus;
-      statusContent.className = "detailStatus";
-      statusContent.style.backgroundColor = statusColor;
-      // detailSection.appendChild(document.createElement("br"));
-      detailSection.appendChild(statusContent);
+    postContactTag = document.createElement("p");
+    postContactTag.innerHTML = "Contact:  " + postData.contact;
 
 
+    statusContent = document.createElement("p");
+    statusContent.innerHTML = "Status: " + postData.tradeStatus;
+    statusContent.className = "detailStatus";
+    statusContent.style.backgroundColor = statusColor;
+    // detailSection.appendChild(document.createElement("br"));
+    detailSection.appendChild(statusContent);
 
-      detailSection.appendChild(postIdTag);
-      detailSection.appendChild(postNameTag);
-      detailSection.appendChild(postDescTag);
-      detailSection.appendChild(postContactTag);
-    }
 
-  
-    
-    
-  
-  </script>
+
+    detailSection.appendChild(postIdTag);
+    detailSection.appendChild(postNameTag);
+    detailSection.appendChild(postDescTag);
+    detailSection.appendChild(postContactTag);
+  }
+
+
+
+
+
+</script>
