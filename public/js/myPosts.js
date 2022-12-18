@@ -152,9 +152,7 @@ function bindList(elementId){
             mgmButton.className = "btn-small-accept";
             mgmButton.innerHTML = "Offer Management";
             mgmButton.href = "/offers/offersOf/" + id;
-            myIdMgm = document.createAttribute("myid-mgm");
-            myIdMgm.nodeValue = id;
-            mgmButton.attributes.setNamedItem(myIdMgm);
+            mgmButton.setAttribute("data-myIdMgm", id)
             div3.appendChild(mgmButton);
 
             boxId = elementId+"boxId" + i;
@@ -213,6 +211,19 @@ function bindList(elementId){
                             document.getElementById("bought").removeChild(document.getElementById(boughtBoxIds[i]));
                         }
                         init();
+                        errorBox = document.getElementById("errorBox");
+                        errorBox.removeAttribute("hidden");
+                        errorBox.setAttribute("display", true);
+                        errorBox.className = "successMessage";
+                        errorBox.innerHTML = "You have successfully deleted the post item!";
+                        span = document.createElement("span");
+                        span.innerHTML = "×";
+                        span.className = "close";
+                        span.onclick = function closeWarningBox() {
+                            document.getElementById("errorBox").removeAttribute("display");
+                            document.getElementById("errorBox").setAttribute("hidden", true);
+                        };
+                        errorBox.appendChild(span);
                     },
                     error: function (data) {
                         
@@ -224,7 +235,10 @@ function bindList(elementId){
                         span = document.createElement("span");
                         span.innerHTML = "×";
                         span.className = "close";
-                        span.onclick = "this.parentElement.style.display='none';";
+                        span.onclick = function closeWarningBox() {
+                            document.getElementById("errorBox").removeAttribute("display");
+                            document.getElementById("errorBox").setAttribute("hidden", true);
+                          };
                         errorBox.appendChild(span);
                     }
                 });
@@ -233,9 +247,9 @@ function bindList(elementId){
                 }
             }
             
-            myIdDelete = document.createAttribute("myid-delete");
-            myIdDelete.nodeValue = id;
-            deletebutton.attributes.setNamedItem(myIdDelete);
+            // myIdDelete = document.createAttribute("myid-delete");
+            // myIdDelete.nodeValue = id;
+            // deletebutton.attributes.setNamedItem(myIdDelete);
 
             
             
@@ -249,9 +263,11 @@ function bindList(elementId){
             mgmButton.className = "btn-small-accept";
             mgmButton.innerHTML = "Offer Management";
             mgmButton.href = "/offers/offersOf/" + id;
-            myIdMgm = document.createAttribute("myid-mgm");
-            myIdMgm.nodeValue = id;
-            mgmButton.attributes.setNamedItem(myIdMgm);
+
+            mgmButton.setAttribute("data-myIdMgm", id)
+            // myIdMgm = document.createAttribute("myid-mgm");
+            // myIdMgm.nodeValue = id;
+            // mgmButton.attributes.setNamedItem(myIdMgm);
             div3.appendChild(mgmButton);
 
             boxId = elementId+"boxId" + i;
@@ -265,9 +281,7 @@ function bindList(elementId){
             mgmButton.className = "btn-small-accept";
             mgmButton.innerHTML = "Offer Management";
             mgmButton.href = "/offers/offersOf/" + id;
-            myIdMgm = document.createAttribute("myid-mgm");
-            myIdMgm.nodeValue = id;
-            mgmButton.attributes.setNamedItem(myIdMgm);
+            mgmButton.setAttribute("data-myIdMgm", id)
             div3.appendChild(mgmButton);
 
             boxId = elementId+"boxId" + i;
