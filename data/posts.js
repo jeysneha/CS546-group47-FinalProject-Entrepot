@@ -4,7 +4,6 @@ const validation = require('../helpers');
 const posts = mongoCollections.posts;
 const path = require('path');
 const fs = require('fs');
-const usersData= require("./users");
 
 
 
@@ -320,10 +319,10 @@ const updateTradeStatusToTwo = async(postId, buyerId) => {
         throw `Cannot find the post with id: ${postId} !`
     }
 
-    const theBuyer = await usersData.getUserById(buyerId);
-    if (!buyerId) {
-        throw `Cannot find the user with id ${buyerId} !`
-    }
+    // const theBuyer = await usersData.getUserById(buyerId);
+    // if (!buyerId) {
+    //     throw `Cannot find the user with id ${buyerId} !`
+    // }
 
     const postCollection = await posts();
 
