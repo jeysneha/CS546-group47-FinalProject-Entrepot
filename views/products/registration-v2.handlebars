@@ -10,43 +10,44 @@
 
             <form enctype="multipart/form-data" id="file_upload">
 
-          <label for="offerItem" id="formLabel" class = "inputTitle">
-              Item Name	
-          </label><br>
-          <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="No more than 30 characters.">
-          <div id="offerItemError" class="errorLine" hidden>I'm an error</div>
-          <br>
-          <br>
-  
-          <label for="postRegister-category" id="formLabel" class = "inputTitle">
-            Category	
-          </label><br>
-          <select class="createInputWear" id="postRegister-category" name="postRegCategoryInput">
-            <option value="0">Choose Your Category</option>
-            <option value="1">Apparel or Accessories</option>
-            <option value="2">Jewelry or Watches</option>
-            <option value="3">Motors, style or Fashion</option>
-            <option value="4">home or garden</option>
-            <option value="5">sporting Goods</option>
-            <option value="6">Health or Wellness</option>
-            <option value="7">Medical Health</option>
-            <option value="8">Children or infants</option>
-            <option value="9">Pets or Pets supplies</option>
-            <option value="10">Consumer Electronic Goods</option>
-            <option value="11">Home improvement</option>
-            <option value="12">Collectibles or Art</option>
-            <option value="13">other Categories / to be categorized</option>
-          </select>
-            </input>
-            
-          <br><br>
+                <label for="offerItem" id="formLabel1" class="inputTitle">
+                    Item Name
+                </label><br>
+                <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName"
+                    placeholder="No more than 30 characters.">
+                <div id="offerItemError" class="errorLine" hidden>I'm an error</div>
+                <br>
+                <br>
+
+                <label for="postRegister-category" id="formLabel2" class="inputTitle">
+                    Category
+                </label><br>
+                <select class="createInputWear" id="postRegister-category" name="postRegCategoryInput">
+                    <option value="0">Choose Your Category</option>
+                    <option value="1">Apparel or Accessories</option>
+                    <option value="2">Jewelry or Watches</option>
+                    <option value="3">Motors, style or Fashion</option>
+                    <option value="4">home or garden</option>
+                    <option value="5">sporting Goods</option>
+                    <option value="6">Health or Wellness</option>
+                    <option value="7">Medical Health</option>
+                    <option value="8">Children or infants</option>
+                    <option value="9">Pets or Pets supplies</option>
+                    <option value="10">Consumer Electronic Goods</option>
+                    <option value="11">Home improvement</option>
+                    <option value="12">Collectibles or Art</option>
+                    <option value="13">other Categories / to be categorized</option>
+                </select>
+                </input>
+
+                <br><br>
 
 
-                <label for="itemDesc" id="formLabel" class="inputTitle">
+                <label for="itemDesc" id="formLabel3" class="inputTitle">
                     Item Description
                 </label><br>
-                <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc"
-                          placeholder="No more than 200 characters."></textarea>
+                <textarea type="text" name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
+                    placeholder="No more than 200 characters."></textarea>
                 <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
                 <br>
 
@@ -64,12 +65,12 @@
             <p>
                 <label for="file" class="uploadImgButton">Upload Image</label>
                 <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg"
-                       hidden>
+                    hidden>
             <div id="imgError" class="errorLine" hidden>I'm an error</div>
             <!-- <p>Preview</p> -->
             <img id="image-preview" class="createOfferImg">
             <p id="imgSizeInfo" class="errorLine"></p>
-            <input type="button" value="SUBMIT" id="submit" class="createOfferButton" style="margin-bottom: 0%;"/>
+            <input type="button" value="SUBMIT" id="submit" class="createOfferButton" style="margin-bottom: 0%;" />
             </p>
         </section>
     </div>
@@ -110,7 +111,7 @@
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-        crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
 <script type="text/javascript">
 
