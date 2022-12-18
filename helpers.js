@@ -170,10 +170,12 @@ module.exports = {
             throw 'Post title cannot be empty string or space only!'
         }
         if(title.trim().length<2) throw 'Title must be at least two characters';
-        let pattern = /[^a-zA-Z0-9 ]/g;
+        title = title.trim();
+        if(title.length > 30) throw 'Title cannot be more than 30 characters';
+        let pattern = /[^a-zA-Z0-9\s-\'.]/g;
         let result = pattern.test(title);
         if(result===true){
-            throw 'Title can only contain letters a-z, A-Z or numbers'
+            throw 'Title can only contain letters a-z, A-Z , numbers, space and .\'-'
          }
         return title;
     },

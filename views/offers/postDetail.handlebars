@@ -85,8 +85,8 @@
 
         if(postData.msg != null) {
           msgBox = document.getElementById("errorBox");
-          msgBox.removeAttribute("hidden");
-          msgBox.setAttribute("display", true);
+          msgBox.hidden = false;
+          msgBox.display = true;
           msgBox.innerHTML = postData.msg;
           msgBox.className = "successMessage";
           span = document.createElement("span");
@@ -94,15 +94,10 @@
           span.className = "close";
           
           
-
-
-          
-          
-          
           //span.onclick = "this.parentElement.style.display='none';";
           span.onclick = function closeWarningBox() {
-                          document.getElementById("errorBox").removeAttribute("display");
-                          document.getElementById("errorBox").setAttribute("hidden",true);
+                          document.getElementById("errorBox").display = false;
+                          document.getElementById("errorBox").hidden = true;
                         };
           msgBox.appendChild(span);
           
