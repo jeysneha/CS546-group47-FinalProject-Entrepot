@@ -582,7 +582,8 @@ h1 {
 }
 
 .errorLine-size {
-    color: rgb(0, 189, 0);
+    /* color: rgb(0, 189, 0); */
+    color: #008a00;
     font-weight: bold;
 }
 
