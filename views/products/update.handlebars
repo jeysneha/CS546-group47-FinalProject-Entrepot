@@ -13,9 +13,9 @@
       <p id="offerId"></p>
 
 
-      <label for="postId" id="formLabel1" class="inputTitle">
+      <div id="formLabel1" class="inputTitle">
         Desired Item Name
-      </label>
+      </div>
 
       <form enctype="multipart/form-data" id="file_upload">
         <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
@@ -58,7 +58,7 @@
         <label for="itemDesc" id="formLabel4" class="inputTitle">
           Offer Item Description
         </label><br>
-        <textarea type="text" name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
+        <textarea name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
           placeholder="No more than 200 characters."></textarea>
         <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
         <br>
