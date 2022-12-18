@@ -59,8 +59,9 @@
           viewOffersButton.className = "uploadImgButton"
           if(postData.tradeStatus == 1 || postData.tradeStatus == 2) {
             editButton.className = "edit-banned";
-            editButton.setAttribute("disabled","disabled");
-            
+            editButton.href = "javascript:void(0)";
+            // editButton.setAttribute("disabled","disabled");
+
           }else{
             editButton.className = "uploadImgButton" ;
             // 👇修改为修改post页面

@@ -18,7 +18,8 @@ init();
 
 function init() {
 
-    document.getElementById("errorBox").setAttribute("hidden", true);
+    document.getElementById("errorBox").hidden = true;
+    // document.getElementById("errorBox").setAttribute("hidden", true);
 
     ongoingButtonIds = [];
     finishedButtonIds = [];
@@ -146,7 +147,7 @@ function bindList(elementId){
         if(elementId=="ongoing"){
 
             mgmButton = document.createElement("a");
-            mgmButtonId = "mgmButton" + i;
+            mgmButtonId = elementId+"mgmButton" + i;
             mgmButton.setAttribute("id",mgmButtonId);
             mgmButton.className = "btn-small-accept";
             mgmButton.innerHTML = "Offer Management";
@@ -156,7 +157,7 @@ function bindList(elementId){
             mgmButton.attributes.setNamedItem(myIdMgm);
             div3.appendChild(mgmButton);
 
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             ongoingBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
 
@@ -241,7 +242,7 @@ function bindList(elementId){
         }else if (elementId=="freezed"){
 
             mgmButton = document.createElement("a");
-            mgmButtonId = "mgmButton" + i;
+            mgmButtonId = elementId+"mgmButton" + i;
             mgmButton.setAttribute("id",mgmButtonId);
             mgmButton.className = "btn-small-accept";
             mgmButton.innerHTML = "Offer Management";
@@ -251,13 +252,13 @@ function bindList(elementId){
             mgmButton.attributes.setNamedItem(myIdMgm);
             div3.appendChild(mgmButton);
 
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             freezedBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
         }
         else if (elementId=="finished"){
             mgmButton = document.createElement("a");
-            mgmButtonId = "mgmButton" + i;
+            mgmButtonId = elementId+"mgmButton" + i;
             mgmButton.setAttribute("id",mgmButtonId);
             mgmButton.className = "btn-small-accept";
             mgmButton.innerHTML = "Offer Management";
@@ -267,11 +268,11 @@ function bindList(elementId){
             mgmButton.attributes.setNamedItem(myIdMgm);
             div3.appendChild(mgmButton);
 
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             finishedBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
         }else if (elementId=="bought"){
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             boughtBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
         }
