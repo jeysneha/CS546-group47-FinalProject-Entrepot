@@ -3,12 +3,14 @@ const router = express.Router();
 const validation = require('../helpers');
 const xss = require('xss');
 const data = require('../data');
+const path = require('path');
 const usersData = data.users;
 
 
 // first page of our application, it's an introduction page
 router.route('/').get(async (req, res) => {
-    res.status(200).render('landing/landing', {
+    //res.sendFile(path.resolve('static/landingpage.html'));
+   res.status(200).render('landing/landing', {
         title: 'Entrepôt',
         noLogOut: true,
     })

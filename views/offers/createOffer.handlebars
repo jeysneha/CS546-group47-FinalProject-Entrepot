@@ -6,14 +6,15 @@
   <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
     <section class="panel-detail-left" id="detailSection">
       <h1> Create a new offer</h1>
-      <label for="postId" id="formLabel1" class="inputTitle">
+      <div id="formLabel1" class="inputTitle">
         Desired Post Item
-      </label>
+      </div>
 
       <form enctype="multipart/form-data" id="file_upload">
         <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
 
-        <p id="postName" post-name="postName"></p>
+        <p id="postName"></p>
+<!--        <p id="postName" post-name="postName"></p>-->
 
         <br>
         <label for="offerItem" id="formLabel2" class="inputTitle">
@@ -42,7 +43,7 @@
         <label for="itemDesc" id="formLabel4" class="inputTitle">
           Offer Item Description
         </label><br>
-        <textarea type="text" name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
+        <textarea name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
           placeholder="No more than 200 characters."></textarea>
         <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
         <br>
@@ -64,7 +65,9 @@
         <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
       <div id="imgError" class="errorLine" hidden>I'm an error</div>
       <!-- <p>Preview</p> -->
-      <img id="image-preview" class="createOfferImg" src="" hidden>
+
+      <img id="image-preview" class="createOfferImg" src="" alt="offer item" hidden>
+
       <p id="imgSizeInfo" class="errorLine"></p>
       <input type="button" value="SUBMIT" id="submit" class="createOfferButton" style="margin-bottom: 0%;" />
       </p>

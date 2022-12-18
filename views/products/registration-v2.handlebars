@@ -46,7 +46,7 @@
                 <label for="itemDesc" id="formLabel3" class="inputTitle">
                     Item Description
                 </label><br>
-                <textarea type="text" name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
+                <textarea name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
                     placeholder="No more than 200 characters."></textarea>
                 <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
                 <br>
@@ -68,7 +68,9 @@
                     hidden>
             <div id="imgError" class="errorLine" hidden>I'm an error</div>
             <!-- <p>Preview</p> -->
-            <img id="image-preview" class="createOfferImg" src="" hidden>
+
+            <img id="image-preview" class="createOfferImg" src="" alt="post item" hidden>
+
             <p id="imgSizeInfo" class="errorLine"></p>
             <input type="button" value="SUBMIT" id="submit" class="createOfferButton" style="margin-bottom: 0%;" />
             </p>
