@@ -6,7 +6,12 @@
                 {{/if}}
             </div>
 
-            <form class="userUpdate-content" role="form" action="/user/update" method="post" id="userUpdate-form">
+            <div class="title">
+                <h2>Update User Info</h2>
+                <div class="underline"></div>
+            </div>
+
+            <form class="userUpdate-content" action="/user/update" method="post" id="userUpdate-form">
                 <input name = '_method' value="PUT" hidden/>
 
                 <label for="userUpdate-usernameInput">Username:</label>
