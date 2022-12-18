@@ -10,7 +10,8 @@ init();
 
 function init() {
 
-    document.getElementById("errorBox").setAttribute("hidden", true);
+    document.getElementById("errorBox").hidden = true;
+    // document.getElementById("errorBox").setAttribute("hidden", true);
 
     params = [];
 
