@@ -136,46 +136,46 @@ router
     // })
 
 
-// router.put('/:postId',multipartMiddleware,async (req, res) => {
-//         //code here for PUT
-//         let userInfo = req.body;
-//         let fileso = req.files;
-//         let posterId = req.session.user.userId;
-//         console.log("--------------------")
-//         console.log(userInfo.title, userInfo.body, fileso.upload_image, userInfo.category)
-//         if (!userInfo.title || !userInfo.body || !fileso.upload_image || !userInfo.category) {
-//             return res.status(400).json({ti: "Error Page", error: 'The provided information is not complete'});
-//         }
-//         /*try {
-//           req.params.movieId = checkId(req.params.movieId);
-//         } catch (e) {
-//           return res.status(400).json({error: e});
-//         }*/
-//
-//         try {
-//             await postsData.getPostById(req.params.postId);
-//
-//
-//         } catch (e) {
-//             return res.status(404).json({ti: "Error Page", error: 'Post not found'});
-//         }
-//         try {
-//
-//             const upost = await postsData.updatePost(
-//                 req.params.postId,
-//                 userInfo.title,
-//                 userInfo.body,
-//                 fileso.upload_image,
-//                 userInfo.category,
-//                 posterId
-//                 )
-//
-//             return res.status(200).json({prdobj: upost});
-//         } catch (e) {
-//             return res.status(404).json({ti: "Error Page", error: JSON.stringify(e)});
-//         }
-//
-//     });
+router.put('/:postId',multipartMiddleware,async (req, res) => {
+        //code here for PUT
+        let userInfo = req.body;
+        let fileso = req.files;
+        let posterId = req.session.user.userId;
+        console.log("--------------------")
+        console.log(userInfo.title, userInfo.body, fileso.upload_image, userInfo.category)
+        if (!userInfo.title || !userInfo.body || !fileso.upload_image || !userInfo.category) {
+            return res.status(400).json({ti: "Error Page", error: 'The provided information is not complete'});
+        }
+        /*try {
+          req.params.movieId = checkId(req.params.movieId);
+        } catch (e) {
+          return res.status(400).json({error: e});
+        }*/
+
+        try {
+            await postsData.getPostById(req.params.postId);
+
+
+        } catch (e) {
+            return res.status(404).json({ti: "Error Page", error: 'Post not found'});
+        }
+        try {
+
+            const upost = await postsData.updatePost(
+                req.params.postId,
+                userInfo.title,
+                userInfo.body,
+                fileso.upload_image,
+                userInfo.category,
+                posterId
+                )
+
+            return res.status(200).json({prdobj: upost});
+        } catch (e) {
+            return res.status(404).json({ti: "Error Page", error: JSON.stringify(e)});
+        }
+
+    });
 
 
 router.route('/postRegister').get(async (req, res) => {

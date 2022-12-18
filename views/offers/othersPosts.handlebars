@@ -71,7 +71,7 @@
 
       username = {{{username}}};
 
-      document.getElementById("errorBox").setAttribute("hidden", true);
+      document.getElementById("errorBox").hidden = true;
       document.getElementById("pageHead").innerHTML = "User '" + username + "'s Deal History" ;
       ongoingButtonIds = [];
       finishedButtonIds = [];
@@ -114,16 +114,16 @@
           error: function(data) {
               errorBox = document.getElementById("errorBox");
  
-              errorBox.removeAttribute("hidden");
-              errorBox.setAttribute("display", true);
+              errorBox.hidden = false;
+              errorBox.display = true;
               errorBox.innerHTML = data.responseJSON.result;
               span = document.createElement("span");
               span.innerHTML = "×";
               span.className = "close";
               //span.onclick = "this.parentElement.style.display='none';";
               span.onclick = function closeWarningBox() {
-                              document.getElementById("errorBox").removeAttribute("display");
-                              document.getElementById("errorBox").setAttribute("hidden",true);
+                              document.getElementById("errorBox").display = false;
+                              document.getElementById("errorBox").hidden = true;
                             };
               errorBox.appendChild(span);
           }

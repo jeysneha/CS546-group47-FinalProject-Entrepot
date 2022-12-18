@@ -116,8 +116,8 @@
         let reader = new FileReader();
         reader.onload = function (e) {
             let data = e.target.result;
-            preview.removeAttribute("hidden");
-            preview.setAttribute("display",true);
+            preview.hidden = false;
+            preview.display = true;
             preview.src = data
         };
         // 以DataURL的形式读取文件:
@@ -126,9 +126,9 @@
         validImgFlag = true;
         info.className = "errorLine-size";
         imgError = document.getElementById("imgError");
-        imgError.setAttribute("hidden", true);
-        //imgError.setAttribute("display", true);
-        //imgError.innerHTML = "You must provide a image of your item";
+        imgError.hidden = true;
+        imgError.display = false;
+        
 
     });
 
@@ -138,25 +138,37 @@
     submit.onclick = function () {
         let params = new FormData();
         let errorFound = false;
-        if (document.getElementById("offerItem").value == null || document.getElementById("offerItem").value.toString().trim().length == 0) {
+        let inputPostTitle = document.getElementById("offerItem").value.toString().trim();
+        let pattern = /[^a-zA-Z0-9\s-\'.]/;
+        if (document.getElementById("offerItem").value == null || document.getElementById("offerItem").value.toString().trim().length <2) {
             offerItemError = document.getElementById("offerItemError");
-            offerItemError.removeAttribute("hidden");
-            offerItemError.setAttribute("display", true);
-            offerItemError.innerHTML = "You must provide a not-null name";
+            
+            offerItemError.hidden = false;
+            offerItemError.display = true;
+            offerItemError.innerHTML = "You must provide a not-null name and it must at least have 2 charcters";
             errorFound = true;
         }
+        if(pattern.test(inputPostTitle)==true){
+            offerItemError = document.getElementById("offerItemError");
+            offerItemError.hidden = false;
+            offerItemError.display = true;
+            offerItemError.innerHTML = "Title can only contain letters a-z, A-Z , numbers, space and .\'-";
+            errorFound = true;
+        }
+        
+        
         if (document.getElementById("itemDesc").value == null || document.getElementById("itemDesc").value.toString().trim().length == 0) {
             itemDescError = document.getElementById("itemDescError");
-            itemDescError.removeAttribute("hidden");
-            itemDescError.setAttribute("display", true);
+            itemDescError.hidden = false;
+            itemDescError.display = true;
             itemDescError.innerHTML = "You must provide a not-null description";
             errorFound = true;
 
         }
         if (document.getElementById("file").files[0] == null || document.getElementById("file").files[0] == undefined || validImgFlag != true) {
             imgError = document.getElementById("imgError");
-            imgError.removeAttribute("hidden");
-            imgError.setAttribute("display", true);
+            imgError.hidden = false;
+            imgError.display = true;
             imgError.innerHTML = "You must provide a image of your item";
             errorFound = true;
 
@@ -188,16 +200,16 @@
             error: function (data) {
                 errorBox = document.getElementById("errorBox");
 
-                errorBox.removeAttribute("hidden");
-                errorBox.setAttribute("display", true);
+                errorBox.hidden = false;
+                errorBox.display = true;
                 errorBox.innerHTML = data.responseJSON.result;
                 span = document.createElement("span");
                 span.innerHTML = "×";
                 span.className = "close";
                 //span.onclick = "this.parentElement.style.display='none';";
                 span.onclick = function closeWarningBox() {
-                    document.getElementById("errorBox").removeAttribute("display");
-                    document.getElementById("errorBox").setAttribute("hidden", true);
+                    document.getElementById("errorBox").display = false;
+                    document.getElementById("errorBox").hidden = true;
                 };
                 errorBox.appendChild(span);
 

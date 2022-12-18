@@ -1,9 +1,62 @@
 const dbConnection = require('../config/mongoConnection');
+const mongoCollections = require('../config/mongoCollections');
+const postsCollection = mongoCollections.posts;
 const data = require('../data');
 const fs = require('fs');
 const users = data.users;
 const reviews = data.reviews;
 const posts = data.posts;
+const {ObjectId} = require('mongodb');
+const validation = require('../helpers');
+
+async function createPostForSeed(title,
+    body,
+    imgFileName,
+    category,
+    posterId,
+)  {
+    
+
+
+    if (!title || !body || !imgFileName || !category|| !posterId) {
+        throw 'All fields need to have valid values'
+    }
+    title = validation.existypestring(title);
+    title = validation.checkPostTitle(title);
+    body = validation.existypestring(body);
+    // imgFile = validation.existypestring(imgFile);
+    category = validation.existypestring(category);
+    posterId = validation.existypestring(posterId);
+    posterId = validation.checkId_j(posterId);
+
+    //create instant datetime
+    const datetime = validation.createDateTime();
+
+
+
+    const postCollection = await postsCollection();
+    const newPost = {
+        _id: ObjectId(),
+        title: title,
+        body: body,
+        imgFile: imgFileName,
+        category: category,
+        tradeStatus: 0,
+        posterId: posterId,
+        buyerId: null,
+        datetime: datetime
+    }
+    
+    const insertInfo = await postCollection.insertOne(newPost);
+    
+    if (!insertInfo.acknowledged || !insertInfo.insertedId) {
+        throw 'Could not add your Post';
+    }
+
+    return "Successfully inserted seed data of post item";
+
+}
+
 
 async function main() {
     const db = await dbConnection.dbConnection();
@@ -61,56 +114,57 @@ async function main() {
 
 
     ////////////////////////////////////////////////// post seed ////////////////////////////////////////////////
-    const post1 = await posts.createPost(
+    const post1 = await createPostForSeed(
         'iphone',
         'this is a iphone',
-        "http://localhost:3000/images/headphone.jpg",
-        'home & garden',
+        "headphone.jpg",
+        '4',
         user1Obj._id,
     );
-    const post2 = await posts.createPost(
+    const post2 = await createPostForSeed(
         'laptop',
         'this is a laptop',
-        "http://localhost:3000/images/laptop.png",
-        'home G garden',
+        "laptop.png",
+        '10',
         user2Obj._id,
     )
-    const post3 = await posts.createPost(
+    const post3 = await createPostForSeed(
         'Apple W1 Headphone',
         'this is an Headphone',
-        "http://localhost:3000/images/AppleW1_Headphone.png",
-        'home G garden',
+        "AppleW1_Headphone.png",
+        '4',
         user3Obj._id,
     )
-    const post4 = await posts.createPost(
+    const post4 = await createPostForSeed(
         'PS4',
         'this is a Play station',
-        "http://localhost:3000/images/PS4.jpg",
-        'home G garden',
+        "PS4.jpg",
+        '10',
         user4Obj._id,
     )
-    const post5 = await posts.createPost(
+    const post5 = await createPostForSeed(
         'MetaQuest2-VR-Headset',
         'this is MetaQuest2-VR-Headset',
-        "http://localhost:3000/images/MetaQuest2-VR-Headset.png",
-        'home G garden',
+        "MetaQuest2-VR-Headset.png",
+        '10',
         user5Obj._id,
     )
-    const post6 = await posts.createPost(
-        'LoogPro_Acoustic-Guitar',
+    const post6 = await createPostForSeed(
+        'LoogPro-Acoustic-Guitar',
         'this is a LoogPro_Acoustic-Guitar',
-        "http://localhost:3000/images/LoogPro_Acoustic-Guitar.jpg",
-        'home G garden',
+        "LoogPro_Acoustic-Guitar.jpg",
+        '12',
         user5Obj._id,
     )
-    const post7 = await posts.createPost(
+    const post7 = await createPostForSeed(
         'apple-ipad-air-1',
         'this is an Apple-ipad-air-1',
-        "http://localhost:3000/images/apple-ipad-air-1.jpg",
-        'homex garden',
+        "apple-ipad-air-1.jpg",
+        '4',
         user6Obj._id,
     )
-
+    
+    dbConnection.closeConnection();
 }
 
 

@@ -160,7 +160,7 @@
       //alert('文件大小超出限制');
       info.innerHTML = 'The images\'s size exceeds maximum. Please upload a new image smaller than 1MB';
       preview.src = null;
-      preview.setAttribute("hidden", true);
+      preview.hidden = true;
       return false;
     }
     // 获取File信息:
@@ -175,8 +175,8 @@
     let reader = new FileReader();
     reader.onload = function (e) {
       let data = e.target.result;
-      preview.removeAttribute("hidden");
-      preview.setAttribute("display", true);
+      preview.hidden = false;
+      preview.display", true);
       preview.src = data
     };
     // 以DataURL的形式读取文件:
@@ -186,7 +186,7 @@
     validImgFlag = true;
     info.className = "errorLine-size";
     imgError = document.getElementById("imgError");
-    imgError.setAttribute("hidden", true);
+    imgError.hidden = true;
 
 
   });
@@ -227,8 +227,8 @@
     if (document.getElementById("file").files[0] == null || document.getElementById("file").files[0] == undefined || validImgFlag != true) {
       if (paramFile == null) {
         imgError = document.getElementById("imgError");
-        imgError.removeAttribute("hidden");
-        imgError.setAttribute("display", true);
+        imgError.hidden = false;
+        imgError.display = true;
         imgError.innerHTML = "You must provide a image of your item";
         errorFound = true;
       }
@@ -264,16 +264,16 @@
       error: function (data) {
         errorBox = document.getElementById("errorBox");
 
-        errorBox.removeAttribute("hidden");
-        errorBox.setAttribute("display", true);
+        errorBox.hidden = false;
+        errorBox.display = true;
         errorBox.innerHTML = data.responseJSON.result;
         span = document.createElement("span");
         span.innerHTML = "×";
         span.className = "close";
         //span.onclick = "this.parentElement.style.display='none';";
         span.onclick = function closeWarningBox() {
-          document.getElementById("errorBox").removeAttribute("display");
-          document.getElementById("errorBox").setAttribute("hidden", true);
+          document.getElementById("errorBox").display = false;
+          document.getElementById("errorBox").hidden = true;
         };
         errorBox.appendChild(span);
 
