@@ -22,9 +22,16 @@ module.exports = {
             throw "Error: null string"
         }
 
-        if(offerItem.length >50){
-            throw "Error: The title of offering item cannot exceed 50 characters.";
-        }
+        
+
+
+        if(offerItem.length<2) throw 'Title must be at least two characters';
+        if(offerItem.length > 30) throw 'Title cannot be more than 30 characters';
+        let pattern = /[^a-zA-Z0-9\s-\'.]/g;
+        let result = pattern.test(offerItem);
+        if(result===true){
+            throw 'Title can only contain letters a-z, A-Z , numbers, space and .\'-'
+         }
 
         if(itemDesc.length >200){
             throw "Error: The description of offering item cannot exceed 200 characters.";
@@ -59,9 +66,13 @@ module.exports = {
             throw "Error: null string"
         }
 
-        if(offerItem.length >50){
-            throw "Error: The title of offering item cannot exceed 50 characters.";
-        }
+        if(offerItem.length<2) throw 'Title must be at least two characters';
+        if(offerItem.length > 30) throw 'Title cannot be more than 30 characters';
+        let pattern = /[^a-zA-Z0-9\s-\'.]/g;
+        let result = pattern.test(offerItem);
+        if(result===true){
+            throw 'Title can only contain letters a-z, A-Z , numbers, space and .\'-'
+         }
 
         if(itemDesc.length >200){
             throw "Error: The description of offering item cannot exceed 200 characters.";

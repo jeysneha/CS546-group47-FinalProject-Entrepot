@@ -212,16 +212,16 @@ function bindList(elementId){
                         }
                         init();
                         errorBox = document.getElementById("errorBox");
-                        errorBox.removeAttribute("hidden");
-                        errorBox.setAttribute("display", true);
+                        errorBox.hidden = false;
+                        errorBox.display = true;
                         errorBox.className = "successMessage";
                         errorBox.innerHTML = "You have successfully deleted the post item!";
                         span = document.createElement("span");
                         span.innerHTML = "×";
                         span.className = "close";
                         span.onclick = function closeWarningBox() {
-                            document.getElementById("errorBox").removeAttribute("display");
-                            document.getElementById("errorBox").setAttribute("hidden", true);
+                            document.getElementById("errorBox").display = false;
+                            document.getElementById("errorBox").hidden = true;
                         };
                         errorBox.appendChild(span);
                     },
@@ -229,15 +229,15 @@ function bindList(elementId){
                         
                         errorBox = document.getElementById("errorBox");
 
-                        errorBox.removeAttribute("hidden");
-                        errorBox.setAttribute("display", true);
+                        errorBox.hidden = false;
+                        errorBox.display = true;
                         errorBox.innerHTML = data.responseJSON.result;
                         span = document.createElement("span");
                         span.innerHTML = "×";
                         span.className = "close";
                         span.onclick = function closeWarningBox() {
-                            document.getElementById("errorBox").removeAttribute("display");
-                            document.getElementById("errorBox").setAttribute("hidden", true);
+                            document.getElementById("errorBox").display = false;
+                            document.getElementById("errorBox").hidden = true;
                           };
                         errorBox.appendChild(span);
                     }

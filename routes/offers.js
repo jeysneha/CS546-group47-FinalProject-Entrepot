@@ -442,7 +442,11 @@ router.route("/post/:postId").get(async (req, res)=>{
   let msg;
   if(req.url.split("?").length == 2){
     
-    msg = "You have successfully registered a new post!";
+    if(req.url.split("?")[1] == "created=true"){
+      msg = "You have successfully created a post!";
+    }else if (req.url.split("?")[1] == "updated=true"){
+      msg = "You have successfully updated a post!";
+    }
   }
   postId = req.params.postId;
   userId = req.session.user.userId
