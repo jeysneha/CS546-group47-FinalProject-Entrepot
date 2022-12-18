@@ -250,7 +250,7 @@
     type: 'PUT',
     success: function(data){
       id = data.result._id;
-      document.location.href = "/offers/offer/"+id;
+      document.location.href = "/offers/offer/"+id+"?updated=true";
     },
     error: function(data){            
       errorBox = document.getElementById("errorBox");

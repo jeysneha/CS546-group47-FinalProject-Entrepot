@@ -1,72 +1,78 @@
 <main>
-<div class="profile-header">
-    <h1 class="user-name">Name: {{username}}</h1>
-</div>
-
-<div class="main-bd">
-  <div class="left-side">
-    <div class="profile-side">
-      <p class="user-mail">
-          <i class="fa fa-envelope"></i>
-          {{email}}
-      </p>
-
-<!--      <div class="user-bio">-->
-<!--        <h3>Bio</h3>-->
-<!--        <p class="bio">-->
-<!--          Lorem ipsum dolor sit amet, hello how consectetur adipisicing elit. Sint consectetur provident magni yohoho consequuntur, voluptatibus ghdfff exercitationem at quis similique. Optio, amet!-->
-<!--        </p>-->
-<!--      </div>-->
-        <div class="profile-btn">
-<!--          Deal history will open new window for all products-->
-           {{#if isSelf}}
-               <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
-               <button class="createbtn" id="Update-info" onclick="location.href= 'http://localhost:3000/user/update' ;"><i class="fa fa-user-alt"></i> Update UserInfo</button>
-           {{else}}
-<!--               deal history for other users-->
-               <button class="chatbtn" id="dealhbtn" onclick="window.open('http://localhost:3000/offers/myPosts');"><i class="fa fa-shopping-cart" ></i>Deal History</button>
-               <button class="createbtn" id="Add-review" onclick="window.open('http://localhost:3000/review/addReview/{{posterId}}');"><i class="fa fa-plus"></i> Add Review</button>
-           {{/if}}
-
-         </div>
-
-
-      <div class="user-rating">
-        <h2 class="rating">Overall Rate: {{overallRating}}/5</h2>
-        <div class="rate">
-<!--            show the star filled according to the overallRating-->
-          
-<!--            here include total number of reviews-->
-          <span class="no-of-user-rate">
-              Total: {{reviews.length}} reviews
-          </span>
-        </div>
-              
-      </div>
+    <div class="profile-header">
+        <h1 class="user-name">Name: {{username}}</h1>
     </div>
-              
-  </div>
-  
-  <div class="right-side">
 
-      <h2 class="user-review">All Reviews</h2>
+    <div class="main-bd">
+        <div class="left-side">
+            <div class="profile-side">
+                <p class="user-mail">
+                    <i class="fa fa-envelope"></i>
+                    {{email}}
+                </p>
+                <div class="profile-btn">
+                    <!--          links for user itself-->
+                    {{#if isSelf}}
+                        <button class="chatbtn" id="dealhbtn"
+                                onclick="window.open('http://localhost:3000/offers/myPosts');"><i
+                                class="fa fa-shopping-cart"></i>Deal History
+                        </button>
+                        <button class="createbtn" id="Update-info"
+                                onclick="location.href= 'http://localhost:3000/user/update' ;"><i
+                                class="fa fa-user-alt"></i> Update UserInfo
+                        </button>
+                    {{else}}
+                        <!--               links for other users-->
+                        <button class="chatbtn" id="dealhbtn"
+                                onclick="window.open('http://localhost:3000/offers/othersPosts/{{username}}');"><i
+                                class="fa fa-shopping-cart"></i>Deal History
+                        </button>
+                        <button class="createbtn" id="Add-review"
+                                onclick="location.href='http://localhost:3000/review/addReview/{{username}}';"><i
+                                class="fa fa-plus"></i> Add Review
+                        </button>
+                    {{/if}}
 
-      <div class="profile-body">
-      <ul>
-        {{#each reviews}}
-        <li class="each-review">
-            <h3>Title: {{this.title}}</h3>
-            <h4>Rating: {{this.rating}}</h4>
-            <h5>Description: {{this.body}}</h5>
-            <h6>From: {{this.reviewWriter}}</h6>
-            <p>Date/Time: {{this.datetime}}</p>
-            </li>
+                </div>
+
+                <br>
+
+                <div class="user-rating">
+                    <h2 class="rating">Overall Rate: {{overallRating}}/5</h2>
+                    <div class="rate">
+                      <span class="no-of-user-rate">
+                          Total: {{reviews.length}} reviews
+                      </span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="right-side">
+
+            <h2 class="user-review">All Reviews</h2>
+            <div class="myLineHead"></div>
+
             <br>
 
-        {{/each}}
+            <div class="profile-body">
+                <ul>
+                    {{#each reviews}}
+                        <li class="each-review">
+                            <h3>Title: {{this.title}}</h3>
+                            <h4>Rating: {{this.rating}}</h4>
+                            <h5>Description: {{this.body}}</h5>
+                            <h6>From: <a href="http://localhost:3000/user/profile/{{this.reviewWriter}}">{{this.reviewWriter}}</a></h6>
+                            <p>Date/Time: {{this.datetime}}</p>
+                        </li>
+                        <br>
 
-      </ul>
+                    {{/each}}
+
+                </ul>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </main>

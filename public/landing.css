@@ -1,218 +1,218 @@
 .landing-page {
-  margin: auto;
-  width: 50%;
-  text-align:center;
-  padding: 10px;
+    margin: auto;
+    width: 50%;
+    text-align:center;
+    padding: 10px;
 }
 .landing-title {
-  font-weight: bold;
-  align-content: center;
+    font-weight: bold;
+    align-content: center;
 }
 .landing-text {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 700;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
 }
 .landing-page a {
-  font-size: 24px;
-  color: #0072ee;
-  font-weight: 700;
+    font-size: 24px;
+    color: #0072ee;
+    font-weight: 700;
 }
 
 .login-content a {
-  font-size: 20px;
-  color: #0072ee;
-  font-weight: 700;
+    font-size: 20px;
+    color: #0072ee;
+    font-weight: 700;
 }
 
 .signup-content a {
-  font-size: 20px;
-  color: #0072ee;
-  font-weight: 700;
+    font-size: 20px;
+    color: #0072ee;
+    font-weight: 700;
 }
 
 .login-page, .signup-page, .landing-page, .userUpdate-page {
-  width:80%;
-  height: 85vh;
-  margin-left: 10%;
-  margin-right: 10%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: url("./images/bluebg3.jpg");
-  background-size: cover;
+    width:80%;
+    height: 85vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("./images/bluebg3.jpg");
+    background-size: cover;
 }
 
 .login-content, .signup-content {
-  width: 400px;
-  height: 300px;
+    width: 400px;
+    height: 300px;
 }
 
 .login-error, .signup-error, .userUpdate-error, #reviewRegister-error, .contact-error{
-  width: 400px;
-  text-align: center;
-  font-size: 18px;
-  color: #D0342C;
+    width: 400px;
+    text-align: center;
+    font-size: 18px;
+    color: #D0342C;
 }
 
 .login-title, .signup-title {
-  font-weight: 700;
-  font-size: 24px;
+    font-weight: 700;
+    font-size: 24px;
 }
 
 .login-form, .signup-form {
-  width: 400px;
-  height: 400px;
-  /*margin-left: 25%;*/
-  align-content: center;
-  margin-right: 25%;
-  display: flex;
-  flex-direction: column;
-  padding: 40px;
-  text-align: center;
-  position: relative;
-  z-index: 100;
-  background: inherit;
-  border-radius: 18px;
-  overflow: hidden; /* 隐藏多余的模糊效果*/
+    width: 400px;
+    height: 400px;
+    /*margin-left: 25%;*/
+    align-content: center;
+    margin-right: 25%;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    background: inherit;
+    border-radius: 18px;
+    overflow: hidden; /* 隐藏多余的模糊效果*/
 }
 
 .login-form label {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .signup-form label{
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .login-form button, .signup-form button {
-  margin: 6px 0;
-  height: 36px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  padding: 0 14px;
-  color: #3d5245;
+    margin: 6px 0;
+    height: 36px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    padding: 0 14px;
+    color: #3d5245;
 }
 .login-link, .signup-link{
-  font-size: 18px;
-  color:#07051a;
+    font-size: 18px;
+    color:#07051a;
 }
 .loginform{
-  width: 240px;
-  height:auto;
-  display: flex;
-  flex-direction: column;
-  padding: 40px;
-  text-align: center;
-  position: relative;
-  z-index: 100;
-  border-radius: 18px;
-  overflow: hidden; /* 隐藏多余的模糊效果*/
+    width: 240px;
+    height:auto;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 100;
+    border-radius: 18px;
+    overflow: hidden; /* 隐藏多余的模糊效果*/
 }
 
 .button-4 {
-appearance: none;
-background-color: #FAFBFC;
-border: 1px solid rgba(27, 31, 35, 0.15);
-border-radius: 6px;
-box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
-box-sizing: border-box;
-color: #24292E;
-cursor: pointer;
-display: inline-block;
-font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-font-size: 14px;
-font-weight: 500;
-line-height: 20px;
-list-style: none;
-padding: 6px 16px;
-position: relative;
-transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-user-select: none;
--webkit-user-select: none;
-touch-action: manipulation;
-vertical-align: middle;
-white-space: nowrap;
-word-wrap: break-word;
+  appearance: none;
+  background-color: #FAFBFC;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+  box-sizing: border-box;
+  color: #24292E;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  list-style: none;
+  padding: 6px 16px;
+  position: relative;
+  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  word-wrap: break-word;
 }
 
 .button-4:hover {
-background-color: #F3F4F6;
-text-decoration: none;
-transition-duration: 0.1s;
+  background-color: #F3F4F6;
+  text-decoration: none;
+  transition-duration: 0.1s;
 }
 
 .button-4:disabled {
-background-color: #FAFBFC;
-border-color: rgba(27, 31, 35, 0.15);
-color: #959DA5;
-cursor: default;
+  background-color: #FAFBFC;
+  border-color: rgba(27, 31, 35, 0.15);
+  color: #959DA5;
+  cursor: default;
 }
 
 .button-4:active {
-background-color: #EDEFF2;
-box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
-transition: none 0s;
+  background-color: #EDEFF2;
+  box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+  transition: none 0s;
 }
 
 .button-4:focus {
-outline: 1px transparent;
+  outline: 1px transparent;
 }
 
 .button-4:before {
-display: none;
+  display: none;
 }
 
 .button-4::-webkit-details-marker {
-display: none;
+  display: none;
 }
 .bottonjj{
-  display: inline-block;
-  border-radius: 10px;
-  background-color: #1c74bd;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px;
-  width: 100%;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 5px;
+    display: inline-block;
+    border-radius: 10px;
+    background-color: #1c74bd;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
 }
 
 .bottonjj:hover  {
-  padding-left: 50px;
-  color: #FFFFFF;
-  background-color: #09487a;
+    padding-left: 50px;
+    color: #FFFFFF;
+    background-color: #09487a;
 }
 .center{
-  text-align: center;
+    text-align: center;
 }
 
 
 
 .center {
-  margin: auto;
-  width: 50%;
-  text-align:center;
-  padding: 10px;
-}
-.container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: url("./images/bluebg3.jpg");
-  background-size: cover;
-}
+    margin: auto;
+    width: 50%;
+    text-align:center;
+    padding: 10px;
+  }
+  .container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("./images/bluebg3.jpg");
+    background-size: cover;
+  }
 
 
 
-
-.toblack{
-  color:#07051a;
-}
+  
+  .toblack{
+    color:#07051a;
+  }

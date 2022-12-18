@@ -63,6 +63,14 @@ router.route("/myPosts").get(async (req, res) => {
   });
 });
 
+router.route("/othersPosts/:username").get(async (req, res) => {
+  
+  res.render("offers/othersPosts", {
+    title: 'Entrepôt - User\'s Posts',
+    username: "'" + req.params.username + "'"
+  });
+});
+
 router.route("/postRegister").get(async (req, res) => {
   
   res.render('products/registration-v2', {
@@ -78,9 +86,16 @@ router.route("/postRegister").get(async (req, res) => {
 router.route("/createOffer/:postId").get(async (req, res) => {
   //
   // res.sendFile(path.resolve('static/createOffer.html'));
+  try{
+    postItem = await postData.getPostById(req.params.postId);
+  }catch(e){
+    res.render("error",{hasError:true, error:e});
+  }
+
   res.render("offers/createOffer", {
     title: 'Entrepôt - Create Offer',
-    postId: "'"+req.params.postId+"'"
+    postId: "'"+req.params.postId+"'",
+    title: "'"+postItem.title+"'"
   });
 });
 
@@ -169,8 +184,12 @@ router.route("/offer/:offerId").get(async (req, res)=>{
   // Route for feteching a ceratin offer
   let msg;
   if(req.url.split("?").length == 2){
+    if(req.url.split("?")[1] == "created=true"){
+      msg = "You have successfully created an offer!";
+    }else if (req.url.split("?")[1] == "updated=true"){
+      msg = "You have successfully updated an offer!";
+    }
     
-    msg = "You have successfully created an offer!";
   }
   offerId = req.params.offerId;
   userId = req.session.user.userId
@@ -185,12 +204,27 @@ router.route("/offer/:offerId").get(async (req, res)=>{
   try{
     postItem = await postData.getPostById(offer.postId);
     if (!postItem) {
-      return res.status(404).json({code:404, result:e});
+      return res.render("error",{hasError:true, error:"Sorry. Cannot find the post item with the id"});
     }
+    offer.postTitle = postItem.title;
+    offer.postId = postItem._id.toString();
     offer.postImgName = postItem.imgFile;
   }catch(e){
     // 👇应该render到error page
-    return res.status(404).json({code:404, result:e});
+    return res.render("error",{hasError:true, error:e});
+  }
+
+  try{
+    poster = await userData.getUserById(postItem.posterId);
+    offer.posterName = poster.username;
+  }catch(e){
+    return res.render("error",{hasError:true, error:e});
+  }
+  try{
+    sender = await userData.getUserById(offer.senderId);
+    offer.senderName = sender.username;
+  }catch(e){
+    return res.render("error",{hasError:true, error:e});
   }
   
   if(offer.senderId == req.session.user.userId.toString()) {
@@ -205,6 +239,8 @@ router.route("/offer/:offerId").get(async (req, res)=>{
   if (msg != null) {
     offer.msg = msg;
   }
+
+  
   
 
   res.render("offers/offerDetail", {
@@ -234,6 +270,9 @@ router.post('/',multipartMiddleware,async (req, res) => {
     postItem = await postData.getPostById(postId)
     if (!postItem) {
       return res.status(404).json({code:404, result:e});
+    }
+    if(postItem.posterId == senderId) {
+      return res.status(404).json({code:404, result:"Error: You cannot provide an offer for your own posted item."})
     }
     sellerId = postItem.posterId;
   }catch(e){
@@ -415,8 +454,9 @@ router.route("/post/:postId").get(async (req, res)=>{
   try{
     user = await userData.getUserById(postItem.posterId);
     postItem.contact = user.email;
+    postItem.username = user.username;
   }catch(e) {
-    console.log(e);
+    return res.status(404).json({code:404, result:e});
   }
 
 

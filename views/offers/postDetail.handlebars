@@ -12,13 +12,14 @@
             </div>
             </p>
         </section>
-        <section class="panel-detail-right">
+        <section class="panel-detail-right" id="right-section">
           <p class="inputTitle">Post Item Image</p>
           <img id="image-post" class="offerDetailImg" alt="Post item">
           </p>
           <a id="editButton">Edit</a>
+          <label class="btn-viewMyOffers" id="posterProfileButton">Poster Profile</label>
           <a id="viewOffersButton">View Offers</a>
-          <label onclick = "document.location.href = '/offers/myPosts'" class="btn-viewMyOffers">Back To MyDeals</label>
+          <label onclick = "document.location.href = '/offers/myPosts'" class="btn-viewMyOffers" id="backToMyDeals">Back To MyDeals</label>
           {{!-- <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">Back To MyOffers</a> --}}
       </section>
         </div>
@@ -63,14 +64,22 @@
           }else{
             editButton.className = "uploadImgButton" ;
             // 👇修改为修改post页面
-            editButton.href = '/offers/edit/'+postId;
+            editButton.href = '/posts/edit/'+postId;
           }
         }
         else if (postData.role == "viewer") {
-          document.getElementById("detailSection").removeChild(document.getElementById("allMySentButton"));
-          document.getElementById("detailSection").removeChild(document.getElementById("editButton"));
+          //document.getElementById("detailSection").removeChild(document.getElementById("allMySentButton"));
+          document.getElementById("right-section").removeChild(document.getElementById("editButton"));
+          document.getElementById("right-section").removeChild(document.getElementById("viewOffersButton"));
+          document.getElementById("backToMyDeals").onclick = function(){
+            document.location.href = '/posts/products';
+          }
+          document.getElementById("backToMyDeals").innerHTML = "Back To Products";
         } 
 
+        document.getElementById("posterProfileButton").onclick = function() {
+            document.location.href = '/user/profile/' + postData.username;
+        }
 
 
         if(postData.msg != null) {
@@ -82,8 +91,21 @@
           span = document.createElement("span");
           span.innerHTML = "×";
           span.className = "close";
-          span.onclick = "this.parentElement.style.display='none';";
+          
+          
+
+
+          
+          
+          
+          //span.onclick = "this.parentElement.style.display='none';";
+          span.onclick = function closeWarningBox() {
+                          document.getElementById("errorBox").removeAttribute("display");
+                          document.getElementById("errorBox").setAttribute("hidden",true);
+                        };
           msgBox.appendChild(span);
+          
+
         }
         
         getImage();
@@ -102,6 +124,54 @@
             postData.tradeStatus = "Deal Completed";
             statusColor = "#35bb01";
             break;
+            
+        }
+
+        switch (postData.category) {
+            case "0":
+            postData.category = "Not Specified";
+            break;
+            case "1":
+            postData.category = "Apparel or Accessories";
+            break;
+            case "2":
+            postData.category = "Jewelry or Watches";
+            break;
+            case "3":
+            postData.category = "Motors, Style or Fashion";
+            break;
+            case "4":
+            postData.category = "Home or Garden";
+            break;
+            case "5":
+            postData.category = "Sporting Goods";
+            break;
+            case "6":
+            postData.category = "Health or Wellness";
+            break;
+            case "7":
+            postData.category = "Medical Health";
+            break;
+            case "8":
+            postData.category = "Children or Infants";
+            break;
+            case "9":
+            postData.category = "Pets or Pets Supplies";
+            break;
+            case "10":
+            postData.category = "Consumer Electronic Goods";
+            break;
+            case "11":
+            postData.category = "Home Improvement";
+            break;
+            case "12":
+            postData.category = "Collectibles or Art";
+            break;
+            case "13":
+            postData.category = "Other Categories / To Be Categorized";
+            break;
+
+            
             
         }
 
@@ -131,6 +201,11 @@
       postDescTag.innerHTML = "Description:  " + postData.body;
       postDescTag.className = "LimitPWeight";
 
+      posterNameTag = document.createElement("p");
+      posterNameTag.innerHTML = "Poster Username:  " + postData.username;
+
+      postCateTag = document.createElement("p");
+      postCateTag.innerHTML = "Category:  " + postData.category;
       //offerWearTag = document.createElement("p");
       //offerWearTag.innerHTML = "Degree of Wear:  " + offerData.wear;
 
@@ -148,8 +223,10 @@
 
 
       detailSection.appendChild(postIdTag);
+      detailSection.appendChild(posterNameTag);
       detailSection.appendChild(postNameTag);
       detailSection.appendChild(postDescTag);
+      detailSection.appendChild(postCateTag);
       detailSection.appendChild(postContactTag);
     }
 

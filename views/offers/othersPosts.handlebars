@@ -1,0 +1,272 @@
+<main>
+    <div class="alertMessage" id="errorBox">
+      <span class="close" onclick="this.parentElement.style.display='none';">×</span>
+      <!-- <p id="errorContent"></p> -->
+    </div>
+    
+    <div class="panel-myOffers-back">
+      <div class="panel-myOffers">
+            <div class="myOffersHead" id="pageHead"></div>
+            <div class="myLineHead"> </div>
+            <div class="product-container" id="zone1">
+              <p class="myOffersTitle">Ongoing Deals</p>
+              <div class="myLine"> </div>
+              <div class="products" id="ongoing">
+            </div></div>
+
+            <div class="product-container" id="zone2">
+              <p class="myOffersTitle">Negotiating Deals</p>
+              <div class="myLine"> </div>
+              <div class="products" id="freezed">
+            </div></div>
+
+            <div class="product-container" id="zone3">
+              <p class="myOffersTitle">Finished Deals</p>
+              <div class="myLine"> </div>
+              <div class="products" id="finished">
+            </div></div>
+
+            <div class="product-container" id="zone4">
+              <p class="myOffersTitle">I Bought</p>
+              <div class="myLine"> </div>
+              <div class="products" id="bought">
+            </div></div>
+
+        
+      </div>
+          
+    </div>
+    
+            
+    
+
+    
+</main>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+
+  let data;
+
+  let ongoingButtonIds = [];
+  let finishedButtonIds = [];
+
+  let ongoingBoxIds = [];
+  let freezedBoxIds = [];
+  let finishedBoxIds = [];
+  let boughtBoxIds = [];
+
+  let ongoingPosts;
+  let freezedPosts;
+  let finishedPosts;
+  let boughtPosts;
+
+  let username;
+
+  init();
+
+  function init() {
+
+      username = {{{username}}};
+
+      document.getElementById("errorBox").setAttribute("hidden", true);
+      document.getElementById("pageHead").innerHTML = "User '" + username + "'s Deal History" ;
+      ongoingButtonIds = [];
+      finishedButtonIds = [];
+
+      ongoingBoxIds = [];
+      freezedBoxIds = [];
+      finishedBoxIds = [];
+      boughtBoxIds = [];
+
+      otherOffersAcceptButtonId = [];
+      otherOffersBoxId = [];
+      // get all the offer of a ceratin post
+      data = getAll();
+      //console.log(data);
+      
+      ongoingPosts = data.zeroStatusPost;
+      freezedPosts = data.oneStatusPost;
+      finishedPosts = data.twoStatusPost;
+      boughtPosts = data.boughtPosts;
+
+      // show the offers list
+      bindList("ongoing");
+      bindList("freezed");
+      bindList("finished");
+      bindList("bought");
+
+  }
+
+
+  function getAll() {
+      let result;
+      $.ajax({
+          methods: "get",
+          // url:'/offers/mySent/'+userId,
+          url:'/user/deal/' + username,
+          cache: false,
+          async: false,
+          success: function (data) {
+            result = data},
+          error: function(data) {
+              errorBox = document.getElementById("errorBox");
+ 
+              errorBox.removeAttribute("hidden");
+              errorBox.setAttribute("display", true);
+              errorBox.innerHTML = data.responseJSON.result;
+              span = document.createElement("span");
+              span.innerHTML = "×";
+              span.className = "close";
+              //span.onclick = "this.parentElement.style.display='none';";
+              span.onclick = function closeWarningBox() {
+                              document.getElementById("errorBox").removeAttribute("display");
+                              document.getElementById("errorBox").setAttribute("hidden",true);
+                            };
+              errorBox.appendChild(span);
+          }
+      })
+      return result;
+  }
+
+  function getImage(tagName,imgName){
+      document.getElementById(tagName).src = "posts/images/"+imgName;
+  }
+
+  function bindList(elementId){
+
+      let products = document.getElementById(elementId); //找到tbody标签
+      
+      let subData = [];
+      if(elementId == "ongoing"){
+          subData = ongoingPosts;
+      }else if(elementId == "freezed"){
+          subData = freezedPosts;
+      }else if(elementId == "finished"){
+          subData = finishedPosts;
+      }else if(elementId == "bought"){
+          subData = boughtPosts;
+      }
+      
+
+      for (let i = 0; i < subData.length; i++) { //对stus进行循环遍历，并建立tr标签
+          id = subData[i]._id;
+
+          // switch (subData[i].wear) {
+          //     case '10':
+          //         subData[i].wear = "Like New";
+          //       break;
+          //       case '8':
+          //         subData[i].wear = "Good Condition";
+          //       break;
+          //       case '6':
+          //         subData[i].wear = "Fair Condition";
+          //       break;
+          //       case'4':
+          //       subData[i].wear = "Poor Condition";
+          //       break;
+          //       case '2':
+          //         subData[i].wear = "Need Repair";
+          //       break;
+          //       case '0':
+          //         subData[i].wear = "Sold As Component";
+          //       break;
+          //   }
+
+          subData[i].itemDesc = subData[i].body.slice(0,30) + "...";
+
+          postStatus = subData[i].tradeStatus;
+          
+          let div1 = document.createElement('div');
+
+          
+          
+          div1.className = "product";
+          products.appendChild(div1);
+          let div2 = document.createElement('div');
+          div2.className = "product-under";
+          div1.appendChild(div2);
+
+          figure = document.createElement("figure");
+          figure.className = "product-image";
+          div2.appendChild(figure);
+
+
+          imgName = subData[i].imgFile;
+          img = document.createElement("img");
+          img.src = "/posts/images/"+imgName;
+          img.alt=subData[i].offerItem;
+          figure.appendChild(img);
+
+          div3 = document.createElement("div");
+          div3.className = "product-over";
+          figure.appendChild(div3);
+          
+          // offer management button
+          
+          
+          
+
+          if(elementId=="ongoing"){
+
+             
+
+              boxId = "boxId" + i;
+              ongoingBoxIds.push(boxId);
+              div1.setAttribute("id",boxId);
+
+              
+
+          }else if (elementId=="freezed"){
+
+              
+
+              boxId = "boxId" + i;
+              freezedBoxIds.push(boxId);
+              div1.setAttribute("id",boxId);
+          }
+          else if (elementId=="finished"){
+              
+
+              boxId = "boxId" + i;
+              finishedBoxIds.push(boxId);
+              div1.setAttribute("id",boxId);
+          }else if (elementId=="bought"){
+              boxId = "boxId" + i;
+              boughtBoxIds.push(boxId);
+              div1.setAttribute("id",boxId);
+          }
+      
+          
+
+          a = document.createElement("a");
+          a.href = "/offers/post/"+id;
+          a.className = "btn-small-accept";
+          a.innerHTML = "Post Details";
+          div3.appendChild(a);
+
+          div4 = document.createElement("div");
+          div4.className = "product-summary";
+          div2.appendChild(div4);
+
+          h4 = document.createElement("h4");
+          h4.className = "productName";
+          h4.innerHTML = subData[i].title;
+          div4.appendChild(h4);
+
+          // wearDegree = document.createElement("p");
+          // wearDegree.innerHTML = subData[i].wear;
+          // div4.appendChild(wearDegree);
+
+          p = document.createElement("p");
+          p.innerHTML = subData[i].itemDesc;
+          div4.appendChild(p);
+      }
+  }
+
+
+
+
+</script>

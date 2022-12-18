@@ -8,13 +8,13 @@
     <section class="panel-detail-left" id="detailSection">
           <h1> Create a new offer</h1>
       <label for="postId" id="formLabel" class = "inputTitle">
-              Desired PostId	
+              Desired Post Item	
       </label>
       
       <form enctype="multipart/form-data" id="file_upload">
       <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
 
-          <p id="postId" name="postId"></p>
+          <p id="postName" name="postName"></p>
           
           <br>
           <label for="offerItem" id="formLabel" class = "inputTitle">
@@ -86,7 +86,8 @@
   <script type="text/javascript">
 
   let postId = {{{postId}}};
-  document.getElementById("postId").innerHTML = postId;
+  let postName = {{{title}}};
+  document.getElementById("postName").innerHTML = postName;
 
   let fileInput = document.getElementById('file');
   let info = document.getElementById('imgSizeInfo');
@@ -169,7 +170,7 @@
 
     params.append("upload_image",document.getElementById("file").files[0])
     // 已无用 params.append("senderId", document.getElementById("senderId").innerHTML);
-    params.append("postId", document.getElementById("postId").innerHTML);
+    params.append("postId", postId);
     // 👇尚未修改 已改
     // params.append("sellerId", "639a56511572f2134759d2b8");
     params.append("offerItem", document.getElementById("offerItem").value);

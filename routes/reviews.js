@@ -43,15 +43,15 @@ router
 
 
 //only non-self user can create review
-//require sent the posterId as a field in render object
+//require sent the username as a field in render object
 router
-    .route('/addReview/:posterId')
+    .route('/addReview/:username')
     .get(async (req, res) => {
-        let posterId = req.params.posterId;
+        let username = req.params.username;
 
         //error check//
         try{
-            posterId = validation.checkId(posterId);
+            username = validation.checkUsername(username);
         }catch (e) {
             //here should render the product detail page
             return res.render('error', {
@@ -65,12 +65,12 @@ router
             title: 'Entrepôt - Create Review',
             hasError: false,
             error: null,
-            posterId: posterId,
+            username: username,
             partial: 'reviewRegister-scripts',
         })
     })
     .post(async (req, res) => {
-        let posterId = req.params.posterId;
+        let username = req.params.username;
         let user = req.session.user;
         let buyerId = user.userId;
         let title = xss(req.body.titleInput);
@@ -79,7 +79,7 @@ router
 
         //validation check
         try{
-            posterId = validation.checkId(posterId);
+            username = validation.checkUsername(username);
             buyerId = validation.checkId(buyerId);
             title = validation.checkReviewTitle(title);
             body = validation.checkReviewBody(body);
@@ -93,8 +93,27 @@ router
             })
         }
 
+        //get the poster's id
+        let poster;
         try{
-            const insertInfo = await reviewsDate.createReviews(posterId, buyerId, title, body, rating.toString());
+            poster = await usersData.getUserByName(username);
+            if (!poster) {
+                return res.status(404).render('reviews/reviewRegister', {
+                    title: 'Entrepôt - Create Review',
+                    hasError: true,
+                    error: `Cannot find user with username ${useranem}`,
+                })
+            }
+        }catch (e){
+            return res.status(500).render('reviews/reviewRegister', {
+                title: 'Entrepôt - Create Review',
+                hasError: true,
+                error: e
+            });
+        }
+
+        try{
+            const insertInfo = await reviewsDate.createReviews(poster._id, buyerId, title, body, rating.toString());
 
             if (!insertInfo) {
                 return res.status(500).render('reviews/reviewRegister', {
@@ -112,10 +131,14 @@ router
                 });
             }
 
-            res.status(200).redirect(`/user/${posterId}`);
+            res.status(200).redirect(`/user/profile/${username}`);
 
         }catch (e) {
-            res.status(500).json({Error: e});
+            res.status(500).render('reviews/reviewRegister', {
+                title: 'Entrepôt - Create Review',
+                hasError: true,
+                error: e
+            });
         }
 
 
