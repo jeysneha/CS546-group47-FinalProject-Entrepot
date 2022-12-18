@@ -212,14 +212,14 @@
 }
 
 .test {
-    color: red;
+    color: #e72400;
 }
 
 .alertMessage {
     padding: 20px;
     text-align: center;
     font-weight: bold;
-    background-color: #f44336;
+    background-color: #e72400;
     color: white;
     font-size: 20px;
  }
@@ -228,7 +228,7 @@
     padding: 20px;
     text-align: center;
     font-weight: bold;
-    background-color: #22cc00;
+    background-color: #0f7000;
     color: white;
     font-size: 20px;
  }
@@ -577,7 +577,7 @@ h1 {
 }
 
 .errorLine {
-    color: red;
+    color: #ee0000;
     font-weight: bold;
 }
 
