@@ -30,10 +30,10 @@ router
 router
 .route('/edit/:postId')
 .get(async (req, res) => {
-    //code here for GET
+    let postId = xss(req.params.postId)
     try {
-        const postItem = await postsData.getPostById(req.params.postId);
-        return res.status(200).render('products/update', {result: JSON.stringify(postItem)})
+        const postItem = await postsData.getPostById(postId);
+        return res.status(200).render('products/update', {result: JSON.stringify(postItem), title: 'Entrepôt - Edit post'})
     } catch (e) {
         res.status(404).render('error', {ti: "Error Page", class: "error", message: "No Products to Display"});
 
@@ -81,27 +81,12 @@ router
 //     })
 //
 // })
-
 router
     .route('/:postId')
     .delete(async (req, res) => {
-        //code here for DELETE
-        /* try {
-           req.params.movieId = checkId(req.params.movieId);
-         } catch (e) {
-           return res.status(400).json({error: e});
-         }*/
-
-        // try {
-        //     let thePost = await postsData.getPostById(req.params.postId);
-        //     if (!thePost) {
-        //         return res.status(404).render('error', {ti: "Error Page", error: 'Post not found'});
-        //     }
-        // } catch (e) {
-        //     return res.status(500).render('error', {ti: "Error Page", error: e});
-        // }
+        let postId = xss(req.params.postId);
         try {
-            let del = await postsData.getPostById(req.params.postId);
+            let del = await postsData.getPostById(postId);
             if (!del) {
                 return res.status(404).render('error', {ti: "Error Page", error: 'Post not found'});
             }
@@ -110,7 +95,7 @@ router
             obj.postId = del._id
             obj.deleted = true
             //let ans=`{"movieId": ${del._id}, "deleted": true}`
-            await postsData.removePost(req.params.postId);
+            await postsData.removePost(postId);
             return res.status(200).json({result: obj});
         } catch (e) {
             return res.status(500).send('Internal Server Error');
@@ -138,6 +123,7 @@ router
 
 router.put('/:postId',multipartMiddleware,async (req, res) => {
         //code here for PUT
+        let postId = xss(req.params.postId);
         let userInfo = req.body;
         let fileso = req.files;
         let posterId = req.session.user.userId;
@@ -146,14 +132,9 @@ router.put('/:postId',multipartMiddleware,async (req, res) => {
         if (!userInfo.title || !userInfo.body || !fileso.upload_image || !userInfo.category) {
             return res.status(400).json({ti: "Error Page", error: 'The provided information is not complete'});
         }
-        /*try {
-          req.params.movieId = checkId(req.params.movieId);
-        } catch (e) {
-          return res.status(400).json({error: e});
-        }*/
 
         try {
-            await postsData.getPostById(req.params.postId);
+            await postsData.getPostById(postId);
 
 
         } catch (e) {
@@ -162,7 +143,7 @@ router.put('/:postId',multipartMiddleware,async (req, res) => {
         try {
 
             const upost = await postsData.updatePost(
-                req.params.postId,
+                postId,
                 userInfo.title,
                 userInfo.body,
                 fileso.upload_image,
