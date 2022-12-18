@@ -46,7 +46,6 @@ router
         });
     })
     .put(async (req, res)=> {
-        console.log('hit user update put method')
         let username = xss(req.body.usernameInput);
         let email = xss(req.body.emailInput);
         let originPassword = xss(req.body.originPasswordInput);
@@ -246,10 +245,8 @@ router
     .get(async (req, res) => {
     const user = req.session.user;
     let username = user.username;
-    console.log(1)
     let targetUsername = req.params.username
-    console.log(2, targetUsername)
-     
+
 
     //validation check
     try{
@@ -262,10 +259,8 @@ router
             error: e
         })
     }
-    console.log(3)
     try{
         const userProfile = await usersData.getUserByName(targetUsername);
-        console.log(4)
         if (!userProfile) {
             return res.status(404).render('error', {
                 title: 'Entrepôt - Error!',
@@ -273,10 +268,8 @@ router
                 error: `No user with name: ${targetUsername} was found!`
             })
         }
-        console.log(5)
         //check whether each review writer exists
         if(userProfile._id.toString() === user.userId){
-            console.log(6)
             res.status(200).render('user/userProfile', {
                 title: 'Entrepôt - Profile',
                 hasError: false,
