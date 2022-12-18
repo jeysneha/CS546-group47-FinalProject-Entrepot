@@ -68,7 +68,9 @@
                     hidden>
             <div id="imgError" class="errorLine" hidden>I'm an error</div>
             <!-- <p>Preview</p> -->
-            <img id="image-preview" class="createOfferImg" alt="post item">
+
+            <img id="image-preview" class="createOfferImg" src="" alt="post item" hidden>
+
             <p id="imgSizeInfo" class="errorLine"></p>
             <input type="button" value="SUBMIT" id="submit" class="createOfferButton" style="margin-bottom: 0%;" />
             </p>
@@ -114,6 +116,8 @@
         let reader = new FileReader();
         reader.onload = function (e) {
             let data = e.target.result;
+            preview.removeAttribute("hidden");
+            preview.setAttribute("display",true);
             preview.src = data
         };
         // 以DataURL的形式读取文件:

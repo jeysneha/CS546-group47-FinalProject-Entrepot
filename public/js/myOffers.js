@@ -166,15 +166,13 @@ function bindList(elementId){
                 button.innerHTML = "You have confirmed";
             }
             
-            myId = document.createAttribute("myid");
-            myId.nodeValue = id;
-            button.attributes.setNamedItem(myId);
-
+           
+            button.setAttribute("data-myid",id);
             button.onclick = function(){
                 
                 $.ajax({
                     type: "put",
-                    url: "/offers/status/confirmByBuyer/"+ this.getAttribute("myid"),
+                    url: "/offers/status/confirmByBuyer/"+ this.getAttribute("data-myid"),
                     cache: false,
                     async: false,
                     success: function (data) {

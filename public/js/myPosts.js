@@ -177,9 +177,11 @@ function bindList(elementId){
             deletebutton = document.createElement("button");
             deletebutton.className = "btn-small-accept";
             deletebutton.innerHTML = "Delete";
-            myId = document.createAttribute("myid");
-            myId.nodeValue = id;
-            deletebutton.attributes.setNamedItem(myId);
+            deletebutton.setAttribute("data-myid",id);
+            // myId = document.createAttribute("myid");
+            // myId = document.
+            // myId.nodeValue = id;
+            // deletebutton.attributes.setNamedItem(myId);
 
             // if(postStatus == 1 || postStatus == 2){
             //     editbutton.className = "btn-small-banned";
@@ -194,7 +196,7 @@ function bindList(elementId){
                 if(ans){
                     $.ajax({
                     type: "delete",
-                    url: "/posts/"+this.getAttribute("myid"),
+                    url: "/posts/"+this.getAttribute("data-myid"),
                     cache: false,
                     async: false,
                     success: function (data) {
