@@ -37,7 +37,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 
-    <!--    <title>Entrepôt</title>-->
     <title>{{ title }}</title>
 </head>
 
@@ -69,20 +68,35 @@
             </div>
             <div>
                 <!--My account part-->
-                <div style="width: 160px">
-                    <a href="/user/profile">
-                        <div class="account-btn">
-                            <i class="fas fa-user-alt"></i>
-                            My account
-                        </div>
-                    </a>
-                </div>
-                {{#unless noLogOut}}
-                <div style="width: 160px">
-                    <button class="account-btn" id="logout-btn"> Log out</button>
-                    <script type="text/javascript" src="/public/js/userLogout.js"></script>
-                </div>
-                {{/unless}}
+                {{#if landing}}
+                    <div style="width: 160px">
+                        <a href="/login">
+                            <div class="account-btn">
+                                <i class="fas fa-user-alt"></i>
+                                Log in
+                            </div>
+                        </a>
+                    </div>
+
+                    <div style="width: 160px">
+                        <a href="/register" class="account-btn" id="signup-btn"> Sign up</a>
+                        <script type="text/javascript" src="/public/js/userLogout.js"></script>
+                    </div>
+                {{else}}
+                    <div style="width: 160px">
+                        <a href="/user/profile">
+                            <div class="account-btn">
+                                <i class="fas fa-user-alt"></i>
+                                My account
+                            </div>
+                        </a>
+                    </div>
+
+                    <div style="width: 160px">
+                        <button class="account-btn" id="logout-btn"> Log out</button>
+                        <script type="text/javascript" src="/public/js/userLogout.js"></script>
+                    </div>
+                {{/if}}
 
             </div>
         </div>

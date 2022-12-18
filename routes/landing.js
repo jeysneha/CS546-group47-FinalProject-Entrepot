@@ -9,11 +9,7 @@ const usersData = data.users;
 
 // first page of our application, it's an introduction page
 router.route('/').get(async (req, res) => {
-    //res.sendFile(path.resolve('static/landingpage.html'));
-   res.status(200).render('landing/landing', {
-        title: 'Entrepôt',
-        noLogOut: true,
-    })
+    res.sendFile(path.resolve('static/landing.html'));
 })
 
 
@@ -29,7 +25,7 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: false,
                 error: null,
-                noLogOut: true,
+                landing: true,
                 partial: 'userRegister-scripts'
             })
         }
@@ -49,7 +45,7 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
-                noLogOut: true,
+                landing: true,
             });
         }
 
@@ -62,7 +58,7 @@ router
                     title: 'Entrepôt - Sign-up',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-                    noLogOut: true,
+                    landing: true,
                 });
             }
 
@@ -71,7 +67,7 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: false,
                     error: null,
-                    noLogOut: true,
+                    landing: true,
                 });
             }
         }catch (e) {
@@ -79,7 +75,7 @@ router
                 title: 'Entrepôt - Sign-up',
                 hasErrors: true,
                 error: e,
-                noLogOut: true,
+                landing: true,
             });
         }
     })
@@ -97,7 +93,7 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: false,
                 error: null,
-                noLogOut: true,
+                landing: true,
                 partial: 'userLogin-scripts',
             })
         }
@@ -115,7 +111,7 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
-                noLogOut: true,
+                landing: true,
             });
         }
 
@@ -128,7 +124,7 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-                    noLogOut: true,
+                    landing: true,
                 })
             }
 
@@ -137,7 +133,7 @@ router
                     title: 'Entrepôt - Log-in',
                     hasErrors: true,
                     error: 'Internal Server Error!',
-                    noLogOut: true,
+                    landing: true,
                 })
             }
 
@@ -155,23 +151,11 @@ router
                 title: 'Entrepôt - Log-in',
                 hasErrors: true,
                 error: e,
-                noLogOut: true,
+                landing: true,
             });
         }
     })
 
-
-// router.route('/products').get(async (req, res) => {
-//     const user = req.session.user;
-//     const username = user.username;
-//     const datetime = new Date().toUTCString();
-//
-//     res.status(200).render('products', {
-//         title: 'Entrepôt - Products',
-//         username: username,
-//         datetime: datetime,
-//     })
-// })
 
 router
     .route('/logout')
