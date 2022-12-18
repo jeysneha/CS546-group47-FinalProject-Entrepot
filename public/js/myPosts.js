@@ -39,7 +39,7 @@ function init() {
     freezedPosts = data.oneStatusPost;
     finishedPosts = data.twoStatusPost;
     boughtPosts = data.boughtPosts;
-
+    console.log(boughtPosts);
     // show the offers list
     bindList("ongoing");
     bindList("freezed");
