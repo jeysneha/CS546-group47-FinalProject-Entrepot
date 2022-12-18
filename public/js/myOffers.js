@@ -16,7 +16,8 @@ init();
 
 function init() {
 
-    document.getElementById("errorBox").setAttribute("hidden", true);
+    document.getElementById("errorBox").hidden = true;
+    // document.getElementById("errorBox").setAttribute("hidden", true);
 
     ongoingButtonIds = [];
     awaitingButtonIds = [];
@@ -146,13 +147,13 @@ function bindList(elementId){
         
         if(elementId=="ongoing"){
 
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             ongoingBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
 
 
 
-            ButtonId = "confirmButton" + i;
+            ButtonId = elementId+"confirmButton" + i;
             ongoingButtonIds.push(ButtonId);
             button = document.createElement("button");
             // button.id = acceptButtonId;
@@ -224,7 +225,7 @@ function bindList(elementId){
             div3.appendChild(button);
         } else if (elementId=="awaiting"){
 
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             awaitingBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
 
@@ -290,11 +291,11 @@ function bindList(elementId){
             };
             div3.appendChild(deletebutton);
         } else if (elementId=="finished"){
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             finishedBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
         } else{
-            boxId = "boxId" + i;
+            boxId = elementId+"boxId" + i;
             failedBoxIds.push(boxId);
             div1.setAttribute("id",boxId);
         }

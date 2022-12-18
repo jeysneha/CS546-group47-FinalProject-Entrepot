@@ -44,63 +44,46 @@ router
 
 
 //update post
-router.get('/updated/:postId', async(req, res) => {
-    let postId = req.params.postId;
-    let post;
-    //param check
-    try{
-        postId = validation.checkId(postId);
-    }catch (e) {
-        return res.status(400).json({
-            code: 400,
-            result: e,
-        })
-    }
-
-    //get pos info
-    try{
-        post = await postsData.getPostById(postId);
-
-        if (!post) {
-            return res.status(404).json({
-                code: 404,
-                result: `Cannot find post with id ${postId} !`,
-            })
-        }
-    }catch (e) {
-        return res.status(500).json({
-            code: 500,
-            result: e,
-        })
-    }
-
-    //return post info to js
-    res.status(200).render('/products/updatePost', {
-        code: 200,
-        result: JSON.stringify(post)
-    })
-
-})
+// router.get('/updated/:postId', async(req, res) => {
+//     let postId = req.params.postId;
+//     let post;
+//     //param check
+//     try{
+//         postId = validation.checkId(postId);
+//     }catch (e) {
+//         return res.status(400).json({
+//             code: 400,
+//             result: e,
+//         })
+//     }
+//
+//     //get pos info
+//     try{
+//         post = await postsData.getPostById(postId);
+//
+//         if (!post) {
+//             return res.status(404).json({
+//                 code: 404,
+//                 result: `Cannot find post with id ${postId} !`,
+//             })
+//         }
+//     }catch (e) {
+//         return res.status(500).json({
+//             code: 500,
+//             result: e,
+//         })
+//     }
+//
+//     //return post info to js
+//     res.status(200).render('/products/updatePost', {
+//         code: 200,
+//         result: JSON.stringify(post)
+//     })
+//
+// })
 
 router
     .route('/:postId')
-    .get(async (req, res) => {
-        //code here for GET
-        try {
-            req.params.postId = checkId(req.params.postId);
-        } catch (e) {
-            return res.status(400).render('error', {error: e});
-        }
-        try {
-            const single_post = await postsData.getPostById(req.params.postId);
-            if (!single_post) {
-                return res.status(404).render('error', {ti: "Error Page", error: 'Post Not found'});
-            }
-            return res.status(200).render('details', {prdobj: single_post});
-        } catch (e) {
-            return res.status(500).render('error', {ti: "Error Page", error: e});
-        }
-    })
     .delete(async (req, res) => {
         //code here for DELETE
         /* try {
@@ -133,61 +116,76 @@ router
             return res.status(500).send('Internal Server Error');
         }
 
-    });
+    })
+    // .get(async (req, res) => {
+    // //code here for GET
+    // try {
+    //     req.params.postId = checkId(req.params.postId);
+    // } catch (e) {
+    //     return res.status(400).render('error', {error: e});
+    // }
+    // try {
+    //     const single_post = await postsData.getPostById(req.params.postId);
+    //     if (!single_post) {
+    //         return res.status(404).render('error', {ti: "Error Page", error: 'Post Not found'});
+    //     }
+    //     return res.status(200).render('details', {prdobj: single_post});
+    // } catch (e) {
+    //     return res.status(500).render('error', {ti: "Error Page", error: e});
+    // }
+    // })
 
 
-router.put('/:postId',multipartMiddleware,async (req, res) => {
-        //code here for PUT
-        let userInfo = req.body;
-        let fileso = req.files;
-        let posterId = req.session.user.userId;
-        console.log("--------------------")
-        console.log(userInfo.title, userInfo.body, fileso.upload_image, userInfo.category)
-        if (!userInfo.title || !userInfo.body || !fileso.upload_image || !userInfo.category) {
-            return res.status(400).json({ti: "Error Page", error: 'The provided information is not complete'});
-        }
-        /*try {
-          req.params.movieId = checkId(req.params.movieId);
-        } catch (e) {
-          return res.status(400).json({error: e});
-        }*/
-
-        try {
-            await postsData.getPostById(req.params.postId);
-
-
-        } catch (e) {
-            return res.status(404).json({ti: "Error Page", error: 'Post not found'});
-        }
-        try {
-
-            const upost = await postsData.updatePost(
-                req.params.postId,
-                userInfo.title,
-                userInfo.body,
-                fileso.upload_image,
-                userInfo.category,
-                posterId
-                )
-            
-            return res.status(200).json({prdobj: upost});
-        } catch (e) {
-            return res.status(404).json({ti: "Error Page", error: JSON.stringify(e)});
-        }
-
-    });
+// router.put('/:postId',multipartMiddleware,async (req, res) => {
+//         //code here for PUT
+//         let userInfo = req.body;
+//         let fileso = req.files;
+//         let posterId = req.session.user.userId;
+//         console.log("--------------------")
+//         console.log(userInfo.title, userInfo.body, fileso.upload_image, userInfo.category)
+//         if (!userInfo.title || !userInfo.body || !fileso.upload_image || !userInfo.category) {
+//             return res.status(400).json({ti: "Error Page", error: 'The provided information is not complete'});
+//         }
+//         /*try {
+//           req.params.movieId = checkId(req.params.movieId);
+//         } catch (e) {
+//           return res.status(400).json({error: e});
+//         }*/
+//
+//         try {
+//             await postsData.getPostById(req.params.postId);
+//
+//
+//         } catch (e) {
+//             return res.status(404).json({ti: "Error Page", error: 'Post not found'});
+//         }
+//         try {
+//
+//             const upost = await postsData.updatePost(
+//                 req.params.postId,
+//                 userInfo.title,
+//                 userInfo.body,
+//                 fileso.upload_image,
+//                 userInfo.category,
+//                 posterId
+//                 )
+//
+//             return res.status(200).json({prdobj: upost});
+//         } catch (e) {
+//             return res.status(404).json({ti: "Error Page", error: JSON.stringify(e)});
+//         }
+//
+//     });
 
 
 router.route('/postRegister').get(async (req, res) => {
-    
-    res.render('/products/registration', {
+
+    res.render('/products/registration-v2', {
         title: 'Entrepôt - Create post',
         hasError: false,
         error: null
     });
 });
-
-
 
 router.post('/postRegister', multipartMiddleware, async (req, res) => {
     //code here for POST
@@ -200,10 +198,11 @@ router.post('/postRegister', multipartMiddleware, async (req, res) => {
     let category = req.body.postRegCategoryInput;
 
     if (!title || !body || !imgFile || !category) {
-        return res.status(400).render('/products/registration', {
+        return res.status(400).json({
             title: 'Entrepôt - Create post',
             hasError: true,
-            error: "Please input for all required information!"
+            error: "Please input for all required information!",
+            result: "Please input for all required information!"
         });
     }
 
