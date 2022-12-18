@@ -97,7 +97,6 @@ async function main() {
     const trade5 = await users.updateTradeWith(user5Obj._id, user2Obj._id);
     const trade6 = await users.updateTradeWith(user1Obj._id, user3Obj._id);
     const trade7 = await users.updateTradeWith(user1Obj._id, user4Obj._id);
-    const trade8 = await users.updateTradeWith(user1Obj._id, user5Obj._id);
     const trade9 = await users.updateTradeWith(user1Obj._id, user6Obj._id);
     // create reviews from poster to buyer
     const review1 = await reviews.createReviews(user2Obj._id, user1Obj._id, 'Goode', 'this is a good trade', '5');
@@ -109,7 +108,6 @@ async function main() {
     const review6 = await reviews.createReviews(user1Obj._id, user2Obj._id, 'best', 'this is a best trade', '5');
     const review7 = await reviews.createReviews(user1Obj._id, user3Obj._id, 'good', 'this is a good trade', '4');
     const review8 = await reviews.createReviews(user1Obj._id, user4Obj._id, 'fair', 'this is a fair trade', '3');
-    const review9 = await reviews.createReviews(user1Obj._id, user5Obj._id, 'bad', 'this is a bad trade', '2');
     const review10 = await reviews.createReviews(user1Obj._id, user6Obj._id, 'disaster', 'this is a disaster trade', '1');
 
 
