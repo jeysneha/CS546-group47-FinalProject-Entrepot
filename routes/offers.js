@@ -111,7 +111,7 @@ router.route("/edit/:offerId").get(async (req, res) => {
   try{
     result = await offerData.getOfferById(offerId);
   }catch(e){
-    return res.status(404).json({code:404, result:e});
+    return res.render("error", {hasError:true, error:e});
   }
   res.render("offers/editOffer", {code:200, result:JSON.stringify(result)});
 });
@@ -162,7 +162,12 @@ router.route("/productsCondition").post(async (req, res)=>{
 
 router.route("/images/:imgName").get(async (req, res)=>{
   // Route for fetching image of a certain offer;
-  res.status(200).sendFile(path.resolve("public/offerUploads/"+req.params.imgName));
+  try{
+    res.status(200).sendFile(path.resolve("public/offerUploads/"+req.params.imgName));
+  }catch(e){
+    res.status(404).sendFile(path.resolve("public/images/no.png"));
+  }
+  
 });
 
 
@@ -179,6 +184,7 @@ router.route("/:postId").get(async (req, res)=>{
 
   res.status(200).json({code:200, result:offers});
 });
+
 
 router.route("/offer/:offerId").get(async (req, res)=>{
   // Route for feteching a ceratin offer
@@ -198,7 +204,7 @@ router.route("/offer/:offerId").get(async (req, res)=>{
     offer = await offerData.getOfferById(offerId);
   }catch(e){
     // 👇应该render到error page
-    return res.status(404).json({code:404, result:e});
+    return res.render("error", {hasError:true, error:e});
   }
 
   try{
@@ -232,7 +238,7 @@ router.route("/offer/:offerId").get(async (req, res)=>{
   } else if (offer.sellerId == req.session.user.userId.toString()) {
     offer.role = "seller";
   } else {
-    console.log("Redirect to Error Page");
+    return res.render("error",{hasError:true, error:"You have no authority to view the offer detail unrelevant to you."});
   }
 
 

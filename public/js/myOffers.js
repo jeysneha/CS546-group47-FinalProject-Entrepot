@@ -202,6 +202,19 @@ function bindList(elementId){
                             button.setAttribute("disabled", "disabled");
                             button.innerHTML = "You have confirmed";
                             init();
+                            errorBox = document.getElementById("errorBox");
+                            errorBox.removeAttribute("hidden");
+                            errorBox.setAttribute("display", true);
+                            errorBox.className = "successMessage";
+                            errorBox.innerHTML = "You have successfully confirmed the offer!";
+                            span = document.createElement("span");
+                            span.innerHTML = "×";
+                            span.className = "close";
+                            span.onclick = function closeWarningBox() {
+                                document.getElementById("errorBox").removeAttribute("display");
+                                document.getElementById("errorBox").setAttribute("hidden", true);
+                              };
+                            errorBox.appendChild(span);
                         }
                     },
                     error: function (data) {
@@ -238,16 +251,14 @@ function bindList(elementId){
             deletebutton.className = "btn-small-accept";
             deletebutton.innerHTML = "Delete";
 
-            myId = document.createAttribute("myid");
-            myId.nodeValue = id;
-            deletebutton.attributes.setNamedItem(myId);
+            deletebutton.setAttribute("data-myid",id);
 
             deletebutton.onclick = function(){
                 const ans = window.confirm("Are your sure to delete the offer?");
                 if(ans){
                     $.ajax({
                         type: "delete",
-                        url: "/offers/offer/"+this.getAttribute("myid"),
+                        url: "/offers/offer/"+this.getAttribute("data-myid"),
                         cache: false,
                         async: false,
                         success: function (data) {
@@ -267,6 +278,19 @@ function bindList(elementId){
                                 document.getElementById("failed").removeChild(document.getElementById(failedBoxIds[i]));
                             }
                             init();
+                            errorBox = document.getElementById("errorBox");
+                            errorBox.removeAttribute("hidden");
+                            errorBox.setAttribute("display", true);
+                            errorBox.className = "successMessage";
+                            errorBox.innerHTML = "You have successfully deleted the offer!";
+                            span = document.createElement("span");
+                            span.innerHTML = "×";
+                            span.className = "close";
+                            span.onclick = function closeWarningBox() {
+                                document.getElementById("errorBox").removeAttribute("display");
+                                document.getElementById("errorBox").setAttribute("hidden", true);
+                              };
+                            errorBox.appendChild(span);
                         },
                         error: function (data) {
                             
