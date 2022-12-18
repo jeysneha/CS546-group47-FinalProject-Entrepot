@@ -2,6 +2,8 @@
 
 /node_modules
 
+/.VSCodeCounter
+
 package-lock.json
 
 .DS_Store
