@@ -115,8 +115,8 @@ async function main() {
 
     ////////////////////////////////////////////////// post seed ////////////////////////////////////////////////
     const post1 = await createPostForSeed(
-        'iphone',
-        'this is a iphone',
+        'headphone',
+        'this is a headphone',
         "headphone.jpg",
         '4',
         user1Obj._id,

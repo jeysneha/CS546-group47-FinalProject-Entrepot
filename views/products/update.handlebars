@@ -13,15 +13,15 @@
       <p id="offerId"></p>
 
 
-      <label for="postId" id="formLabel1" class="inputTitle">
+      <div id="formLabel1" class="inputTitle">
         Desired Item Name
-      </label>
+      </div>
 
       <form enctype="multipart/form-data" id="file_upload">
         <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
 
         <p id="postName" data-post-id="postId">Old sneakers</p>
-        <p id="senderId" data-send-id="senderId" hidden>buyer</p>
+        {{!-- <p id="senderId" data-send-id="senderId" hidden>buyer</p> --}}
         <br>
         <label for="offerItem" id="formLabel2" class="inputTitle">
           Offer Item Name
@@ -58,7 +58,7 @@
         <label for="itemDesc" id="formLabel4" class="inputTitle">
           Offer Item Description
         </label><br>
-        <textarea type="text" name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
+        <textarea name="itemDesc" id="itemDesc" maxlength="200" class="createInputDesc"
           placeholder="No more than 200 characters."></textarea>
         <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
         <br>
@@ -80,7 +80,7 @@
       <div id="imgError" class="errorLine" hidden>I'm an error</div>
       <!-- <p>Preview</p> -->
       <br>
-      <img id="image-preview" class="createOfferImg" alt="updated post item">
+      <img id="image-preview" class="createOfferImg" src="../../public/images/no.png" alt="updated post item" hidden>
       <p id="imgSizeInfo" class="imgSize"></p>
       <br>
       <label onclick="document.location.href = '/offers/myOffers'" class="uploadImgButton">Back To MyOffers</label>

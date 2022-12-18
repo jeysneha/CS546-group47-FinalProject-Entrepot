@@ -12,6 +12,7 @@ const path = require("path")
 const multiparty = require('connect-multiparty');
 // const multer = require("multer")
 const multipartMiddleware = multiparty();
+const xss = require('xss');
 
 router.route("/").get(async (req, res) => {
   //
@@ -25,7 +26,7 @@ router.route("/").get(async (req, res) => {
 
 router.route("/offersOf/:postId").get(async (req, res) => {
   try{
-    postItem = await postData.getPostById(req.params.postId);
+    postItem = await postData.getPostById(xss(req.params.postId));
 
     if(!postItem) {
       return res.render("offers/offerList", {
@@ -67,7 +68,7 @@ router.route("/othersPosts/:username").get(async (req, res) => {
   
   res.render("offers/othersPosts", {
     title: 'Entrepôt - User\'s Posts',
-    username: "'" + req.params.username + "'"
+    username: "'" + xss(req.params.username) + "'"
   });
 });
 
@@ -87,7 +88,7 @@ router.route("/createOffer/:postId").get(async (req, res) => {
   //
   // res.sendFile(path.resolve('static/createOffer.html'));
   try{
-    postItem = await postData.getPostById(req.params.postId);
+    postItem = await postData.getPostById(xss(req.params.postId));
   }catch(e){
     res.render("error",{hasError:true, error:e});
   }
@@ -106,7 +107,7 @@ router.route("/createOffer/:postId").get(async (req, res) => {
 
 router.route("/edit/:offerId").get(async (req, res) => {
   //
-  offerId = req.params.offerId;
+  offerId = xss(req.params.offerId);
   
   try{
     result = await offerData.getOfferById(offerId);
@@ -163,7 +164,7 @@ router.route("/productsCondition").post(async (req, res)=>{
 router.route("/images/:imgName").get(async (req, res)=>{
   // Route for fetching image of a certain offer;
   try{
-    res.status(200).sendFile(path.resolve("public/offerUploads/"+req.params.imgName));
+    res.status(200).sendFile(path.resolve("public/offerUploads/"+xss(req.params.imgName)));
   }catch(e){
     res.status(404).sendFile(path.resolve("public/images/no.png"));
   }
@@ -174,7 +175,7 @@ router.route("/images/:imgName").get(async (req, res)=>{
 
 router.route("/:postId").get(async (req, res)=>{
   // Route for fetching all the offers of a ceratin post
-  postId = req.params.postId;
+  postId = xss(req.params.postId);
 
   try{
     offers = await offerData.getAllOffers(postId);
@@ -197,7 +198,7 @@ router.route("/offer/:offerId").get(async (req, res)=>{
     }
     
   }
-  offerId = req.params.offerId;
+  offerId = xss(req.params.offerId);
   userId = req.session.user.userId
 
   try{
@@ -286,8 +287,8 @@ router.post('/',multipartMiddleware,async (req, res) => {
   }
 
   let wear = req.body.wear;
-  let offerItem = req.body.offerItem;
-  let itemDesc = req.body.itemDesc;
+  let offerItem = xss(req.body.offerItem);
+  let itemDesc = xss(req.body.itemDesc);
   let file = req.files.upload_image;
 
   try{
@@ -313,8 +314,8 @@ router.put('/offer/:offerId',multipartMiddleware,async (req, res) => {
   // 👇
   let senderId = req.session.user.userId;
 
-  let offerItem = req.body.offerItem;
-  let itemDesc = req.body.itemDesc;
+  let offerItem = xss(req.body.offerItem);
+  let itemDesc = xss(req.body.itemDesc);
   let wear = req.body.wear;
   let file = req.files.upload_image;
 
@@ -332,7 +333,7 @@ router.put('/offer/:offerId',multipartMiddleware,async (req, res) => {
 
 router.delete('/offer/:offerId',async (req, res) => {
 
-  let offerId = req.params.offerId;
+  let offerId = xss(req.params.offerId);
 
   // let senderId = "buyer";
   // 👇
@@ -353,7 +354,7 @@ router.delete('/offer/:offerId',async (req, res) => {
 
 router.put('/status/accept/:offerId',async (req, res) => {
 
-  let offerId = req.params.offerId;
+  let offerId = xss(req.params.offerId);
   let newAcceptStatus = req.body.newAcceptStatus;
 
   // var sellerId = "seller";
@@ -375,7 +376,7 @@ router.put('/status/accept/:offerId',async (req, res) => {
 
 router.put('/status/confirmBySeller/:offerId',async (req, res) => {
 
-  let offerId = req.params.offerId;
+  let offerId = xss(req.params.offerId);
 
   // let sellerId = "seller";
   // 👇
@@ -396,7 +397,7 @@ router.put('/status/confirmBySeller/:offerId',async (req, res) => {
 
 router.put('/status/confirmByBuyer/:offerId',async (req, res) => {
 
-  let offerId = req.params.offerId;
+  let offerId = xss(req.params.offerId);
 
   // let buyerId = "buyer";
   // 👇
@@ -448,7 +449,7 @@ router.route("/post/:postId").get(async (req, res)=>{
       msg = "You have successfully updated a post!";
     }
   }
-  postId = req.params.postId;
+  postId = xss(req.params.postId);
   userId = req.session.user.userId
 
   try{
