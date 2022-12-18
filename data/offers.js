@@ -5,7 +5,7 @@ const {ObjectId} = require('mongodb');
 const path = require('path');
 const fs = require('fs');
 const postData = require('./posts');
-const userData = require('./users');
+
 const users = mongoCollections.users;
 const helpers = require("../offerHelpers")
 
