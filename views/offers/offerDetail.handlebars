@@ -69,7 +69,8 @@
 
     if (offerData.status != -1 && offerData.status != 0) {
       editButton.className = "edit-banned";
-      editButton.setAttribute("disabled", "disabled");
+      editButton.disabled = true;
+      // editButton.setAttribute("disabled", "disabled");
 
     } else {
       editButton.className = "uploadImgButton";
@@ -94,7 +95,8 @@
   if (offerData.msg != null) {
     msgBox = document.getElementById("errorBox");
     msgBox.removeAttribute("hidden");
-    msgBox.setAttribute("display", true);
+    msgBox.display = true;
+    // msgBox.setAttribute("display", true);
     msgBox.innerHTML = offerData.msg;
     msgBox.className = "successMessage";
     span = document.createElement("span");

@@ -31,11 +31,12 @@ const createPost = async (
 
 
     //create imgFile a name
-    const extend = imgFile.originalFilename.split(".")[1]
-    const id = ObjectId();
-    const filename = id + "." + extend
+     let extend = imgFile.originalFilename.split(".")[1]
+     let id = ObjectId();
+     let id_=id.toString()
+     let filename = id_+"."+extend
 
-    const img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
+    let img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
     // console.log(img_dir)
     // console.log(imgFile.path)
 

@@ -113,7 +113,7 @@ router.route("/edit/:offerId").get(async (req, res) => {
   }catch(e){
     return res.render("error", {hasError:true, error:e});
   }
-  res.render("offers/editOffer", {code:200, result:JSON.stringify(result)});
+  res.render("offers/editOffer", {title: 'Entrepôt - Edit Offer',code:200, result:JSON.stringify(result)});
 });
 
 // router.route("/offers/received/:postId").get(async (req, res) => {
