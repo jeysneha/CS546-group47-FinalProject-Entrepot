@@ -29,7 +29,7 @@
         
           </p>
           <a id="editButton">Edit</a>
-          <label onclick = "document.location.href = '/offers/myOffers'" class="btn-viewMyOffers">Back To MyOffers</label>
+          <label onclick = "document.location.href = '/offers/myOffers'" class="btn-viewMyOffers" id="backToMyOffers">Back To MyOffers</label>
           {{!-- <a id="allMySentButton" class="btn-viewMyOffers" href="/offers/myOffers">Back To MyOffers</a> --}}
       </section>
         </div>
@@ -58,6 +58,7 @@
 
         offerData = {{{result}}};
         offerId  =  offerData._id;
+        
 
         editButton = document.getElementById("editButton");
         
@@ -76,6 +77,11 @@
         }
         else if (offerData.role == "seller") {
           editButton.hidden = true;
+          document.getElementById("backToMyOffers").innerHTML = "Back To MyPosts";
+          document.getElementById("backToMyOffers").onclick = function(){
+            document.location.href = '/offers/myPosts/';
+          }
+
           
         } else {
           document.getElementById("detailSection").removeChild(document.getElementById("allMySentButton"));
@@ -188,15 +194,30 @@
 
       offerWearTag = document.createElement("p");
       offerWearTag.innerHTML = "Degree of Wear:  " + offerData.wear;
+      
+      offerUserTag = document.createElement("a");
+      offerUserTag.innerHTML = "Sender Profile";
+      offerUserTag.href = "/user/profile/" + offerData.senderName;
+      offerUserTag.className = "uploadImgButton";
+
+      posterProfileTag = document.createElement("a");
+      posterProfileTag.innerHTML = "Poster Profile";
+      posterProfileTag.href = "/user/profile/" + offerData.posterName;
+      posterProfileTag.className = "uploadImgButton";
+
+      postDetailTag = document.createElement("a");
+      postDetailTag.innerHTML = "Post Item Detail";
+      postDetailTag.href = "/offers/post/" + offerData.postId;
+      postDetailTag.className = "uploadImgButton";
 
       offerContactTag = document.createElement("p");
       offerContactTag.innerHTML = "Contact:  " + offerData.senderContact;
 
       postItemTag = document.createElement("p");
-      postItemTag.innerHTML = "Item:  " + 123456;
+      postItemTag.innerHTML = "Item:  " + offerData.postTitle;
 
       postUserTag = document.createElement("p");
-      postUserTag.innerHTML = "User:  " + 123456;
+      postUserTag.innerHTML = "User:  " + offerData.posterName;
 
       contactTag = document.createElement("p");
       contactTag.innerHTML = "Contact:  " + offerData.sellerContact;
@@ -219,9 +240,10 @@
       detailSection.appendChild(offerDescTag);
       detailSection.appendChild(offerWearTag);
       detailSection.appendChild(offerContactTag);
+      detailSection.appendChild(offerUserTag);
 
       detailSection.appendChild(document.createElement("br"));
-
+      detailSection.appendChild(document.createElement("br"));
       postHeadline = document.createElement("h2");
       postHeadline.innerHTML = "POST";
       postHeadline.className = "inputTitle";
@@ -229,6 +251,10 @@
       detailSection.appendChild(postItemTag);
       detailSection.appendChild(postUserTag);
       detailSection.appendChild(contactTag);
+      detailSection.appendChild(posterProfileTag);
+      detailSection.appendChild(document.createElement("br"));
+      detailSection.appendChild(postDetailTag);
+      
     }
 
   
