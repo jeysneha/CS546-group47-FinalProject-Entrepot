@@ -28,7 +28,7 @@
                                 class="fa fa-shopping-cart"></i>Deal History
                         </button>
                         <button class="createbtn" id="Add-review"
-                                onclick="location.href='http://localhost:3000/review/addReview/{{posterId}}';"><i
+                                onclick="location.href='http://localhost:3000/review/addReview/{{username}}';"><i
                                 class="fa fa-plus"></i> Add Review
                         </button>
                     {{/if}}
@@ -64,7 +64,7 @@
                             <h3>Title: {{this.title}}</h3>
                             <h4>Rating: {{this.rating}}</h4>
                             <h5>Description: {{this.body}}</h5>
-                            <h6>From: {{this.reviewWriter}}</h6>
+                            <h6>From: <a href="http://localhost:3000/user/profile/{{this.reviewWriter}}">{{this.reviewWriter}}</a></h6>
                             <p>Date/Time: {{this.datetime}}</p>
                         </li>
                         <br>
