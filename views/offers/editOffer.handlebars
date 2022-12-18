@@ -1,9 +1,9 @@
-  
+
 <div class="alertMessage" id="errorBox" hidden>
   <span class="close" onclick="this.parentElement.style.display='none';">×</span>
 </div>
 <div class="panel-back">
-    
+
 
   <div style="text-align:center;padding: 3%;width: 40%;margin: auto;">
       <section class="panel-detail-left" id="detailSection">
@@ -15,25 +15,25 @@
 
 
       <label for="postId" id="formLabel" class = "inputTitle">
-              Desired Item Name	
+              Desired Item Name
       </label>
-      
+
       <form enctype="multipart/form-data" id="file_upload">
       <!-- <form method="post" action="/offers" enctype="multipart/form-data" id="file_upload"> -->
 
-          <p id="postName" name="postId">Old sneakers</p>
-          <p id="senderId" name="senderId" hidden>buyer</p>
+          <p id="postName" data-post-id="postId">Old sneakers</p>
+          <p id="senderId" send-id="senderId" hidden>buyer</p>
           <br>
           <label for="offerItem" id="formLabel" class = "inputTitle">
-              Offer Item Name	
+              Offer Item Name
           </label><br>
           <input type="text" name="offerItem" id="offerItem" maxlength="30" class="createInputName" placeholder="No more than 30 characters.">
           <div id="offerItemError" class="errorLine" hidden>I'm an error</div>
           <br>
           <br>
-  
+
           <label for="itemDesc" id="formLabel" class = "inputTitle">
-            Degree of wear	
+            Degree of wear
           </label><br>
           <select class="createInputWear" id = "wear">
             <option value="10">Like New</option>
@@ -48,24 +48,24 @@
           <br>
 
           <label for="itemDesc" id="formLabel" class = "inputTitle">
-              Offer Item Description	
+              Offer Item Description
           </label><br>
           <textarea type="text" name="itemDesc" id="itemDesc" autosize maxlength="200" class="createInputDesc" placeholder="No more than 200 characters."></textarea>
           <div id="itemDescError" class="errorLine" hidden>I'm an error</div>
           <br>
-          
+
       </form>
-            
+
 
             </p>
         </section>
 
 
         <section class="panel-detail-right">
-          
+
           <h1>Upload An Image</h1>
-          
-          
+
+
           <label for="file" class="uploadImgButton">Upload Image</label><br>
           <input type="file" id="file" name="upload_image" accept="image/gif, image/jpeg, image/png, image/jpg" hidden>
           <div id="imgError" class="errorLine" hidden>I'm an error</div>
@@ -79,16 +79,16 @@
 
       </section>
   </div>
-    
+
 </div>
-    
-    
+
+
 
     <div id="div5" hidden>111</div>
   </main>
-  
 
-  
+
+
 <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
 
@@ -113,7 +113,7 @@
         .then(function(buf){return new File([buf], fileName, {type:mimeType});})
     );
     }
-    
+
     srcToFile(
         "/offers/images/" + offerData.imgName,
         'z',
@@ -125,9 +125,9 @@
     })
     .then(function(result) {
         console.log();
-    }); 
-           
-    
+    });
+
+
 
 
     //console.log(previousImg);
@@ -159,7 +159,7 @@
         info.innerHTML = `Image Size: ${(file.size/1024).toFixed(2)+" KB"}`;
         if (!['image/jpeg', 'image/png', 'image/gif'].includes(file.type)) {
             alert('Not a valid image format!');
-            
+
             return;
         }
         // 读取文件:
@@ -178,7 +178,7 @@
         info.className = "errorLine-size";
         imgError = document.getElementById("imgError");
         imgError.setAttribute("hidden",true);
-        
+
 
     });
 
@@ -186,9 +186,9 @@
 
   let submit = document.getElementById("submit");
 
-  
 
-  
+
+
   submit.onclick = function() {
     let params = new FormData();
     let errorFound = false;
@@ -205,7 +205,7 @@
       itemDescError.setAttribute("display", true);
       itemDescError.innerHTML = "You must provide a not-null description";
       errorFound = true;
-      
+
     }
     if (flag == true) {
         paramFile = document.getElementById("file").files[0];
@@ -213,8 +213,8 @@
         paramFile = previousImg;
         validImgFlag = true;
     }
-    
-    
+
+
     if (document.getElementById("file").files[0] == null || document.getElementById("file").files[0] == undefined || validImgFlag != true) {
       if(paramFile == null){
         imgError = document.getElementById("imgError");
@@ -228,9 +228,9 @@
       return;
     }
 
-    
-    
-    
+
+
+
     params.append("upload_image",paramFile)
     //params.append("senderId", offerData.senderId);
     params.append("postId", offerData.postId);
@@ -239,7 +239,7 @@
     params.append("itemDesc", document.getElementById("itemDesc").value);
     params.append("wear", document.getElementById("wear").value);
 
-    
+
     $.ajax({
     url: '/offers/offer/'+offerData._id,
     data: params,
@@ -252,7 +252,7 @@
       id = data.result._id;
       document.location.href = "/offers/offer/"+id+"?updated=true";
     },
-    error: function(data){            
+    error: function(data){
       errorBox = document.getElementById("errorBox");
 
       errorBox.removeAttribute("hidden");
@@ -267,11 +267,11 @@
                       document.getElementById("errorBox").setAttribute("hidden",true);
                     };
       errorBox.appendChild(span);
-                    
+
     }
 });
 };
 
-  
-  
+
+
   </script>
