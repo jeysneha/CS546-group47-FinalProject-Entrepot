@@ -479,6 +479,16 @@ module.exports = {
           throw e;
         }
 
+        try{
+          updateResult = await userData.updateTradeWith(sellerId, senderId);
+        }catch(e){
+          throw e;
+        }
+
+        if(updateResult.updatedTradeWithBoth == false) {
+          throw updateResult.error;
+        }
+
         return await this.getOfferById(offerId)
       } else{
         throw 'Error: You are not allowed to change the confirm status now';
@@ -504,6 +514,7 @@ module.exports = {
     acceptStatus = originalOffer.acceptStatus;
     confirmByBuyer = originalOffer.confirmByBuyer;
     confirmByPoster = originalOffer.confirmByPoster;
+    sellderId = originalOffer.sellderId;
 
     if (acceptStatus == 1 && confirmByPoster == 0 && confirmByBuyer == 0 && offerStatus == 1){
       // 两人中首次confirm
@@ -547,6 +558,16 @@ module.exports = {
           await postData.updateTradeStatusToTwo(originalOffer.postId, senderId);
         }catch(e){
           throw e;
+        }
+
+        try{
+          updateResult = await userData.updateTradeWith(sellerId, senderId);
+        }catch(e){
+          throw e;
+        }
+
+        if(updateResult.updatedTradeWithBoth == false) {
+          throw updateResult.error;
         }
 
         return await this.getOfferById(offerId)
