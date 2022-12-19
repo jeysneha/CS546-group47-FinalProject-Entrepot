@@ -1,10 +1,11 @@
 const mongoCollections = require('../config/mongoCollections');
 const offers = mongoCollections.offers;
+
 const {ObjectId} = require('mongodb');
 const path = require('path');
 const fs = require('fs');
 const postData = require('./posts');
-
+const userData = require('./users');
 const users = mongoCollections.users;
 const helpers = require("../offerHelpers")
 
@@ -404,6 +405,8 @@ module.exports = {
           throw e;
         }
 
+        
+
         return await this.getOfferById(offerId);
 
       } else{
@@ -429,6 +432,8 @@ module.exports = {
     acceptStatus = originalOffer.acceptStatus;
     confirmByBuyer = originalOffer.confirmByBuyer;
     confirmByPoster = originalOffer.confirmByPoster;
+
+    senderId = originalOffer.senderId;
 
     if (acceptStatus == 1 && confirmByPoster == 0 && confirmByBuyer == 0 && offerStatus == 1){
       // 两人中首次confirm
@@ -469,9 +474,19 @@ module.exports = {
         }
 
         try{
-          await postData.updateTradeStatusToTwo(originalOffer.postId);
+          await postData.updateTradeStatusToTwo(originalOffer.postId, senderId);
         }catch(e){
           throw e;
+        }
+
+        try{
+          updateResult = await userData.updateTradeWith(sellerId, senderId);
+        }catch(e){
+          throw e;
+        }
+
+        if(updateResult.updatedTradeWithBoth == false) {
+          throw updateResult.error;
         }
 
         return await this.getOfferById(offerId)
@@ -499,6 +514,7 @@ module.exports = {
     acceptStatus = originalOffer.acceptStatus;
     confirmByBuyer = originalOffer.confirmByBuyer;
     confirmByPoster = originalOffer.confirmByPoster;
+    sellderId = originalOffer.sellderId;
 
     if (acceptStatus == 1 && confirmByPoster == 0 && confirmByBuyer == 0 && offerStatus == 1){
       // 两人中首次confirm
@@ -539,9 +555,19 @@ module.exports = {
         }
 
         try{
-          await postData.updateTradeStatusToTwo(originalOffer.postId);
+          await postData.updateTradeStatusToTwo(originalOffer.postId, senderId);
         }catch(e){
           throw e;
+        }
+
+        try{
+          updateResult = await userData.updateTradeWith(sellerId, senderId);
+        }catch(e){
+          throw e;
+        }
+
+        if(updateResult.updatedTradeWithBoth == false) {
+          throw updateResult.error;
         }
 
         return await this.getOfferById(offerId)

@@ -113,6 +113,8 @@
   document.getElementById("postRegister-category").value = offerData.category;
   document.getElementById("offerId").innerHTML = offerData._id;
   preview.src = "/posts/images/" + offerData.imgFile;
+  preview.hidden = false;
+  preview.display = true;
   //document.getElementById("file").files[0] = "/offers/images/" + offerData.imgName;
 
 

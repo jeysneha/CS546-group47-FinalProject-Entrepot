@@ -37,8 +37,6 @@ const createPost = async (
      let filename = id_+"."+extend
 
     let img_dir = path.join(__dirname, '../public/postUploads') + "/" + filename
-    // console.log(img_dir)
-    // console.log(imgFile.path)
 
     // save the imgFile path to server
     fs.readFile(imgFile.path, function (err, data) {
@@ -147,11 +145,9 @@ const updatePost = async (
     category,
     posterId
 ) => {
-    console.log(2);
     if (!postId || !title || !body || !file  ||!category) {
         throw 'All fields need to have valid values'
     }
-    console.log(3);
     postId = validation.existypestring(postId);
     postId = validation.checkId_j(postId);
     title = validation.existypestring(title);
@@ -159,45 +155,35 @@ const updatePost = async (
     body = validation.existypestring(body);
     
     category = validation.existypestring(category);
-    console.log(5);
 
     //create date time
     let datetime = validation.createDateTime();
-    console.log(6);
     //check postId exist
     const thePost = await getPostById(postId);
-    console.log(6);
     if (!thePost) {
         throw `Cannot find the post with id: ${postId} !`
     }
-    console.log(7);
     //check if submitted same content
     if(title == thePost.title && body == thePost.body && category == thePost.category) {
         throw 'Error: The content are the same as original content.';
     }
-    console.log(8);
     //check if the user has right to change post
     if (thePost.posterId !== posterId) {
         throw 'You have no authority to update this post!'
     }
-    console.log(9);
     //if tradeStatus is not 0, do not allow user to update
     if (thePost.tradeStatus !== 0) {
         throw 'You cannot update the post anymore since it is under trade or traded!'
     }
-    console.log(10);
     //update image with the same filename
     const filename = thePost.imgFile;
-    console.log(11);
     let img_dir = path.join(__dirname,'../public/postUploads')+"/"+ filename
-    console.log(12);
     const isExistImg = fs.existsSync(img_dir)
     if (isExistImg) {
         //delete the origin image file
         fs.unlinkSync(img_dir)
     }
 
-    console.log(13);
     fs.readFile(file.path,function (err,data){
         fs.writeFile(img_dir,data,function(err){
             if(err){
@@ -205,7 +191,6 @@ const updatePost = async (
             }
         })
     })
-    console.log(14);
     const postCollection = await posts();
     const updatedPost = {
         title: title,
@@ -213,25 +198,21 @@ const updatePost = async (
         category: category,
         datetime: datetime
     }
-    console.log(15);
-    
+
     const updatedInfo = await postCollection.updateOne(
         {_id: ObjectId(postId)},
         {$set: updatedPost}
     );
     
     
-    console.log(16);
     if (updatedInfo.modifiedCount === 0) {
         throw `The input information resulted in no change to the post!`;
     }
-    console.log(17);
     //if no post, throw first
     const post = await getPostById(postId);
     if (!post) {
         throw `Cannot find the post with id: ${postId} !`
     }
-    console.log(18);
     return post;
 
 }
@@ -327,15 +308,21 @@ const updateTradeStatusToOne = async(postId) => {
 }
 
 //============================================== update trade status to 2 ===============================================
-const updateTradeStatusToTwo = async(postId) => {
+const updateTradeStatusToTwo = async(postId, buyerId) => {
     if (!postId) throw 'Post Id ought to be provided';
     postId = validation.existypestring(postId);
     postId = validation.checkId_j(postId);
+    buyerId = validation.checkId(buyerId);
 
     const thePost = await getPostById(postId);
     if (!thePost) {
         throw `Cannot find the post with id: ${postId} !`
     }
+
+    // const theBuyer = await usersData.getUserById(buyerId);
+    // if (!buyerId) {
+    //     throw `Cannot find the user with id ${buyerId} !`
+    // }
 
     const postCollection = await posts();
 
@@ -345,6 +332,7 @@ const updateTradeStatusToTwo = async(postId) => {
 
     const updatedPost = {
         tradeStatus: 2,
+        buyerId: buyerId,
     }
 
     const updatedInfo = await postCollection.updateOne(
